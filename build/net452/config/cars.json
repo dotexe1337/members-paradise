@@ -1,0 +1,401 @@
+{
+  "brands": [
+    {
+      "brandName": "Audi",
+      "vehicles": [
+        "audiq",
+        "s8d2",
+        "rs5lb",
+        "rs6",
+        "lbr8"
+      ]
+    },
+    {
+      "brandName": "BMW",
+      "vehicles": [
+        "oldm6",
+        "850csi",
+        "325e",
+        "325et",
+        "m3e36",
+        "rm3e36",
+        "m3kean",
+        "M3",
+        "m3tp",
+        "bmdrift",
+        "m3e46",
+        "e46",
+        "bmwe",
+        "m346",
+        "E92LB",
+        "f82hs",
+        "f82lw",
+        "rmodm4gts",
+        "MTECHE39",
+        "1M2011",
+        "boris",
+        "z4alchemist",
+        "rmodi8mlb"
+      ]
+    },
+    {
+      "brandName": "Cadillac",
+      "vehicles": [
+        "atsvme"
+      ]
+    },
+    {
+      "brandName": "Chevrolet",
+      "vehicles": [
+        "chevelle1970",
+        "stingray66",
+        "tiffany",
+        "c7",
+        "hs",
+        "CZL1",
+        "impala67"
+      ]
+    },
+    {
+      "brandName": "Datsun",
+      "vehicles": [
+        "510",
+        "datsunny"
+      ]
+    },
+    {
+      "brandName": "Dodge",
+      "vehicles": [
+        "demon",
+        "rt440",
+        "rampage10",
+        "69charger",
+        "hemi",
+        "dart",
+        "bee",
+        "viper",
+        "fdviper"
+      ]
+    },
+    {
+      "brandName": "Ford",
+      "vehicles": [
+        "fnormal",
+        "focusrs",
+        "boss429",
+        "mst",
+        "mustangbkit",
+        "drifter",
+        "frs2",
+        "fordcrs",
+        "fordeh2",
+        "cosworth",
+        "kblock",
+        "fordh",
+        "fordhv2",
+        "hoonitruck"
+      ]
+    },
+    {
+      "brandName": "Holden",
+      "vehicles": [
+        "fdholdenute"
+      ]
+    },
+    {
+      "brandName": "Honda",
+      "vehicles": [
+        "city85",
+        "ek9",
+        "spooneg",
+        "civicek9rb",
+        "ep3",
+        "FK8",
+        "fd2",
+        "civic",
+        "civicem1",
+        "prelude80",
+        "prelude98",
+        "dc2",
+        "DC5",
+        "nndnsx",
+        "na1",
+        "NSEXRB",
+        "ap2",
+        "s2000",
+        "crxds"
+      ]
+    },
+    {
+      "brandName": "Infiniti",
+      "vehicles": [
+        "g35nnd"
+      ]
+    },
+    {
+      "brandName": "Kia",
+      "vehicles": [
+        "fortek"
+      ]
+    },
+    {
+      "brandName": "Lexus",
+      "vehicles": [
+        "KSC300",
+        "is350",
+        "ls460"
+      ]
+    },
+    {
+      "brandName": "Lotus",
+      "vehicles": [
+        "carlton"
+      ]
+    },
+    {
+      "brandName": "Mazda",
+      "vehicles": [
+        "mz3",
+        "yata",
+        "MXRB",
+        "MX5RB",
+        "mx5m",
+        "fb3s",
+        "mfc",
+        "majfc",
+        "rx7twerk",
+        "MRX7",
+        "rxf7",
+        "rx7veilside",
+        "rx8tune",
+        "rx8ms",
+        "rx8m"
+      ]
+    },
+    {
+      "brandName": "Mercedes-Benz",
+      "vehicles": [
+        "MBW124",
+        "merc560",
+        "brabus",
+        "rmodamgc63"
+      ]
+    },
+    {
+      "brandName": "Mitsubishi",
+      "vehicles": [
+        "fto",
+        "eclipse",
+        "kevo",
+        "evolution6",
+        "evo8",
+        "mitsuixs",
+        "evoltex",
+        "mlec",
+        "cp9a",
+        "evo10"
+      ]
+    },
+    {
+      "brandName": "Nissan",
+      "vehicles": [
+        "180sx",
+        "180SXRB",
+        "180326",
+        "bn240",
+        "nis13",
+        "daniellex",
+        "nos13",
+        "onevia",
+        "sil80",
+        "silvia3",
+        "maj200sx",
+        "s14boss",
+        "zenki",
+        "nis13fe",
+        "nis15",
+        "s15tex",
+        "S15RBJR",
+        "S15MAK",
+        "z15dragon",
+        "KGC10",
+        "2000gt",
+        "SKYLINEC110",
+        "R30RSX",
+        "r31",
+        "nisr32",
+        "r32",
+        "r3213",
+        "r32rboof",
+        "hcr32",
+        "nissangtr",
+        "maj33",
+        "skyline",
+        "wagon",
+        "skylinek",
+        "er34",
+        "NSCW",
+        "r35",
+        "LWGTR",
+        "LWGTR2",
+        "c33",
+        "vipy33",
+        "s30",
+        "PS30",
+        "300zw",
+        "maj350",
+        "ns350",
+        "dk350z",
+        "370z",
+        "z31",
+        "z32"
+      ]
+    },
+    {
+      "brandName": "Plymouth",
+      "vehicles": [
+        "gtx",
+        "torq"
+      ]
+    },
+    {
+      "brandName": "Pontiac",
+      "vehicles": [
+        "firebird"
+      ]
+    },
+    {
+      "brandName": "Porsche",
+      "vehicles": [
+        "930mnc",
+        "993rwb",
+        "boxterlb",
+        "kmenxd"
+      ]
+    },
+    {
+      "brandName": "Shelby",
+      "vehicles": [
+        "cobra"
+      ]
+    },
+    {
+      "brandName": "Subaru",
+      "vehicles": [
+        "slega",
+        "brz",
+        "brzbn",
+        "SIM22",
+        "subwrx",
+        "impreza3",
+        "Subw02",
+        "sublegw",
+        "swrxsti",
+        "subbieh",
+        "2016wrx"
+      ]
+    },
+    {
+      "brandName": "Suzuki",
+      "vehicles": [
+        "suzhoonr",
+        "suzhoona"
+      ]
+    },
+    {
+      "brandName": "Toyota",
+      "vehicles": [
+        "ae86",
+        "maj86",
+        "levin86",
+        "tgx920",
+        "majsoar",
+        "gx71",
+        "gx81",
+        "celgt4",
+        "jzx90",
+        "jzx902",
+        "jzx100",
+        "jzx100kaz",
+        "Cresta",
+        "mk2100",
+        "mbx",
+        "jzx110m2",
+        "jzx160",
+        "toycelsior",
+        "gt86",
+        "TOY86",
+        "avanza",
+        "altezza",
+        "altezzagiz",
+        "mrtwo",
+        "mr2nnd",
+        "mr2a",
+        "celisupra",
+        "jza70",
+        "supramk4",
+        "sa80",
+        "8pralift",
+        "skypra",
+        "supraa90",
+        "cam8tun"
+      ]
+    },
+    {
+      "brandName": "Volkswagen",
+      "vehicles": [
+        "mk1rabbit",
+        "MK3",
+        "golfp"
+      ]
+    },
+    {
+      "brandName": "Volvo",
+      "vehicles": [
+        "v242",
+        "volvturb",
+        "volvo850r",
+        "s60pole",
+        "v60"
+      ]
+    },
+    {
+      "staff": "true",
+      "brandName": "~p~Staff Cars",
+      "vehicles": [
+        "polstang",
+        "polcivic",
+        "rmodpolice",
+        "corleo",
+        "chaleo",
+        "HellcatRed",
+        "suprapd",
+        "pdsupra"
+      ]
+    },
+    {
+      "admin": "true",
+      "brandName": "Meh's Cars",
+      "vehicles": [
+        "180sxmeh",
+        "mrx7meh",
+        "marshall"
+      ]
+    },
+    {
+      "admin": "true",
+      "brandName": "Johnson's Cars",
+      "vehicles": [
+        "robin",
+        "scarab"
+      ]
+    },
+    {
+      "admin": "true",
+      "brandName": "Razac's Cars",
+      "vehicles": [
+        "robin"
+      ]
+    }
+  ]
+}
