@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CitizenFX.Core;
+﻿using System.Collections.Generic;
 using static CitizenFX.Core.Native.API;
 
 namespace vMenuClient
@@ -261,210 +256,512 @@ namespace vMenuClient
             new VehicleColor(133, "OLIVE_GREEN"),
         };
 
-        public static class Vehicles
+        public static class Vehicles //Patched by dotexe for custom vehicles and categories. Please add your vehicles in here when adding new vehicles to the server.
         {
             #region Vehicle List Per Class
 
-            #region Compacts = Audi
-            public static List<string> Compacts { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Sedans = BMW
-            public static List<string> Sedans { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region SUVs = Cadillac
-            public static List<string> SUVs { get; } = new List<string>()
-            {
-                
-            };
-            #endregion 
-            #region Coupes = Datsun
-            public static List<string> Coupes { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Muscle = Chevrolet
-            public static List<string> Muscle { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region SportsClassics = Dodge
-            public static List<string> SportsClassics { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Sports = Ford & Holden
-            public static List<string> Sports { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Super = Kia & Honda
-            public static List<string> Super { get; } = new List<string>()
-            {
-                
-            };
-            #endregion
-            #region Motorcycles = Lotus
+            #region Motorcycles
             public static List<string> Motorcycles { get; } = new List<string>()
             {
-
+                "cbrrr",
+                "r1",
             };
             #endregion
-            #region OffRoad = Mazda
-            public static List<string> OffRoad { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Industrial = Mercedes
-            public static List<string> Industrial { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Utility = Mitsubishi
-            public static List<string> Utility { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Vans = Nissan & Infiniti
-            public static List<string> Vans { get; } = new List<string>()
-            {
-                "180sxrb",
-                "silvia",
-            };
-            #endregion
-            #region Cycles = Plymouth
-            public static List<string> Cycles { get; } = new List<string>()
-            {
-
-            };
-            #endregion
-            #region Boats = Pontiac
+            #region Boats
             public static List<string> Boats { get; } = new List<string>()
             {
-                
+                "james",
+                "gfbot",
+                "victory",
+                "bahia",
+                "redja",
+                "rboat",
+                "rapide",
+                "sr650fly",
+                "yacht2",
             };
             #endregion
-            #region Helicopters = Porsche
-            public static List<string> Helicopters { get; } = new List<string>()
+            #region Aston Martin
+            public static List<string> AstonMartin { get; } = new List<string>()
             {
-
+                "rapide",
             };
             #endregion
-            #region Planes = Shelby
-            public static List<string> Planes { get; } = new List<string>()
+            #region Acura
+            public static List<string> Acura { get; } = new List<string>()
             {
-                
+                "furoregt",
             };
             #endregion
-            #region Service = Subaru & Suzuki
-            public static List<string> Service { get; } = new List<string>()
+            #region Audi
+            public static List<string> Audi { get; } = new List<string>()
             {
-
+                "rs6",
+                "r820",
             };
             #endregion
-            #region Emergency = Toyota & Lexus
-            public static List<string> Emergency { get; } = new List<string>()
+            #region BMW
+            public static List<string> BMW { get; } = new List<string>()
             {
-                
+                "oracle2",
+                "bmw507",
+                "b121ang",
+                "b121angsh",
+                "blze30",
+                "m3e36",
+                "e46",
+                "bme6tun",
+                "e921b",
+                "m3f80",
+                "f82",
+                "m5f90",
+                "m82020",
+                "z4alchemist",
             };
             #endregion
-            #region Military = VW
-            public static List<string> Military { get; } = new List<string>()
+            #region Bugatti
+            public static List<string> Bugatti { get; } = new List<string>()
             {
-
+                "bugatticentodieci",
+                "chiron17",
+                "bcss",
+                "bl64",
+                "supersport"
             };
             #endregion
-            #region Commercial = Volvo
-            public static List<string> Commercial { get; } = new List<string>()
+            #region Chevy
+            public static List<string> Chevy { get; } = new List<string>()
             {
-                
+                "c8",
+                "belair57",
+                "elcamino70",
+                "manana",
+                "86k30",
+                "01duramaxk",
+                "863500",
+                "czr2",
+                "silverado",
+                "proc10",
             };
             #endregion
-            #region Trains = Staff
-            public static List<string> Trains { get; } = new List<string>()
+            #region Ferrari
+            public static List<string> Ferrari { get; } = new List<string>()
             {
-
+                "yFe458i1",
+                "yFe458i2",
+                "yFe458s1",
+                "yFe458s2",
+                "pd458wb",
+                "4881",
+                "488misha",
+                "ferrari812",
+                "f430s",
+                "f8t",
+                "gtc4",
+                "laferrari17",
+                "monza",
             };
             #endregion
-            public static List<string> Trailers { get; } = new List<string>()
+            #region Five-O
+            public static List<string> FiveO { get; } = new List<string>()
             {
-                "Adder"
+                "police2",
+                "polzonda",
+                "police",
             };
-
-            public static List<string> CustomClass1 { get; } = new List<string>()
+            #endregion
+            #region Ford
+            public static List<string> Ford { get; } = new List<string>()
             {
-                "Adder"
+                "gt2017",
+                "13fmb302",
+                "raptor2017",
+                "Raptor150",
+                "richobs",
+                "x6r",
+                "f-one49d",
+                "f-six49",
+                "frr",
+                "econoline",
+                "f350",
+                "04f250k",
             };
-
-            public static List<string> CustomClass2 { get; } = new List<string>()
+            #endregion
+            #region GMC
+            public static List<string> GMC { get; } = new List<string>()
             {
-                "t20"
+                "gmck",
             };
-
-            /*
-            Compacts = 0,
-            Sedans = 1,
-            SUVs = 2,
-            Coupes = 3,
-            Muscle = 4,
-            SportsClassics = 5,
-            Sports = 6,
-            Super = 7,
-            Motorcycles = 8,
-            OffRoad = 9,
-            Industrial = 10,
-            Utility = 11,
-            Vans = 12,
-            Cycles = 13,
-            Boats = 14,
-            Helicopters = 15,
-            Planes = 16,
-            Service = 17,
-            Emergency = 18,
-            Military = 19,
-            Commercial = 20,
-            Trains = 21
-             */
+            #endregion
+            #region Henry Clay
+            public static List<string> HenryClay { get; } = new List<string>()
+            {
+                "gts8"
+            };
+            #endregion
+            #region Honda
+            public static List<string> Honda { get; } = new List<string>()
+            {
+                "acty",
+                "ef9",
+                "blista",
+                "eg6",
+                "ek9",
+                "civic",
+                "prairie",
+                "ep3",
+                "fd2",
+                "fk8",
+                "city85",
+                "futo",
+                "crx2",
+                "majcrx",
+                "crz",
+                "dc2",
+                "dc5",
+                "motoc",
+                "na1",
+                "nc1",
+                "blista3",
+                "ap2",
+            };
+            #endregion
+            #region Hyundai
+            public static List<string> Hyundai { get; } = new List<string>()
+            {
+                "penumbra",
+                "alpha",
+            };
+            #endregion
+            #region Jeep
+            public static List<string> Jeep { get; } = new List<string>()
+            {
+                "rubi3d",
+            };
+            #endregion
+            #region Kia
+            public static List<string> Kia { get; } = new List<string>()
+            {
+                "fortek",
+                "mstinger",
+            };
+            #endregion
+            #region Koenigsegg
+            public static List<string> Koenigsegg { get; } = new List<string>()
+            {
+                "agera2011",
+                "#agerars",
+                "#jes",
+            };
+            #endregion
+            #region Lamborghini
+            public static List<string> Lamborghini { get; } = new List<string>()
+            {
+                "500gtrlam",
+                "lp570",
+                "lbsihu",
+                "18performante",
+                "sc18",
+                "rmodsian",
+            };
+            #endregion
+            #region Lexus
+            public static List<string> Lexus { get; } = new List<string>()
+            {
+                "buffalo2",
+                "buffalo",
+                "ISF",
+                "89ls400",
+                "ls430",
+                "lc500",
+                "lexy",
+            };
+            #endregion
+            #region Mazda
+            public static List<string> Mazda { get; } = new List<string>()
+            {
+                "yata",
+                "rx3",
+                "fb",
+                "majfc",
+                "fc3s",
+                "majfd",
+                "fd",
+                "rx811",
+            };
+            #endregion
+            #region McLaren
+            public static List<string> McLaren { get; } = new List<string>()
+            {
+                "675lt",
+                "720s",
+                "mcst",
+            };
+            #endregion
+            #region Mercedes Benz
+            public static List<string> MercedesBenz { get; } = new List<string>()
+            {
+                "190e",
+                "mb300sl",
+                "mbhome",
+                "hometrailer",
+                "w202",
+                "e300",
+                "e400",
+                "e63s",
+                "c63s",
+                "gle450",
+                "amggt63s",
+                "w222s500",
+                "slr",
+            };
+            #endregion
+            #region Mini
+            public static List<string> Mini { get; } = new List<string>()
+            {
+                "minilb",
+            };
+            #endregion
+            #region Mitsubishi
+            public static List<string> Mitsubishi { get; } = new List<string>()
+            {
+                "kuruma",
+                "evo8",
+            };
+            #endregion
+            #region Nissan
+            public static List<string> Nissan { get; } = new List<string>()
+            {
+                "minilb",
+                "nis180",
+                "z31",
+                "z32",
+                "350gt",
+                "maj350",
+                "nzp",
+                "y33",
+                "95y33",
+                "s30",
+                "infg35",
+                "c33",
+                "180sx",
+                "nis13",
+                "majs14z",
+                "nis15",
+                "s15",
+                "f620",
+                "r31",
+                "nisr32",
+                "hcr32",
+                "nisr33",
+                "skyline",
+                "er34",
+                "r35",
+                "gtrlb2",
+                "gtrsilhouette",
+                "gtrc",
+                "gtrcw",
+                "nissantitan17",
+            };
+            #endregion
+            #region Opel
+            public static List<string> Opel { get; } = new List<string>()
+            {
+                "opeladam",
+            };
+            #endregion
+            #region Pagani
+            public static List<string> Pagani { get; } = new List<string>()
+            {
+                "huayrar",
+            };
+            #endregion
+            #region Polaris
+            public static List<string> Polaris { get; } = new List<string>()
+            {
+                "polaris",
+            };
+            #endregion
+            #region Porsche
+            public static List<string> Porsche { get; } = new List<string>()
+            {
+                "992c",
+                "992t",
+                "str20",
+                "3lb",
+                "930mnc",
+                "oldnew",
+                "ursa",
+            };
+            #endregion
+                        #region RAM
+            public static List<string> RAM { get; } = new List<string>()
+            {
+                "19ramdonk",
+                "19ramoffroad",
+                "10ram",
+                "2ndgendually",
+                "megaramcustom",
+                "runner",
+            };
+            #endregion
+            #region Range Rover
+            public static List<string> RangeRover { get; } = new List<string>()
+            {
+                "baller",
+            };
+            #endregion
+            #region Rolls Royce
+            public static List<string> RollsRoyce { get; } = new List<string>()
+            {
+                "dawn",
+                "silver67",
+            };
+            #endregion
+            #region Renault
+            public static List<string> Renault { get; } = new List<string>()
+            {
+                "twizy",
+            };
+            #endregion
+            #region Saleen
+            public static List<string> Saleen { get; } = new List<string>()
+            {
+                "S1",
+            };
+            #endregion
+            #region Subaru
+            public static List<string> Subaru { get; } = new List<string>()
+            {
+                "subwrx",
+                "subisti08",
+                "sti",
+            };
+            #endregion
+            #region Toyota
+            public static List<string> Toyota { get; } = new List<string>()
+            {
+                "maltezza",
+                "maj86",
+                "cam08",
+                "celica",
+                "celisupra",
+                "celgt4",
+                "levin86",
+                "jzs175",
+                "toy86",
+                "gx71",
+                "gx81",
+                "mk2100",
+                "majsoar",
+                "jza70",
+                "a80",
+                "supraa90",
+                "verossa",
+                "avanza",
+                "hiluxarctic",
+                "streetsupra",
+            };
+            #endregion
+            #region TVR
+            public static List<string> TVR { get; } = new List<string>()
+            {
+                "T18",
+            };
+            #endregion
+            #region Volkswagen
+            public static List<string> Volkswagen { get; } = new List<string>()
+            {
+                "mk3",
+                "63lb",
+            };
+            #endregion
+            #region International
+            public static List<string> International { get; } = new List<string>()
+            {
+                "flatbed4",
+            };
+            #endregion
+            #region Vanilla
+            public static List<string> Vanilla { get; } = new List<string>()
+            {
+                "eurosle",
+                "majimagt",
+                "requiemzr1",
+                "rh82",
+                "savestrare",
+                "stratumc",
+                "zr",
+                "spritzer",
+                "schwarzer2",
+                "pcj",
+                "glendale",
+                "primo2",
+                "vesper",
+                "nexus",
+                "elegyrh5",
+                "paragonxr",
+                "turismoc",
+                "futoS",
+                "sultan2c",
+                "sultanrsv8",
+                "argento",
+                "torerod",
+                "meteor",
+                "mf1",
+                "sentinel6str2",
+                "squaddie2",
+                "stanier5",
+                "squaddie3",
+                "Tstanced",
+                "fuknking",
+                "pretender",
+            };
+            #endregion
 
             public static Dictionary<string, List<string>> VehicleClasses { get; } = new Dictionary<string, List<string>>()
             {
-                [GetLabelText("VEH_CLASS_0")] = Compacts,
-                [GetLabelText("VEH_CLASS_1")] = Sedans,
-                [GetLabelText("VEH_CLASS_2")] = SUVs,
-                [GetLabelText("VEH_CLASS_3")] = Coupes,
-                [GetLabelText("VEH_CLASS_4")] = Muscle,
-                [GetLabelText("VEH_CLASS_5")] = SportsClassics,
-                [GetLabelText("VEH_CLASS_6")] = Sports,
-                [GetLabelText("VEH_CLASS_7")] = Super,
-                [GetLabelText("VEH_CLASS_8")] = Motorcycles,
-                [GetLabelText("VEH_CLASS_9")] = OffRoad,
-                [GetLabelText("VEH_CLASS_10")] = Industrial,
-                [GetLabelText("VEH_CLASS_11")] = Utility,
-                [GetLabelText("VEH_CLASS_12")] = Vans,
-                [GetLabelText("VEH_CLASS_13")] = Cycles,
-                [GetLabelText("VEH_CLASS_14")] = Boats,
-                [GetLabelText("VEH_CLASS_15")] = Helicopters,
-                [GetLabelText("VEH_CLASS_16")] = Planes,
-                [GetLabelText("VEH_CLASS_17")] = Service,
-                [GetLabelText("VEH_CLASS_18")] = Emergency,
-                [GetLabelText("VEH_CLASS_19")] = Military,
-                [GetLabelText("VEH_CLASS_20")] = Commercial,
-                [GetLabelText("VEH_CLASS_21")] = Trains,
-                [GetLabelText("VEH_CLASS_22")] = Trailers,
-                [GetLabelText("VEH_CLASS_23")] = CustomClass1,
-                [GetLabelText("VEH_CLASS_24")] = CustomClass2,
+                ["Motorcycle Pack"] = Motorcycles,
+                ["Boats"] = Boats,
+                ["Aston Martin"] = AstonMartin,
+                ["Acura"] = Acura,
+                ["Audi"] = Audi,
+                ["BMW"] = BMW,
+                ["Bugatti"] = Bugatti,
+                ["Chevy"] = Chevy,
+                ["Ferrari"] = Ferrari,
+                ["Five-O"] = FiveO,
+                ["Ford"] = Ford,
+                ["GMC"] = GMC,
+                ["Henry Clay"] = HenryClay,
+                ["Honda"] = Honda,
+                ["Hyundai"] = Hyundai,
+                ["Jeep"] = Jeep,
+                ["Kia"] = Kia,
+                ["Koenigsegg"] = Koenigsegg,
+                ["Lamborghini"] = Lamborghini,
+                ["Lexus"] = Lexus,
+                ["Mazda"] = Mazda,
+                ["McLaren"] = McLaren,
+                ["Mercedes Benz"] = MercedesBenz,
+                ["Mini"] = Mini,
+                ["Mitsubishi"] = Mitsubishi,
+                ["Nissan"] = Nissan,
+                ["Opel"] = Opel,
+                ["Pagani"] = Pagani,
+                ["Polaris"] = Polaris,
+                ["Porsche"] = Porsche,
+                ["RAM"] = RAM,
+                ["Range Rover"] = RangeRover,
+                ["Rolls Royce"] = RollsRoyce,
+                ["Renault"] = Renault,
+                ["Saleen"] = Saleen,
+                ["Subaru"] = Subaru,
+                ["Toyota"] = Toyota,
+                ["TVR"] = TVR,
+                ["Volkswagen"] = Volkswagen,
+                ["International"] = International,
+                ["Vanilla"] = Vanilla,
             };
             #endregion
 

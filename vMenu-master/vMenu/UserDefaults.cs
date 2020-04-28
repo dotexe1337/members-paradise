@@ -173,12 +173,6 @@ namespace vMenuClient
             get { return GetSettingsBool("vehicleSpawnerReplacePrevious"); }
             set { SetSavedSettingsBool("vehicleSpawnerReplacePrevious", value); }
         }
-
-        public static bool VehicleSpawnerTurnOffRadio
-        {
-            get { return GetSettingsBool("vehicleSpawnerTurnOffRadio"); }
-            set { SetSavedSettingsBool("vehicleSpawnerTurnOffRadio", value); }
-        }
         #endregion
 
         #region Weapon Options
@@ -388,16 +382,6 @@ namespace vMenuClient
             set { SetSavedSettingsBool("pvEnableVehicleBlip", value); }
         }
         #endregion
-        #endregion
-
-        #region Toggles
-
-        public static bool DriftAngleMeter
-        {
-            get { return GetSettingsBool("DriftAngleMeter"); }
-            set { SetSavedSettingsBool("DriftAngleMeter", value); }
-        }
-
         #endregion
 
         #region Private functions
@@ -655,9 +639,6 @@ namespace vMenuClient
 
                 VehicleSpawnerSpawnInside = MainMenu.VehicleSpawnerMenu.SpawnInVehicle;
                 prefs.Add("vehicleSpawnerSpawnInside", VehicleSpawnerSpawnInside);
-
-                VehicleSpawnerTurnOffRadio = MainMenu.VehicleSpawnerMenu.TurnOffRadio;
-                prefs.Add("vehicleSpawnerTurnOffRadio", VehicleSpawnerTurnOffRadio);
             }
 
             if (MainMenu.VoiceChatSettingsMenu != null)

@@ -41,6 +41,9 @@ namespace vMenuClient
         public static MpPedCustomization MpPedCustomizationMenu { get; private set; }
         public static TimeOptions TimeOptionsMenu { get; private set; }
         public static WeatherOptions WeatherOptionsMenu { get; private set; }
+
+        //Client-sided time & weather
+        public static PlayerTimeWeatherOptions PlayerTimeWeatherOptionsMenu { get; private set; }
         public static WeaponOptions WeaponOptionsMenu { get; private set; }
         public static WeaponLoadouts WeaponLoadoutsMenu { get; private set; }
         public static Recording RecordingMenu { get; private set; }
@@ -306,29 +309,12 @@ namespace vMenuClient
 
             VehicleSpawner.allowedCategories = new List<bool>()
             {
-                IsAllowed(Permission.VSCompacts, checkAnyway: true),
-                IsAllowed(Permission.VSSedans, checkAnyway: true),
-                IsAllowed(Permission.VSSUVs, checkAnyway: true),
-                IsAllowed(Permission.VSCoupes, checkAnyway: true),
-                IsAllowed(Permission.VSMuscle, checkAnyway: true),
-                IsAllowed(Permission.VSSportsClassic, checkAnyway: true),
-                IsAllowed(Permission.VSSports, checkAnyway: true),
-                IsAllowed(Permission.VSSuper, checkAnyway: true),
-                IsAllowed(Permission.VSMotorcycles, checkAnyway: true),
-                IsAllowed(Permission.VSOffRoad, checkAnyway: true),
-                IsAllowed(Permission.VSIndustrial, checkAnyway: true),
-                IsAllowed(Permission.VSUtility, checkAnyway: true),
-                IsAllowed(Permission.VSVans, checkAnyway: true),
-                IsAllowed(Permission.VSCycles, checkAnyway: true),
-                IsAllowed(Permission.VSBoats, checkAnyway: true),
-                IsAllowed(Permission.VSHelicopters, checkAnyway: true),
-                IsAllowed(Permission.VSPlanes, checkAnyway: true),
-                IsAllowed(Permission.VSService, checkAnyway: true),
-                IsAllowed(Permission.VSEmergency, checkAnyway: true),
-                IsAllowed(Permission.VSMilitary, checkAnyway: true),
-                IsAllowed(Permission.VSCommercial, checkAnyway: true),
-                IsAllowed(Permission.VSTrains, checkAnyway: true),
+                
             };
+            for (int i = 0; i < VehicleData.Vehicles.VehicleClasses.Count(); i++)
+            {
+                VehicleSpawner.allowedCategories.Add(true);
+            }
             ArePermissionsSetup = true;
 
             TriggerServerEvent("vMenu:IsResourceUpToDate");
@@ -385,10 +371,10 @@ namespace vMenuClient
                     }
 
                     // Create the main menu.
-                    Menu = new Menu("dotexe trainer", "Main Menu");
-                    PlayerSubmenu = new Menu(Game.Player.Name, "Player Related Options");
-                    VehicleSubmenu = new Menu(Game.Player.Name, "Vehicle Related Options");
-                    WorldSubmenu = new Menu(Game.Player.Name, "World Options");
+                    Menu = new Menu("Members Paradise", "Main Menu");
+                    PlayerSubmenu = new Menu("Player Options", "Player Related Options");
+                    VehicleSubmenu = new Menu("Vehicle Options", "Vehicle Related Options");
+                    WorldSubmenu = new Menu("World Options", "World Options");
 
                     // Add the main menu to the menu pool.
                     MenuController.AddMenu(Menu);
@@ -662,6 +648,7 @@ namespace vMenuClient
 
             // Add the time options menu.
             // check for 'not true' to make sure that it _ONLY_ gets disabled if the owner _REALLY_ wants it disabled, not if they accidentally spelled "false" wrong or whatever.
+            if (IsAllowed(Permission.TOMenu) && GetSettingsBool(Setting.vmenu_enable_time_sync))
             {
                 TimeOptionsMenu = new TimeOptions();
                 Menu menu = TimeOptionsMenu.GetMenu();
@@ -674,6 +661,7 @@ namespace vMenuClient
 
             // Add the weather options menu.
             // check for 'not true' to make sure that it _ONLY_ gets disabled if the owner _REALLY_ wants it disabled, not if they accidentally spelled "false" wrong or whatever.
+            if (IsAllowed(Permission.WOMenu) && GetSettingsBool(Setting.vmenu_enable_weather_sync))
             {
                 WeatherOptionsMenu = new WeatherOptions();
                 Menu menu = WeatherOptionsMenu.GetMenu();
@@ -682,6 +670,17 @@ namespace vMenuClient
                     Label = "→→→"
                 };
                 AddMenu(WorldSubmenu, menu, button);
+            }
+
+            // Add the client time and weather options menu.
+            {
+                PlayerTimeWeatherOptionsMenu = new PlayerTimeWeatherOptions();
+                Menu menu2 = PlayerTimeWeatherOptionsMenu.GetMenu();
+                MenuItem button2 = new MenuItem("Time & Weather Options", "Change all time & weather related options here.")
+                {
+                    Label = "→→→"
+                };
+                AddMenu(Menu, menu2, button2);
             }
 
             // Add the weapons menu.

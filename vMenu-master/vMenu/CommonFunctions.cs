@@ -1585,7 +1585,7 @@ namespace vMenuClient
         {
             // Create the window title string.
             var spacer = "\t";
-            AddTextEntry($"{GetCurrentResourceName().ToUpper()}_WINDOW_TITLE", $"{windowTitle ?? "Enter"}:{spacer}(MAX {maxInputLength.ToString()} Characters)");
+            AddTextEntry($"{GetCurrentResourceName().ToUpper()}_WINDOW_TITLE", $"{windowTitle ?? "Enter"}:{spacer}(MAX {maxInputLength} Characters)");
 
             // Display the input box.
             DisplayOnscreenKeyboard(1, $"{GetCurrentResourceName().ToUpper()}_WINDOW_TITLE", "", defaultText ?? "", "", "", "", maxInputLength);
@@ -1671,11 +1671,11 @@ namespace vMenuClient
                 {
                     if (prevUpper)
                     {
-                        outputString += $"{c.ToString()}";
+                        outputString += $"{c}";
                     }
                     else
                     {
-                        outputString += $" {c.ToString()}";
+                        outputString += $" {c}";
                     }
                     prevUpper = true;
                 }
@@ -1810,6 +1810,22 @@ namespace vMenuClient
         {
             return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
         }
+        #endregion
+
+        #region Weather Sync
+        /// <summary>
+        /// Update the server with the new weather type, blackout status and dynamic weather changes enabled status.
+        /// </summary>
+        /// <param name="newWeather">The new weather type.</param>
+        /// <param name="blackout">Manual blackout mode enabled/disabled.</param>
+        /// <param name="dynamicChanges">Dynamic weather changes enabled/disabled.</param>
+        public static void UpdateServerWeather(string newWeather, bool blackout, bool dynamicChanges) => TriggerServerEvent("vMenu:UpdateServerWeather", newWeather, blackout, dynamicChanges);
+
+        /// <summary>
+        /// Modify the clouds for everyone. If removeClouds is true, then remove all clouds. If it's false, then randomize the clouds.
+        /// </summary>
+        /// <param name="removeClouds">Removes the clouds from the sky if true, otherwise randomizes the clouds type for all players.</param>
+        public static void ModifyClouds(bool removeClouds) => TriggerServerEvent("vMenu:UpdateServerWeatherCloudsType", removeClouds);
         #endregion
 
         #region Time Sync
@@ -2406,7 +2422,7 @@ namespace vMenuClient
                 }
                 else
                 {
-                    Notify.Error($"This ({inputName.ToString()}) is not a valid weapon model name, or the model hash ({model.ToString()}) could not be found in the game files.");
+                    Notify.Error($"This ({inputName}) is not a valid weapon model name, or the model hash ({model}) could not be found in the game files.");
                 }
             }
             else

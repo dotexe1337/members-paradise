@@ -19,7 +19,8 @@ namespace vMenuClient
         // common functions.
         public static bool CurrentlySwitchingWeather { get; private set; } = false;
         public static string currentWeatherType = GetSettingsString(Setting.vmenu_default_weather);
-        public static bool clientSideWeather = GetSettingsBool(Setting.vmenu_enable_client_sided_weather);
+        public static bool blackoutMode = false;
+        public static bool dynamicWeather = GetSettingsBool(Setting.vmenu_enable_dynamic_weather);
         private string lastWeather = currentWeatherType;
         public static int currentHours = GetSettingsInt(Setting.vmenu_default_time_hour);
         public static int currentMinutes = GetSettingsInt(Setting.vmenu_default_time_min);
@@ -43,6 +44,8 @@ namespace vMenuClient
             EventHandlers.Add("vMenu:GoToPlayer", new Action<string>(SummonPlayer));
             EventHandlers.Add("vMenu:KillMe", new Action<string>(KillMe));
             EventHandlers.Add("vMenu:Notify", new Action<string>(NotifyPlayer));
+            EventHandlers.Add("vMenu:SetWeather", new Action<string, bool, bool>(SetWeather));
+            EventHandlers.Add("vMenu:SetClouds", new Action<float, string>(SetClouds));
             EventHandlers.Add("vMenu:SetTime", new Action<int, int, bool>(SetTime));
             EventHandlers.Add("vMenu:GoodBye", new Action(GoodBye));
             EventHandlers.Add("vMenu:SetBanList", new Action<string>(UpdateBanList));
@@ -53,9 +56,8 @@ namespace vMenuClient
             EventHandlers.Add("vMenu:GetOutOfCar", new Action<int, int>(GetOutOfCar));
             EventHandlers.Add("vMenu:PrivateMessage", new Action<string, string>(PrivateMessage));
             EventHandlers.Add("vMenu:UpdateTeleportLocations", new Action<string>(UpdateTeleportLocations));
-            //Tick += WeatherSync;
-            //Tick += TimeSync;
-            //Tick += UpdatePlayerWeather;
+            Tick += WeatherSync;
+            Tick += TimeSync;
         }
 
         private bool firstSpawn = true;
@@ -220,6 +222,148 @@ namespace vMenuClient
                 SetForceVehicleTrails(false);
                 SetForcePedFootstepsTracks(false);
                 RemoveNamedPtfxAsset("core_snow");
+            }
+        }
+
+
+        /// <summary>
+        /// OnTick loop to keep the weather synced.
+        /// </summary>
+        /// <returns></returns>
+        private async Task WeatherSync() // fixed for client-side weather and time
+        {
+            if (MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu.GetMenu() != null && !MainMenu.PlayerTimeWeatherOptionsMenu.clientSidedEnabled.Checked && GetSettingsBool(Setting.vmenu_enable_weather_sync))
+            {
+                // Weather is set every 500ms, if it's changed, then it will transition to the new phase within 20 seconds.
+                await Delay(500);
+
+                var justChanged = false;
+                UpdateWeatherParticlesOnce();
+                if (currentWeatherType != lastWeather)
+                {
+                    Log($"Start changing weather type.\nOld weather: {lastWeather}.\nNew weather type: {currentWeatherType}.\nBlackout? {blackoutMode}.\nThis change will take 45.5 seconds!");
+                    CurrentlySwitchingWeather = true;
+                    ClearWeatherTypePersist();
+                    ClearOverrideWeather();
+                    SetWeatherTypeNow(lastWeather);
+                    var previousWeather = lastWeather;
+                    lastWeather = currentWeatherType;
+                    SetWeatherTypeOverTime(currentWeatherType, 30f);
+                    int tmpTimer = GetGameTimer();
+
+                    // Wait until the transition is completed.
+                    while (GetGameTimer() - tmpTimer < 30000) // wait 30 _real_ seconds
+                    {
+                        // To update the current state in the menu subtitle counter pre-text.
+                        float weatherChangeState = ((float)GetGameTimer() - (float)tmpTimer) / 30000f;
+
+                        if (MainMenu.WeatherOptionsMenu != null)
+                        {
+                            MainMenu.WeatherOptionsMenu.GetMenu().CounterPreText = $"(Cooldown {Math.Ceiling(30f - (30f * weatherChangeState))}) ";
+                        }
+                        await Delay(100);
+                    }
+                    // Reset the intensity to make the game handle the intensity correctly.
+                    SetRainFxIntensity(-1f);
+                    // Set the new weather type to be persistent.
+                    SetWeatherTypeNow(currentWeatherType);
+                    justChanged = true;
+                    // Dbg logging
+                    Log("done changing weather type (duration: 45.5 seconds)");
+                    // Stop currently switching weather type checks.
+                    CurrentlySwitchingWeather = false;
+                    // Reset the menu subtitle counter pre-text.
+                    if (MainMenu.WeatherOptionsMenu != null)
+                        MainMenu.WeatherOptionsMenu.GetMenu().CounterPreText = null;
+                    TriggerEvent("vMenu:WeatherChangeComplete", previousWeather, currentWeatherType);
+                }
+                if (!justChanged)
+                {
+                    SetWeatherTypeNowPersist(currentWeatherType);
+                }
+                SetBlackout(blackoutMode);
+            }
+        }
+
+        /// <summary>
+        /// This function will take care of time sync. It'll be called once, and never stop.
+        /// </summary>
+        /// <returns></returns>
+        private async Task TimeSync() // fixed for client-side weather and time
+        {
+            if (MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu.GetMenu() != null && !MainMenu.PlayerTimeWeatherOptionsMenu.clientSidedEnabled.Checked && GetSettingsBool(Setting.vmenu_enable_time_sync))
+            {
+                // If time is frozen...
+                if (freezeTime)
+                {
+                    // Time is set every tick to make sure it never changes (even with some lag).
+                    await Delay(0);
+                    NetworkOverrideClockTime(currentHours, currentMinutes, 0);
+                }
+                // Otherwise...
+                else
+                {
+                    if (minuteClockSpeed > 2000)
+                    {
+                        await Delay(2000);
+                    }
+                    else
+                    {
+                        await Delay(minuteClockSpeed);
+                    }
+                    // only add a minute if the timer has reached the configured duration (2000ms (2s) by default).
+                    if (GetGameTimer() - minuteTimer > minuteClockSpeed)
+                    {
+                        currentMinutes++;
+                        minuteTimer = GetGameTimer();
+                    }
+
+                    if (currentMinutes > 59)
+                    {
+                        currentMinutes = 0;
+                        currentHours++;
+                    }
+                    if (currentHours > 23)
+                    {
+                        currentHours = 0;
+                    }
+                    NetworkOverrideClockTime(currentHours, currentMinutes, 0);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set the cloud hat type.
+        /// </summary>
+        /// <param name="opacity"></param>
+        /// <param name="cloudsType"></param>
+        private void SetClouds(float opacity, string cloudsType)
+        {
+            if (opacity == 0f && cloudsType == "removed")
+            {
+                ClearCloudHat();
+            }
+            else
+            {
+                SetCloudHatOpacity(opacity);
+                SetCloudHatTransition(cloudsType, 4f);
+            }
+        }
+
+        /// <summary>
+        /// Update the current weather.
+        /// </summary>
+        /// <param name="newWeather"></param>
+        /// <param name="blackoutEnabled"></param>
+        private void SetWeather(string newWeather, bool blackoutEnabled, bool dynamicChanges)
+        {
+            currentWeatherType = newWeather;
+            blackoutMode = blackoutEnabled;
+            dynamicWeather = dynamicChanges;
+            if (MainMenu.WeatherOptionsMenu != null)
+            {
+                MainMenu.WeatherOptionsMenu.dynamicWeatherEnabled.Checked = dynamicChanges;
+                MainMenu.WeatherOptionsMenu.blackout.Checked = blackoutEnabled;
             }
         }
 

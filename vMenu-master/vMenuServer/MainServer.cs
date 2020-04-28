@@ -73,7 +73,10 @@ namespace vMenuServer
 
         // Weather
         private string currentWeather = GetSettingsString(Setting.vmenu_default_weather);
-        private bool clientSidedWeather = GetSettingsBool(Setting.vmenu_enable_client_sided_weather);
+        private bool dynamicWeather = GetSettingsBool(Setting.vmenu_enable_dynamic_weather);
+        private bool blackout = false;
+        private bool resetBlackout = false;
+        private readonly int dynamicWeatherMinutes = GetSettingsInt(Setting.vmenu_dynamic_weather_timer);
         private long weatherTimer = GetGameTimer();
         private long weatherGameTimer = GetGameTimer();
         private List<string> CloudTypes = new List<string>()
@@ -178,6 +181,51 @@ namespace vMenuServer
                                 Debug.WriteLine("You did not specify a player to unban, you must enter the FULL playername. Usage: vmenuserver unban \"playername\"");
                             }
                             return;
+                        }
+                        else if (args[0].ToString().ToLower() == "weather")
+                        {
+                            if (args.Count < 2 || string.IsNullOrEmpty(args[1].ToString()))
+                            {
+                                Debug.WriteLine("[vMenu] Invalid command syntax. Use 'vmenuserver weather <weatherType>' instead.");
+                            }
+                            else
+                            {
+                                string wtype = args[1].ToString().ToUpper();
+                                if (weatherTypes.Contains(wtype))
+                                {
+                                    TriggerEvent("vMenu:UpdateServerWeather", wtype, blackout, dynamicWeather);
+                                    Debug.WriteLine($"[vMenu] Weather is now set to: {wtype}");
+                                }
+                                else if (wtype.ToLower() == "dynamic")
+                                {
+                                    if (args.Count == 3 && !string.IsNullOrEmpty(args[2].ToString()))
+                                    {
+                                        if ((args[2].ToString().ToLower() ?? $"{dynamicWeather}") == "true")
+                                        {
+                                            TriggerEvent("vMenu:UpdateServerWeather", currentWeather, blackout, true);
+                                            Debug.WriteLine("[vMenu] Dynamic weather is now turned on.");
+                                        }
+                                        else if ((args[2].ToString().ToLower() ?? $"{dynamicWeather}") == "false")
+                                        {
+                                            TriggerEvent("vMenu:UpdateServerWeather", currentWeather, blackout, false);
+                                            Debug.WriteLine("[vMenu] Dynamic weather is now turned off.");
+                                        }
+                                        else
+                                        {
+                                            Debug.WriteLine("[vMenu] Invalid command usage. Correct syntax: vmenuserver weather dynamic <true|false>");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.WriteLine("[vMenu] Invalid command usage. Correct syntax: vmenuserver weather dynamic <true|false>");
+                                    }
+
+                                }
+                                else
+                                {
+                                    Debug.WriteLine("[vMenu] This weather type is not valid!");
+                                }
+                            }
                         }
                         else if (args[0].ToString().ToLower() == "time")
                         {
@@ -352,6 +400,9 @@ namespace vMenuServer
                 EventHandlers.Add("vMenu:KillPlayer", new Action<Player, int>(KillPlayer));
                 EventHandlers.Add("vMenu:KickPlayer", new Action<Player, int, string>(KickPlayer));
                 EventHandlers.Add("vMenu:RequestPermissions", new Action<Player>(vMenuShared.PermissionsManager.SetPermissionsForPlayer));
+                EventHandlers.Add("vMenu:UpdateServerWeather", new Action<string, bool, bool>(UpdateWeather));
+                EventHandlers.Add("vMenu:UpdateServerWeatherCloudsType", new Action<bool>(UpdateWeatherCloudsType));
+                EventHandlers.Add("vMenu:UpdateServerTime", new Action<int, int, bool>(UpdateTime));
                 //EventHandlers.Add("vMenu:DisconnectSelf", new Action<Player>(DisconnectSource));
                 EventHandlers.Add("vMenu:ClearArea", new Action<float, float, float>(ClearAreaNearPos));
                 EventHandlers.Add("vMenu:GetPlayerIdentifiers", new Action<int, NetworkCallbackDelegate>((TargetPlayer, CallbackFunction) =>
@@ -389,7 +440,11 @@ namespace vMenuServer
                 }
 
                 // manage weather and time sync stuff for first setup.
-                clientSidedWeather = GetSettingsBool(Setting.vmenu_enable_client_sided_weather);
+                dynamicWeather = GetSettingsBool(Setting.vmenu_enable_dynamic_weather);
+                if (GetSettingsInt(Setting.vmenu_dynamic_weather_timer) != -1)
+                {
+                    dynamicWeatherMinutes = GetSettingsInt(Setting.vmenu_dynamic_weather_timer);
+                }
 
                 string defaultWeather = GetSettingsString(Setting.vmenu_default_weather);
 
@@ -410,8 +465,8 @@ namespace vMenuServer
                 minuteClockSpeed = (minuteClockSpeed > 0) ? minuteClockSpeed : 2000;
 
                 // Start the loops
-                //Tick += WeatherLoop;
-                //Tick += TimeLoop;
+                Tick += WeatherLoop;
+                Tick += TimeLoop;
 
                 if (GetSettingsBool(Setting.vmenu_bans_use_database) && !string.IsNullOrEmpty(LoadResourceFile(GetCurrentResourceName(), "bans.json")))
                 {
@@ -445,6 +500,233 @@ namespace vMenuServer
         private void ClearAreaNearPos(float x, float y, float z)
         {
             TriggerClientEvent("vMenu:ClearArea", x, y, z);
+        }
+        #endregion
+
+        #region Manage weather and time changes.
+        /// <summary>
+        /// Loop used for syncing and keeping track of the time in-game.
+        /// </summary>
+        /// <returns></returns>
+        private async Task TimeLoop()
+        {
+            if (GetSettingsBool(Setting.vmenu_enable_time_sync))
+            {
+                if (minuteClockSpeed > 2000)
+                {
+                    await Delay(2000);
+                }
+                else
+                {
+                    await Delay(minuteClockSpeed);
+                }
+                if (!freezeTime)
+                {
+                    // only add a minute if the timer has reached the configured duration (2000ms (2s) by default).
+                    if (GetGameTimer() - minuteTimer > minuteClockSpeed)
+                    {
+                        currentMinutes++;
+                        minuteTimer = GetGameTimer();
+                    }
+
+                    if (currentMinutes > 59)
+                    {
+                        currentMinutes = 0;
+                        currentHours++;
+                    }
+                    if (currentHours > 23)
+                    {
+                        currentHours = 0;
+                    }
+                }
+
+                if (GetGameTimer() - timeSyncCooldown > 6000)
+                {
+                    TriggerClientEvent("vMenu:SetTime", currentHours, currentMinutes, freezeTime);
+                    timeSyncCooldown = GetGameTimer();
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Task used for syncing and changing weather dynamically.
+        /// </summary>
+        /// <returns></returns>
+        private async Task WeatherLoop()
+        {
+            await Delay(5000);
+
+            if (GetSettingsBool(Setting.vmenu_enable_weather_sync))
+            {
+                // Manage dynamic weather changes.
+                if (dynamicWeather)
+                {
+                    // Disable dynamic weather because these weather types shouldn't randomly change.
+                    if (currentWeather == "XMAS" || currentWeather == "HALLOWEEN" || currentWeather == "NEUTRAL")
+                    {
+                        dynamicWeather = false;
+                        return;
+                    }
+
+                    // If 1 minute has passed since last change, and resetblackout is true, disable blackout and reset it.
+                    if (resetBlackout && GetGameTimer() - weatherTimer > 60000)
+                    {
+                        resetBlackout = false;
+                        blackout = false;
+                    }
+
+                    // Is it time to generate a new weather type?
+                    if (GetGameTimer() - weatherTimer > (dynamicWeatherMinutes * 60000))
+                    {
+                        // Choose a new semi-random weather type.
+                        RefreshWeather();
+
+                        // Log if debug mode is on how long the change has taken and what the new weather type will be.
+                        if (DebugMode)
+                        {
+                            long gameTimer2 = GetGameTimer();
+                            Log($"Changing weather, last weather duration: {(int)((GetGameTimer() - weatherTimer) / 60000)} minutes. New Weather Type: {currentWeather}");
+                            weatherGameTimer = gameTimer2;
+                        }
+
+                        // Reset the dynamic weather timer.
+                        weatherTimer = GetGameTimer();
+                    }
+                }
+                else
+                {
+                    weatherTimer = GetGameTimer();
+                }
+
+                // Random blackout
+                if (GetSettingsBool(Setting.vmenu_allow_random_blackout) && (currentWeather == "THUNDER" || currentWeather == "HALLOWHEEN") && new Random().Next(5) == 1 && !blackout && !resetBlackout)
+                {
+                    blackout = true;
+                    resetBlackout = true;
+                }
+
+                // Reset the 'resetBlackout' state
+                if (blackout == false && resetBlackout)
+                {
+                    resetBlackout = false;
+                }
+
+                // Update all clients with the new weather data.
+                TriggerClientEvent("vMenu:SetWeather", currentWeather, blackout, dynamicWeather);
+            }
+        }
+
+        /// <summary>
+        /// Select a new random weather type, based on the current weather and some patterns.
+        /// </summary>
+        private void RefreshWeather()
+        {
+            var random = new Random().Next(20);
+            if (currentWeather == "RAIN" || currentWeather == "THUNDER")
+            {
+                currentWeather = "CLEARING";
+            }
+            else if (currentWeather == "CLEARING")
+            {
+                currentWeather = "CLOUDS";
+            }
+            else
+            {
+                switch (random)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        currentWeather = (currentWeather == "EXTRASUNNY" ? "CLEAR" : "EXTRASUNNY");
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                        currentWeather = (currentWeather == "SMOG" ? "FOGGY" : "SMOG");
+                        break;
+                    case 9:
+                    case 10:
+                    case 11:
+                        currentWeather = (currentWeather == "CLOUDS" ? "OVERCAST" : "CLOUDS");
+                        break;
+                    case 12:
+                    case 13:
+                    case 14:
+                        currentWeather = (currentWeather == "CLOUDS" ? "OVERCAST" : "CLOUDS");
+                        break;
+                    case 15:
+                        currentWeather = (currentWeather == "OVERCAST" ? "THUNDER" : "OVERCAST");
+                        break;
+                    case 16:
+                        currentWeather = (currentWeather == "CLOUDS" ? "EXTRASUNNY" : "RAIN");
+                        break;
+                    case 17:
+                    case 18:
+                    case 19:
+                    default:
+                        currentWeather = (currentWeather == "FOGGY" ? "SMOG" : "FOGGY");
+                        break;
+                }
+            }
+
+        }
+        #endregion
+
+        #region Sync weather & time with clients
+        /// <summary>
+        /// Update the weather for all clients.
+        /// </summary>
+        /// <param name="newWeather"></param>
+        /// <param name="blackoutNew"></param>
+        /// <param name="dynamicWeatherNew"></param>
+        private void UpdateWeather(string newWeather, bool blackoutNew, bool dynamicWeatherNew)
+        {
+            // Update the new weather related variables.
+            currentWeather = newWeather;
+            blackout = blackoutNew;
+            dynamicWeather = dynamicWeatherNew;
+
+            // Reset the dynamic weather loop timer to another (default) 10 mintues.
+            weatherTimer = GetGameTimer();
+
+            // Update all clients.
+            TriggerClientEvent("vMenu:SetWeather", currentWeather, blackout, dynamicWeather);
+        }
+
+        /// <summary>
+        /// Set a new random clouds type and opacity for all clients.
+        /// </summary>
+        /// <param name="removeClouds"></param>
+        private void UpdateWeatherCloudsType(bool removeClouds)
+        {
+            if (removeClouds)
+            {
+                TriggerClientEvent("vMenu:SetClouds", 0f, "removed");
+            }
+            else
+            {
+                float opacity = float.Parse(new Random().NextDouble().ToString());
+                string type = CloudTypes[new Random().Next(0, CloudTypes.Count)];
+                TriggerClientEvent("vMenu:SetClouds", opacity, type);
+            }
+        }
+
+        /// <summary>
+        /// Set and sync the time to all clients.
+        /// </summary>
+        /// <param name="newHours"></param>
+        /// <param name="newMinutes"></param>
+        /// <param name="freezeTimeNew"></param>
+        private void UpdateTime(int newHours, int newMinutes, bool freezeTimeNew)
+        {
+            currentHours = newHours;
+            currentMinutes = newMinutes;
+            freezeTime = freezeTimeNew;
+            TriggerClientEvent("vMenu:SetTime", currentHours, currentMinutes, freezeTime);
         }
         #endregion
 
