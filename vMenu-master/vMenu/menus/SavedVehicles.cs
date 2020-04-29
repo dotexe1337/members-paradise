@@ -55,11 +55,11 @@ namespace vMenuClient
                 }
             };
 
-            for (int i = 0; i < 22; i++)
+            for (int vehClass = 0; vehClass < VehicleData.Vehicles.VehicleClasses.Count(); vehClass++)
             {
-                Menu categoryMenu = new Menu("Saved Vehicles", GetLabelText($"VEH_CLASS_{i}"));
+                Menu categoryMenu = new Menu("Saved Vehicles", VehicleData.Vehicles.VehicleClasses.ElementAt(vehClass).Key);
 
-                MenuItem categoryButton = new MenuItem(GetLabelText($"VEH_CLASS_{i}"), $"All saved vehicles from the {(GetLabelText($"VEH_CLASS_{i}"))} category.");
+                MenuItem categoryButton = new MenuItem(VehicleData.Vehicles.VehicleClasses.ElementAt(vehClass).Key);
                 subMenus.Add(categoryMenu);
                 MenuController.AddSubmenu(menu, categoryMenu);
                 menu.AddMenuItem(categoryButton);

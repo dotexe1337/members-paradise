@@ -55,7 +55,6 @@ namespace vMenuClient
             EventHandlers.Add("playerSpawned", new Action(SetAppearanceOnFirstSpawn));
             EventHandlers.Add("vMenu:GetOutOfCar", new Action<int, int>(GetOutOfCar));
             EventHandlers.Add("vMenu:PrivateMessage", new Action<string, string>(PrivateMessage));
-            EventHandlers.Add("vMenu:UpdateTeleportLocations", new Action<string>(UpdateTeleportLocations));
             Tick += WeatherSync;
             Tick += TimeSync;
         }
@@ -531,9 +530,5 @@ namespace vMenuClient
         /// Updates the teleports locations data from the server side locations.json, because that doesn't update client side on change.
         /// </summary>
         /// <param name="jsonData"></param>
-        private void UpdateTeleportLocations(string jsonData)
-        {
-            MiscSettings.TpLocations = JsonConvert.DeserializeObject<List<vMenuShared.ConfigManager.TeleportLocation>>(jsonData);
-        }
     }
 }

@@ -61,8 +61,6 @@ namespace vMenuClient
         public bool KbRadarKeys { get; private set; } = UserDefaults.KbRadarKeys;
         public bool KbPointKeys { get; private set; } = UserDefaults.KbPointKeys;
 
-        internal static List<vMenuShared.ConfigManager.TeleportLocation> TpLocations = new List<vMenuShared.ConfigManager.TeleportLocation>();
-
         /// <summary>
         /// Creates the menu.
         /// </summary>
@@ -83,12 +81,6 @@ namespace vMenuClient
             menu = new Menu(Game.Player.Name, "Misc Settings");
             teleportOptionsMenu = new Menu(Game.Player.Name, "Teleport Options");
             developerToolsMenu = new Menu(Game.Player.Name, "Development Tools");
-
-            // teleport menu
-            Menu teleportMenu = new Menu(Game.Player.Name, "Teleport Locations");
-            MenuItem teleportMenuBtn = new MenuItem("Teleport Locations", "Teleport to pre-configured locations, added by the server owner.");
-            MenuController.AddSubmenu(menu, teleportMenu);
-            MenuController.BindMenuItem(menu, teleportMenu, teleportMenuBtn);
 
             // keybind settings menu
             Menu keybindMenu = new Menu(Game.Player.Name, "Keybind Settings");
@@ -337,46 +329,6 @@ namespace vMenuClient
                 {
                     teleportOptionsMenu.AddMenuItem(tpToCoord);
                 }
-                if (IsAllowed(Permission.MSTeleportLocations))
-                {
-                    teleportOptionsMenu.AddMenuItem(teleportMenuBtn);
-
-                    MenuController.AddSubmenu(teleportOptionsMenu, teleportMenu);
-                    MenuController.BindMenuItem(teleportOptionsMenu, teleportMenu, teleportMenuBtn);
-                    teleportMenuBtn.Label = "→→→";
-
-                    teleportMenu.OnMenuOpen += (sender) =>
-                    {
-                        if (teleportMenu.Size != TpLocations.Count())
-                        {
-                            teleportMenu.ClearMenuItems();
-                            foreach (var location in TpLocations)
-                            {
-                                var x = Math.Round(location.coordinates.X, 2);
-                                var y = Math.Round(location.coordinates.Y, 2);
-                                var z = Math.Round(location.coordinates.Z, 2);
-                                var heading = Math.Round(location.heading, 2);
-                                MenuItem tpBtn = new MenuItem(location.name, $"Teleport to ~y~{location.name}~n~~s~x: ~y~{x}~n~~s~y: ~y~{y}~n~~s~z: ~y~{z}~n~~s~heading: ~y~{heading}") { ItemData = location };
-                                teleportMenu.AddMenuItem(tpBtn);
-                            }
-                        }
-                    };
-
-                    teleportMenu.OnItemSelect += async (sender, item, index) =>
-                    {
-                        if (item.ItemData is vMenuShared.ConfigManager.TeleportLocation tl)
-                        {
-                            await TeleportToCoords(tl.coordinates, true);
-                            SetEntityHeading(Game.PlayerPed.Handle, tl.heading);
-                            SetGameplayCamRelativeHeading(0f);
-                        }
-                    };
-
-                    if (IsAllowed(Permission.MSTeleportSaveLocation))
-                    {
-                        teleportOptionsMenu.AddMenuItem(saveLocationBtn);
-                    }
-                }
 
             }
 
@@ -546,11 +498,6 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(thermalVision);
             }
-            if (IsAllowed(Permission.MSLocationBlips))
-            {
-                menu.AddMenuItem(locationBlips);
-                ToggleBlips(ShowLocationBlips);
-            }
             if (IsAllowed(Permission.MSPlayerBlips))
             {
                 menu.AddMenuItem(playerBlips);
@@ -659,11 +606,6 @@ namespace vMenuClient
                 {
                     LockCameraY = _checked;
                 }
-                else if (item == locationBlips)
-                {
-                    ToggleBlips(_checked);
-                    ShowLocationBlips = _checked;
-                }
                 else if (item == playerBlips)
                 {
                     ShowPlayerBlips = _checked;
@@ -711,72 +653,5 @@ namespace vMenuClient
             }
             return menu;
         }
-
-        private struct Blip
-        {
-            public readonly Vector3 Location;
-            public readonly int Sprite;
-            public readonly string Name;
-            public readonly int Color;
-            public readonly int blipID;
-
-            public Blip(Vector3 Location, int Sprite, string Name, int Color, int blipID)
-            {
-                this.Location = Location;
-                this.Sprite = Sprite;
-                this.Name = Name;
-                this.Color = Color;
-                this.blipID = blipID;
-            }
-        }
-
-        private List<Blip> blips = new List<Blip>();
-
-        /// <summary>
-        /// Toggles blips on/off.
-        /// </summary>
-        /// <param name="enable"></param>
-        private void ToggleBlips(bool enable)
-        {
-            if (enable)
-            {
-                try
-                {
-                    foreach (var bl in vMenuShared.ConfigManager.GetLocationBlipsData())
-                    {
-                        int blipID = AddBlipForCoord(bl.coordinates.X, bl.coordinates.Y, bl.coordinates.Z);
-                        SetBlipSprite(blipID, bl.spriteID);
-                        BeginTextCommandSetBlipName("STRING");
-                        AddTextComponentSubstringPlayerName(bl.name);
-                        EndTextCommandSetBlipName(blipID);
-                        SetBlipColour(blipID, bl.color);
-                        SetBlipAsShortRange(blipID, true);
-
-                        Blip b = new Blip(bl.coordinates, bl.spriteID, bl.name, bl.color, blipID);
-                        blips.Add(b);
-                    }
-                }
-                catch (JsonReaderException ex)
-                {
-                    Debug.Write($"\n\n[vMenu] An error occurred while loading the locations.json file. Please contact the server owner to resolve this.\nWhen contacting the owner, provide the following error details:\n{ex.Message}.\n\n\n");
-                }
-            }
-            else
-            {
-                if (blips.Count > 0)
-                {
-                    foreach (Blip blip in blips)
-                    {
-                        int id = blip.blipID;
-                        if (DoesBlipExist(id))
-                        {
-                            RemoveBlip(ref id);
-                        }
-                    }
-                }
-                blips.Clear();
-            }
-        }
-
     }
 }

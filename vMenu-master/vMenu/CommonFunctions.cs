@@ -3230,11 +3230,6 @@ namespace vMenuClient
                 Notify.Error(CommonErrors.InvalidInput);
                 return;
             }
-            if (vMenuShared.ConfigManager.GetTeleportLocationsData().Any(loc => loc.name == locationName))
-            {
-                Notify.Error("This location name is already used, please use a different name.");
-                return;
-            }
             TriggerServerEvent("vMenu:SaveTeleportLocation", JsonConvert.SerializeObject(new vMenuShared.ConfigManager.TeleportLocation(locationName, pos, heading)));
             Notify.Success("The location was successfully saved.");
         }
