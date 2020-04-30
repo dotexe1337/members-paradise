@@ -1107,11 +1107,6 @@ namespace vMenuClient
 
             //var vehClass = GetVehicleClassFromName(vehicleHash);
             int modelClass = GetVehicleClassFromName(vehicleHash);
-            if (!VehicleSpawner.allowedCategories[modelClass])
-            {
-                Notify.Alert("You are not allowed to spawn this vehicle, because it belongs to a category which is restricted by the server owner.");
-                return;
-            }
 
             if (!skipLoad)
             {

@@ -287,12 +287,6 @@ namespace vMenuClient
                 "rapide",
             };
             #endregion
-            #region Acura
-            public static List<string> Acura { get; } = new List<string>()
-            {
-                "furoregt",
-            };
-            #endregion
             #region Audi
             public static List<string> Audi { get; } = new List<string>()
             {
@@ -724,7 +718,6 @@ namespace vMenuClient
                 ["Motorcycle Pack"] = Motorcycles,
                 ["Boats"] = Boats,
                 ["Aston Martin"] = AstonMartin,
-                ["Acura"] = Acura,
                 ["Audi"] = Audi,
                 ["BMW"] = BMW,
                 ["Bugatti"] = Bugatti,

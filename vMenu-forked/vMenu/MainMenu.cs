@@ -36,7 +36,6 @@ namespace vMenuClient
         public static SavedVehicles SavedVehiclesMenu { get; private set; }
         public static PersonalVehicle PersonalVehicleMenu { get; private set; }
         public static VehicleOptions VehicleOptionsMenu { get; private set; }
-        public static VehicleSpawner VehicleSpawnerMenu { get; private set; }
         public static PlayerAppearance PlayerAppearanceMenu { get; private set; }
         public static MpPedCustomization MpPedCustomizationMenu { get; private set; }
         public static TimeOptions TimeOptionsMenu { get; private set; }
@@ -306,15 +305,6 @@ namespace vMenuClient
         public static void SetPermissions(string permissionsList)
         {
             vMenuShared.PermissionsManager.SetPermissions(permissionsList);
-
-            VehicleSpawner.allowedCategories = new List<bool>()
-            {
-                
-            };
-            for (int i = 0; i < VehicleData.Vehicles.VehicleClasses.Count(); i++)
-            {
-                VehicleSpawner.allowedCategories.Add(true);
-            }
             ArePermissionsSetup = true;
 
             TriggerServerEvent("vMenu:IsResourceUpToDate");
@@ -574,18 +564,6 @@ namespace vMenuClient
                 VehicleOptionsMenu = new VehicleOptions();
                 Menu menu = VehicleOptionsMenu.GetMenu();
                 MenuItem button = new MenuItem("Vehicle Options", "Here you can change common vehicle options, as well as tune & style your vehicle.")
-                {
-                    Label = "→→→"
-                };
-                AddMenu(VehicleSubmenu, menu, button);
-            }
-
-            // Add the vehicle spawner menu.
-            if (IsAllowed(Permission.VSMenu))
-            {
-                VehicleSpawnerMenu = new VehicleSpawner();
-                Menu menu = VehicleSpawnerMenu.GetMenu();
-                MenuItem button = new MenuItem("Vehicle Spawner", "Spawn a vehicle by name or choose one from a specific category.")
                 {
                     Label = "→→→"
                 };

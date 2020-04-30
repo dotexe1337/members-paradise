@@ -18,8 +18,7 @@ namespace vMenuClient
         // Variables
         private Menu menu;
         private Menu selectedVehicleMenu = new Menu("Manage Vehicle", "Manage this saved vehicle.");
-        private Menu unavailableVehiclesMenu = new Menu("Unavailable Vehicles", "Unavailable Saved Vehicles");
-        private Menu oldVehiclesMenu = new Menu("Old Vehicles", "Old Saved Vehicles");
+        private Menu unavailableVehiclesMenu = new Menu("Missing Vehicles", "Unavailable Saved Vehicles");
         private Dictionary<string, VehicleInfo> savedVehicles = new Dictionary<string, VehicleInfo>();
         private List<Menu> subMenus = new List<Menu>();
         private Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>> svMenuItems = new Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>>();
@@ -56,11 +55,11 @@ namespace vMenuClient
                 }
             };
 
-            for (int vehClass = 0; vehClass < VehicleData.Vehicles.VehicleClasses.Count(); vehClass++)
+            for (int i = 0; i < 22; i++)
             {
-                Menu categoryMenu = new Menu("Saved Vehicles", VehicleData.Vehicles.VehicleClasses.ElementAt(vehClass).Key);
+                Menu categoryMenu = new Menu("Saved Vehicles", GetLabelText($"VEH_CLASS_{i}"));
 
-                MenuItem categoryButton = new MenuItem(VehicleData.Vehicles.VehicleClasses.ElementAt(vehClass).Key);
+                MenuItem categoryButton = new MenuItem(GetLabelText($"VEH_CLASS_{i}"), $"All saved vehicles from the {(GetLabelText($"VEH_CLASS_{i}"))} category.");
                 subMenus.Add(categoryMenu);
                 MenuController.AddSubmenu(menu, categoryMenu);
                 menu.AddMenuItem(categoryButton);
@@ -86,6 +85,7 @@ namespace vMenuClient
             menu.AddMenuItem(unavailableModels);
             MenuController.BindMenuItem(menu, unavailableVehiclesMenu, unavailableModels);
             MenuController.AddSubmenu(menu, unavailableVehiclesMenu);
+
 
             MenuController.AddMenu(selectedVehicleMenu);
             MenuItem spawnVehicle = new MenuItem("Spawn Vehicle", "Spawn this saved vehicle.");
@@ -113,14 +113,7 @@ namespace vMenuClient
             {
                 if (item == spawnVehicle)
                 {
-                    if (MainMenu.VehicleSpawnerMenu != null)
-                    {
-                        SpawnVehicle(currentlySelectedVehicle.Value.model, MainMenu.VehicleSpawnerMenu.SpawnInVehicle, MainMenu.VehicleSpawnerMenu.ReplaceVehicle, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
-                    }
-                    else
-                    {
-                        SpawnVehicle(currentlySelectedVehicle.Value.model, true, true, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
-                    }
+                    SpawnVehicle(currentlySelectedVehicle.Value.model, true, true, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
                 }
                 else if (item == renameVehicle)
                 {

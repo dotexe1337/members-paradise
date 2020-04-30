@@ -632,15 +632,6 @@ namespace vMenuClient
                 prefs.Add("vehicleBikeSeatbelt", VehicleBikeSeatbelt);
             }
 
-            if (MainMenu.VehicleSpawnerMenu != null)
-            {
-                VehicleSpawnerReplacePrevious = MainMenu.VehicleSpawnerMenu.ReplaceVehicle;
-                prefs.Add("vehicleSpawnerReplacePrevious", VehicleSpawnerReplacePrevious);
-
-                VehicleSpawnerSpawnInside = MainMenu.VehicleSpawnerMenu.SpawnInVehicle;
-                prefs.Add("vehicleSpawnerSpawnInside", VehicleSpawnerSpawnInside);
-            }
-
             if (MainMenu.VoiceChatSettingsMenu != null)
             {
                 VoiceChatEnabled = MainMenu.VoiceChatSettingsMenu.EnableVoicechat;
