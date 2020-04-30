@@ -1,5 +1,5 @@
 -- Script Created By: MrDaGree
--- Forked by dotexe
+-- Forked by dotexe for muh pretty graphics
 -- If you wish to use this, dont claim it as your own.
 -- This is a client.lua script. This must be ran BY the client.
 
@@ -13,7 +13,7 @@ function DrawText3D(x,y,z, text) -- some useful function, use it if you want!
     local px,py,pz=table.unpack(GetGameplayCamCoords())
     local dist = GetDistanceBetweenCoords(px,py,pz, x,y,z, 1)
 
-    local scale = (1/dist)*2.5
+    local scale = (1/dist)*3.75
     local fov = (1/GetGameplayCamFov())*100
     local scale = scale*fov
     
