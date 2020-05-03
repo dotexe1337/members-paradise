@@ -689,16 +689,6 @@ namespace vMenuClient
                     DrawTextOnScreen($"~c~{timestring}", 0.208f + safeZoneSizeX, GetSafeZoneSize() - GetTextScaleHeight(0.4f, 1), 0.40f, Alignment.Center);
                     ResetScriptGfxAlign();
                 }
-
-                if (MainMenu.MiscSettingsMenu.ShowSpeedoKmh && Game.PlayerPed.IsInVehicle())
-                {
-                    ShowSpeedKmh();
-                }
-
-                if (MainMenu.MiscSettingsMenu.ShowSpeedoMph && Game.PlayerPed.IsInVehicle())
-                {
-                    ShowSpeedMph();
-                }
             }
             else
             {
@@ -817,26 +807,6 @@ namespace vMenuClient
             int speed = int.Parse(Math.Round(GetEntitySpeed(GetVehicle().Handle) * 3.6f).ToString());
             DrawTextOnScreen($"{speed} KM/h", 0.995f, 0.955f, 0.7f, Alignment.Right, 4);
         }
-
-        /// <summary>
-        /// Shows the current speed in mph.
-        /// Must be in a vehicle.
-        /// </summary>
-        private void ShowSpeedMph()
-        {
-            var speed = Math.Round(GetEntitySpeed(GetVehicle().Handle) * 2.23694f);
-
-            if (MainMenu.MiscSettingsMenu.ShowSpeedoKmh)
-            {
-                DrawTextOnScreen($"{speed} MPH", 0.995f, 0.925f, 0.7f, Alignment.Right, 4);
-                HideHudComponentThisFrame((int)HudComponent.StreetName);
-            }
-            else
-            {
-                DrawTextOnScreen($"{speed} MPH", 0.995f, 0.955f, 0.7f, Alignment.Right, 4);
-            }
-        }
-        #endregion
         int radarSwitchTimer = 0;
         int lastPressedPoint = 0;
         /// <summary>
@@ -3134,6 +3104,7 @@ namespace vMenuClient
                 }
             }
         }
+        #endregion
 
         /// <summary>
         /// Pickup a snowball.
@@ -3222,7 +3193,7 @@ namespace vMenuClient
                 SetWeatherTypeNowPersist(MainMenu.PlayerTimeWeatherOptionsMenu.weatherList.GetCurrentSelection());
             }
         }
-
+        
         public async Task PlayerTimeOptions()
         {
             await Delay(100);
@@ -3232,9 +3203,6 @@ namespace vMenuClient
                 PauseClock(MainMenu.PlayerTimeWeatherOptionsMenu.timeFrozen.Checked);
             }
         }
-
-
-            #endregion
-       
+        #endregion
     }
 }

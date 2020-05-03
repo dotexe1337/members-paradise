@@ -19,9 +19,7 @@ namespace vMenuClient
         private Menu menu;
         private Menu teleportOptionsMenu;
         private Menu developerToolsMenu;
-
-        public bool ShowSpeedoKmh { get; private set; } = UserDefaults.MiscSpeedKmh;
-        public bool ShowSpeedoMph { get; private set; } = UserDefaults.MiscSpeedMph;
+        public bool ShowSpeedometer { get; private set; } = false;
         public bool ShowCoordinates { get; private set; } = false;
         public bool HideHud { get; private set; } = false;
         public bool HideRadar { get; private set; } = false;
@@ -100,8 +98,7 @@ namespace vMenuClient
             MenuCheckboxItem rightAlignMenu = new MenuCheckboxItem("Right Align Menu", "If you want vMenu to appear on the left side of your screen, disable this option. This option will be saved immediately. You don't need to click save preferences.", MiscRightAlignMenu);
             MenuCheckboxItem disablePms = new MenuCheckboxItem("Disable Private Messages", "Prevent others from sending you a private message via the Online Players menu. This also prevents you from sending messages to other players.", MiscDisablePrivateMessages);
             MenuCheckboxItem disableControllerKey = new MenuCheckboxItem("Disable Controller Support", "This disables the controller menu toggle key. This does NOT disable the navigation buttons.", MiscDisableControllerSupport);
-            MenuCheckboxItem speedKmh = new MenuCheckboxItem("Show Speed KM/H", "Show a speedometer on your screen indicating your speed in KM/h.", ShowSpeedoKmh);
-            MenuCheckboxItem speedMph = new MenuCheckboxItem("Show Speed MPH", "Show a speedometer on your screen indicating your speed in MPH.", ShowSpeedoMph);
+            MenuCheckboxItem speedometer = new MenuCheckboxItem("Show Speedometer", "Show a speedometer on your screen indicating the speed in KM/H", ShowSpeedometer);
             MenuCheckboxItem coords = new MenuCheckboxItem("Show Coordinates", "Show your current coordinates at the top of your screen.", ShowCoordinates);
             MenuCheckboxItem hideRadar = new MenuCheckboxItem("Hide Radar", "Hide the radar/minimap.", HideRadar);
             MenuCheckboxItem hideHud = new MenuCheckboxItem("Hide Hud", "Hide all hud elements.", HideHud);
@@ -468,8 +465,7 @@ namespace vMenuClient
             menu.AddMenuItem(rightAlignMenu);
             menu.AddMenuItem(disablePms);
             menu.AddMenuItem(disableControllerKey);
-            menu.AddMenuItem(speedKmh);
-            menu.AddMenuItem(speedMph);
+            menu.AddMenuItem(speedometer);
             menu.AddMenuItem(keybindMenuBtn);
             keybindMenuBtn.Label = "→→→";
             if (IsAllowed(Permission.MSConnectionMenu))
@@ -553,13 +549,10 @@ namespace vMenuClient
                     MiscDisableControllerSupport = _checked;
                     MenuController.EnableMenuToggleKeyOnController = !_checked;
                 }
-                else if (item == speedKmh)
+                else if (item == speedometer)
                 {
-                    ShowSpeedoKmh = _checked;
-                }
-                else if (item == speedMph)
-                {
-                    ShowSpeedoMph = _checked;
+                    ShowSpeedometer = _checked;
+                    ExecuteCommand("togglespeedo");
                 }
                 else if (item == hideHud)
                 {
