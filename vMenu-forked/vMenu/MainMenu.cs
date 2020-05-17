@@ -36,6 +36,8 @@ namespace vMenuClient
         public static SavedVehicles SavedVehiclesMenu { get; private set; }
         public static PersonalVehicle PersonalVehicleMenu { get; private set; }
         public static VehicleOptions VehicleOptionsMenu { get; private set; }
+        public static VehicleSpawner VehicleSpawnerMenu { get; private set; }
+
         public static PlayerAppearance PlayerAppearanceMenu { get; private set; }
         public static MpPedCustomization MpPedCustomizationMenu { get; private set; }
         public static TimeOptions TimeOptionsMenu { get; private set; }
@@ -305,12 +307,37 @@ namespace vMenuClient
         public static void SetPermissions(string permissionsList)
         {
             vMenuShared.PermissionsManager.SetPermissions(permissionsList);
+
+            VehicleSpawner.allowedCategories = new List<bool>()
+            {
+                IsAllowed(Permission.VSCompacts, checkAnyway: true),
+                IsAllowed(Permission.VSSedans, checkAnyway: true),
+                IsAllowed(Permission.VSSUVs, checkAnyway: true),
+                IsAllowed(Permission.VSCoupes, checkAnyway: true),
+                IsAllowed(Permission.VSMuscle, checkAnyway: true),
+                IsAllowed(Permission.VSSportsClassic, checkAnyway: true),
+                IsAllowed(Permission.VSSports, checkAnyway: true),
+                IsAllowed(Permission.VSSuper, checkAnyway: true),
+                IsAllowed(Permission.VSMotorcycles, checkAnyway: true),
+                IsAllowed(Permission.VSOffRoad, checkAnyway: true),
+                IsAllowed(Permission.VSIndustrial, checkAnyway: true),
+                IsAllowed(Permission.VSUtility, checkAnyway: true),
+                IsAllowed(Permission.VSVans, checkAnyway: true),
+                IsAllowed(Permission.VSCycles, checkAnyway: true),
+                IsAllowed(Permission.VSBoats, checkAnyway: true),
+                IsAllowed(Permission.VSHelicopters, checkAnyway: true),
+                IsAllowed(Permission.VSPlanes, checkAnyway: true),
+                IsAllowed(Permission.VSService, checkAnyway: true),
+                IsAllowed(Permission.VSEmergency, checkAnyway: true),
+                IsAllowed(Permission.VSMilitary, checkAnyway: true),
+                IsAllowed(Permission.VSCommercial, checkAnyway: true),
+                IsAllowed(Permission.VSTrains, checkAnyway: true),
+            };
             ArePermissionsSetup = true;
 
             TriggerServerEvent("vMenu:IsResourceUpToDate");
         }
         #endregion
-
 
         /// <summary>
         /// Main OnTick task runs every game tick and handles all the menu stuff.
@@ -564,6 +591,18 @@ namespace vMenuClient
                 VehicleOptionsMenu = new VehicleOptions();
                 Menu menu = VehicleOptionsMenu.GetMenu();
                 MenuItem button = new MenuItem("Vehicle Options", "Here you can change common vehicle options, as well as tune & style your vehicle.")
+                {
+                    Label = "→→→"
+                };
+                AddMenu(VehicleSubmenu, menu, button);
+            }
+
+            // Add the vehicle spawner menu.
+            if (IsAllowed(Permission.VSMenu))
+            {
+                VehicleSpawnerMenu = new VehicleSpawner();
+                Menu menu = VehicleSpawnerMenu.GetMenu();
+                MenuItem button = new MenuItem("Vehicle Spawner", "Spawn a vehicle by name or choose one from a specific category.")
                 {
                     Label = "→→→"
                 };
