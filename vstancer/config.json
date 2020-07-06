@@ -3,7 +3,7 @@
   "DisableMenu": false,
   "ExposeCommand": false,
   "ExposeEvent": false,
-  "ScriptRange": 150.0,
+  "ScriptRange": 2147483647.0,
   "Timer": 1000,
   "ToggleMenuControl": 167,
   "FloatStep": 0.01,
