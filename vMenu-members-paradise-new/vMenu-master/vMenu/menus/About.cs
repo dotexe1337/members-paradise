@@ -28,7 +28,7 @@ namespace vMenuClient
             {
                 Label = $"~h~{MainMenu.Version}~h~"
             };
-            MenuItem credits = new MenuItem("Credits", "vMenu was originally made by ~b~Vespura~s~. This version has been forked by ~b~dotexe~s~ for Members Paradise. Thanks to the staff & dev team for their amazing work.");
+            MenuItem credits = new MenuItem("Credits", "vMenu was originally made by ~b~Vespura~s~. This version has been forked by ~b~dotexe~s~ for ~r~Members Paradise~s~. Thanks to the staff & dev team for their amazing work.");
 
             menu.AddMenuItem(version);
             menu.AddMenuItem(credits);
