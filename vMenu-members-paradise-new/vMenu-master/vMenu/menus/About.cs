@@ -21,26 +21,15 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu("vMenu", "About vMenu");
+            menu = new Menu("Members Paradise", "About Members Paradise");
 
             // Create menu items.
-            MenuItem version = new MenuItem("vMenu Version", $"This server is using vMenu ~b~~h~{MainMenu.Version}~h~~s~.")
+            MenuItem version = new MenuItem("vMenu-MP Version", $"This server is using vMenu-MP ~b~~h~{MainMenu.Version}~h~~s~.")
             {
                 Label = $"~h~{MainMenu.Version}~h~"
             };
-            MenuItem credits = new MenuItem("About vMenu / Credits", "vMenu is made by ~b~Vespura~s~. For more info, checkout ~b~www.vespura.com/vmenu~s~. Thank you to: Deltanic, Brigliar, IllusiveTea, Shayan Doust and zr0iq for your contributions.");
+            MenuItem credits = new MenuItem("Credits", "vMenu was originally made by ~b~Vespura~s~. This version has been forked by ~b~dotexe~s~ for Members Paradise. Thanks to the staff & dev team for their amazing work.");
 
-            string serverInfoMessage = vMenuShared.ConfigManager.GetSettingsString(vMenuShared.ConfigManager.Setting.vmenu_server_info_message);
-            if (!string.IsNullOrEmpty(serverInfoMessage))
-            {
-                MenuItem serverInfo = new MenuItem("Server Info", serverInfoMessage);
-                string siteUrl = vMenuShared.ConfigManager.GetSettingsString(vMenuShared.ConfigManager.Setting.vmenu_server_info_website_url);
-                if (!string.IsNullOrEmpty(siteUrl))
-                {
-                    serverInfo.Label = $"{siteUrl}";
-                }
-                menu.AddMenuItem(serverInfo);
-            }
             menu.AddMenuItem(version);
             menu.AddMenuItem(credits);
         }

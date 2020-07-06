@@ -785,7 +785,7 @@ namespace vMenuClient
             // Add About Menu.
             AboutMenu = new About();
             Menu sub = AboutMenu.GetMenu();
-            MenuItem btn = new MenuItem("About vMenu", "Information about vMenu.")
+            MenuItem btn = new MenuItem("About Members Paradise", "Information about Members Paradise.")
             {
                 Label = "→→→"
             };
