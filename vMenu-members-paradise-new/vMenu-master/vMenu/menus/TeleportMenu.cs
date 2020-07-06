@@ -122,8 +122,12 @@ namespace vMenuClient
                 losSantosMenuBtn.Label = "→→→";
                 menu.AddMenuItem(losSantosMenuBtn);
 
+                MenuItem airportBtn = new MenuItem("Airport", "Teleport to the airport.");
+                losSantosMenu.AddMenuItem(airportBtn);
                 MenuItem docksBtn = new MenuItem("Docks", "Teleport to the docks.");
                 losSantosMenu.AddMenuItem(docksBtn);
+                MenuItem obsBtn = new MenuItem("Observatory", "Teleport to the observatory.");
+                losSantosMenu.AddMenuItem(obsBtn);
 
                 losSantosMenu.OnItemSelect += async (sender, item, index) =>
                 {
@@ -138,7 +142,17 @@ namespace vMenuClient
                     if (item == docksBtn)
                     {
                         await TeleportToCoords(new Vector3(978.33f, -3153.39f, 5.38f), true);
-                        SetEntityHeading(entity, 359.22f);
+                        SetEntityHeading(entity, 360f);
+                    }
+                    if(item == airportBtn)
+                    {
+                        await TeleportToCoords(new Vector3(-1010.98f, -3138.41f, 13.41f), true);
+                        SetEntityHeading(entity, 60f);
+                    }
+                    if(item == obsBtn)
+                    {
+                        await TeleportToCoords(new Vector3(-416.82f, 1215.24f, 325.11f), true);
+                        SetEntityHeading(entity, 51.87f);
                     }
                 };
             }
