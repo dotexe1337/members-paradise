@@ -798,15 +798,7 @@ namespace vMenuClient
         }
         #endregion
         #region Private ShowSpeed Functions
-        /// <summary>
-        /// Shows the current speed in km/h.
-        /// Must be in a vehicle.
-        /// </summary>
-        private void ShowSpeedKmh()
-        {
-            int speed = int.Parse(Math.Round(GetEntitySpeed(GetVehicle().Handle) * 3.6f).ToString());
-            DrawTextOnScreen($"{speed} KM/h", 0.995f, 0.955f, 0.7f, Alignment.Right, 4);
-        }
+        #endregion
         int radarSwitchTimer = 0;
         int lastPressedPoint = 0;
         /// <summary>
@@ -3104,7 +3096,6 @@ namespace vMenuClient
                 }
             }
         }
-        #endregion
 
         /// <summary>
         /// Pickup a snowball.
@@ -3179,6 +3170,7 @@ namespace vMenuClient
         }
         #endregion
 
+        // Patched by dotexe for client-side time & weather
         #region Time & Weather Options
         public async Task PlayerWeatherOptions()
         {
@@ -3193,7 +3185,7 @@ namespace vMenuClient
                 SetWeatherTypeNowPersist(MainMenu.PlayerTimeWeatherOptionsMenu.weatherList.GetCurrentSelection());
             }
         }
-        
+
         public async Task PlayerTimeOptions()
         {
             await Delay(100);

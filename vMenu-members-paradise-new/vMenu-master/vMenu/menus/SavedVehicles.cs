@@ -113,7 +113,14 @@ namespace vMenuClient
             {
                 if (item == spawnVehicle)
                 {
-                    SpawnVehicle(currentlySelectedVehicle.Value.model, true, true, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
+                    if (MainMenu.VehicleSpawnerMenu != null)
+                    {
+                        SpawnVehicle(currentlySelectedVehicle.Value.model, MainMenu.VehicleSpawnerMenu.SpawnInVehicle, MainMenu.VehicleSpawnerMenu.ReplaceVehicle, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
+                    }
+                    else
+                    {
+                        SpawnVehicle(currentlySelectedVehicle.Value.model, true, true, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
+                    }
                 }
                 else if (item == renameVehicle)
                 {

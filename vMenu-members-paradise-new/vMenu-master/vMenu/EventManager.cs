@@ -55,6 +55,7 @@ namespace vMenuClient
             EventHandlers.Add("playerSpawned", new Action(SetAppearanceOnFirstSpawn));
             EventHandlers.Add("vMenu:GetOutOfCar", new Action<int, int>(GetOutOfCar));
             EventHandlers.Add("vMenu:PrivateMessage", new Action<string, string>(PrivateMessage));
+            EventHandlers.Add("vMenu:UpdateTeleportLocations", new Action<string>(UpdateTeleportLocations));
             Tick += WeatherSync;
             Tick += TimeSync;
         }
@@ -94,6 +95,7 @@ namespace vMenuClient
         private void SetAddons()
         {
             // reset addons
+            VehicleSpawner.AddonVehicles = new Dictionary<string, uint>();
             WeaponOptions.AddonWeapons = new Dictionary<string, uint>();
             PlayerAppearance.AddonPeds = new Dictionary<string, uint>();
 
@@ -102,6 +104,18 @@ namespace vMenuClient
             {
                 // load new addons.
                 var addons = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(jsonData);
+
+                // load vehicles
+                if (addons.ContainsKey("vehicles"))
+                {
+                    foreach (string addon in addons["vehicles"])
+                    {
+                        if (!VehicleSpawner.AddonVehicles.ContainsKey(addon))
+                            VehicleSpawner.AddonVehicles.Add(addon, (uint)GetHashKey(addon));
+                        else
+                            Debug.WriteLine($"[vMenu] [Error] Your addons.json file contains 2 or more entries with the same vehicle name! ({addon}) Please remove duplicate lines!");
+                    }
+                }
 
                 // load weapons
                 if (addons.ContainsKey("weapons"))
@@ -216,8 +230,9 @@ namespace vMenuClient
         /// OnTick loop to keep the weather synced.
         /// </summary>
         /// <returns></returns>
-        private async Task WeatherSync() // fixed for client-side weather and time
+        private async Task WeatherSync()
         {
+            // Patched by dotexe for client-side time & weather
             if (MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu.GetMenu() != null && !MainMenu.PlayerTimeWeatherOptionsMenu.clientSidedEnabled.Checked && GetSettingsBool(Setting.vmenu_enable_weather_sync))
             {
                 // Weather is set every 500ms, if it's changed, then it will transition to the new phase within 20 seconds.
@@ -249,18 +264,24 @@ namespace vMenuClient
                         }
                         await Delay(100);
                     }
+
                     // Reset the intensity to make the game handle the intensity correctly.
                     SetRainFxIntensity(-1f);
+
                     // Set the new weather type to be persistent.
                     SetWeatherTypeNow(currentWeatherType);
                     justChanged = true;
+
                     // Dbg logging
                     Log("done changing weather type (duration: 45.5 seconds)");
+
                     // Stop currently switching weather type checks.
                     CurrentlySwitchingWeather = false;
+
                     // Reset the menu subtitle counter pre-text.
                     if (MainMenu.WeatherOptionsMenu != null)
                         MainMenu.WeatherOptionsMenu.GetMenu().CounterPreText = null;
+
                     TriggerEvent("vMenu:WeatherChangeComplete", previousWeather, currentWeatherType);
                 }
                 if (!justChanged)
@@ -275,10 +296,12 @@ namespace vMenuClient
         /// This function will take care of time sync. It'll be called once, and never stop.
         /// </summary>
         /// <returns></returns>
-        private async Task TimeSync() // fixed for client-side weather and time
+        private async Task TimeSync()
         {
+            // Patched by dotexe for client-side time & weather
             if (MainMenu.PlayerTimeWeatherOptionsMenu != null && MainMenu.PlayerTimeWeatherOptionsMenu.GetMenu() != null && !MainMenu.PlayerTimeWeatherOptionsMenu.clientSidedEnabled.Checked && GetSettingsBool(Setting.vmenu_enable_time_sync))
             {
+
                 // If time is frozen...
                 if (freezeTime)
                 {
@@ -517,5 +540,9 @@ namespace vMenuClient
         /// Updates the teleports locations data from the server side locations.json, because that doesn't update client side on change.
         /// </summary>
         /// <param name="jsonData"></param>
+        private void UpdateTeleportLocations(string jsonData)
+        {
+            MiscSettings.TpLocations = JsonConvert.DeserializeObject<List<vMenuShared.ConfigManager.TeleportLocation>>(jsonData);
+        }
     }
 }

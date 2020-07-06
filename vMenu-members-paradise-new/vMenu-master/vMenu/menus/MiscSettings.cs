@@ -19,7 +19,9 @@ namespace vMenuClient
         private Menu menu;
         private Menu teleportOptionsMenu;
         private Menu developerToolsMenu;
-        public bool ShowSpeedometer { get; private set; } = false;
+
+        public bool ShowSpeedoKmh { get; private set; } = UserDefaults.MiscSpeedKmh;
+        public bool ShowSpeedoMph { get; private set; } = UserDefaults.MiscSpeedMph;
         public bool ShowCoordinates { get; private set; } = false;
         public bool HideHud { get; private set; } = false;
         public bool HideRadar { get; private set; } = false;
@@ -59,6 +61,8 @@ namespace vMenuClient
         public bool KbRadarKeys { get; private set; } = UserDefaults.KbRadarKeys;
         public bool KbPointKeys { get; private set; } = UserDefaults.KbPointKeys;
 
+        internal static List<vMenuShared.ConfigManager.TeleportLocation> TpLocations = new List<vMenuShared.ConfigManager.TeleportLocation>();
+
         /// <summary>
         /// Creates the menu.
         /// </summary>
@@ -76,8 +80,7 @@ namespace vMenuClient
             }
 
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Misc Settings");
-            teleportOptionsMenu = new Menu(Game.Player.Name, "Teleport Options");
+            menu = new Menu(Game.Player.Name, "Settings");
             developerToolsMenu = new Menu(Game.Player.Name, "Development Tools");
 
             // keybind settings menu
@@ -86,8 +89,19 @@ namespace vMenuClient
             MenuController.AddSubmenu(menu, keybindMenu);
             MenuController.BindMenuItem(menu, keybindMenu, keybindMenuBtn);
 
+            // visual settings menu
+            Menu visualMenu = new Menu(Game.Player.Name, "Visual Settings");
+            MenuItem visualMenuBtn = new MenuItem("Visual Settings", "Enable or disable visual settings.");
+            MenuController.AddSubmenu(menu, visualMenu);
+            MenuController.BindMenuItem(menu, visualMenu, visualMenuBtn);
+
+            // misc settings menu
+            Menu miscMenu = new Menu(Game.Player.Name, "Misc Settings");
+            MenuItem miscMenuBtn = new MenuItem("Misc Settings", "Enable or disable misc settings.");
+            MenuController.AddSubmenu(menu, miscMenu);
+            MenuController.BindMenuItem(menu, miscMenu, miscMenuBtn);
+
             // keybind settings menu items
-            MenuCheckboxItem kbTpToWaypoint = new MenuCheckboxItem("Teleport To Waypoint", "Teleport to your waypoint when pressing the keybind. By default, this keybind is set to ~r~F7~s~, server owners are able to change this however so ask them if you don't know what it is.", KbTpToWaypoint);
             MenuCheckboxItem kbDriftMode = new MenuCheckboxItem("Drift Mode", "Makes your vehicle have almost no traction while holding left shift on keyboard, or X on controller.", KbDriftMode);
             MenuCheckboxItem kbRecordKeys = new MenuCheckboxItem("Recording Controls", "Enables or disables the recording (gameplay recording for the Rockstar editor) hotkeys on both keyboard and controller.", KbRecordKeys);
             MenuCheckboxItem kbRadarKeys = new MenuCheckboxItem("Minimap Controls", "Press the Multiplayer Info (z on keyboard, down arrow on controller) key to switch between expanded radar and normal radar.", KbRadarKeys);
@@ -98,7 +112,8 @@ namespace vMenuClient
             MenuCheckboxItem rightAlignMenu = new MenuCheckboxItem("Right Align Menu", "If you want vMenu to appear on the left side of your screen, disable this option. This option will be saved immediately. You don't need to click save preferences.", MiscRightAlignMenu);
             MenuCheckboxItem disablePms = new MenuCheckboxItem("Disable Private Messages", "Prevent others from sending you a private message via the Online Players menu. This also prevents you from sending messages to other players.", MiscDisablePrivateMessages);
             MenuCheckboxItem disableControllerKey = new MenuCheckboxItem("Disable Controller Support", "This disables the controller menu toggle key. This does NOT disable the navigation buttons.", MiscDisableControllerSupport);
-            MenuCheckboxItem speedometer = new MenuCheckboxItem("Show Speedometer", "Show a speedometer on your screen indicating the speed in KM/H", ShowSpeedometer);
+            MenuCheckboxItem speedKmh = new MenuCheckboxItem("Show Speed KM/H", "Show a speedometer on your screen indicating your speed in KM/h.", ShowSpeedoKmh);
+            MenuCheckboxItem speedMph = new MenuCheckboxItem("Show Speed MPH", "Show a speedometer on your screen indicating your speed in MPH.", ShowSpeedoMph);
             MenuCheckboxItem coords = new MenuCheckboxItem("Show Coordinates", "Show your current coordinates at the top of your screen.", ShowCoordinates);
             MenuCheckboxItem hideRadar = new MenuCheckboxItem("Hide Radar", "Hide the radar/minimap.", HideRadar);
             MenuCheckboxItem hideHud = new MenuCheckboxItem("Hide Hud", "Hide all hud elements.", HideHud);
@@ -108,6 +123,7 @@ namespace vMenuClient
             {
                 RightIcon = MenuItem.Icon.TICK
             };
+            MenuItem exportData = new MenuItem("Export/Import Data", "Coming soon (TM): the ability to import and export your saved data.");
             MenuCheckboxItem joinQuitNotifs = new MenuCheckboxItem("Join / Quit Notifications", "Receive notifications when someone joins or leaves the server.", JoinQuitNotifications);
             MenuCheckboxItem deathNotifs = new MenuCheckboxItem("Death Notifications", "Receive notifications when someone dies or gets killed.", DeathNotifications);
             MenuCheckboxItem nightVision = new MenuCheckboxItem("Toggle Night Vision", "Enable or disable night vision.", false);
@@ -157,11 +173,7 @@ namespace vMenuClient
 
             keybindMenu.OnCheckboxChange += (sender, item, index, _checked) =>
             {
-                if (item == kbTpToWaypoint)
-                {
-                    KbTpToWaypoint = _checked;
-                }
-                else if (item == kbDriftMode)
+                if (item == kbDriftMode)
                 {
                     KbDriftMode = _checked;
                 }
@@ -231,103 +243,6 @@ namespace vMenuClient
             };
 
             // Teleportation options
-            if (IsAllowed(Permission.MSTeleportToWp) || IsAllowed(Permission.MSTeleportLocations) || IsAllowed(Permission.MSTeleportToCoord))
-            {
-                MenuItem teleportOptionsMenuBtn = new MenuItem("Teleport Options", "Various teleport options.") { Label = "→→→" };
-                menu.AddMenuItem(teleportOptionsMenuBtn);
-                MenuController.BindMenuItem(menu, teleportOptionsMenu, teleportOptionsMenuBtn);
-
-                MenuItem tptowp = new MenuItem("Teleport To Waypoint", "Teleport to the waypoint on your map.");
-                MenuItem tpToCoord = new MenuItem("Teleport To Coords", "Enter x, y, z coordinates and you will be teleported to that location.");
-                MenuItem saveLocationBtn = new MenuItem("Save Teleport Location", "Adds your current location to the teleport locations menu and saves it on the server.");
-                teleportOptionsMenu.OnItemSelect += async (sender, item, index) =>
-                {
-                    // Teleport to waypoint.
-                    if (item == tptowp)
-                    {
-                        TeleportToWp();
-                    }
-                    else if (item == tpToCoord)
-                    {
-                        string x = await GetUserInput("Enter X coordinate.");
-                        if (string.IsNullOrEmpty(x))
-                        {
-                            Notify.Error(CommonErrors.InvalidInput);
-                            return;
-                        }
-                        string y = await GetUserInput("Enter Y coordinate.");
-                        if (string.IsNullOrEmpty(y))
-                        {
-                            Notify.Error(CommonErrors.InvalidInput);
-                            return;
-                        }
-                        string z = await GetUserInput("Enter Z coordinate.");
-                        if (string.IsNullOrEmpty(z))
-                        {
-                            Notify.Error(CommonErrors.InvalidInput);
-                            return;
-                        }
-
-                        float posX = 0f;
-                        float posY = 0f;
-                        float posZ = 0f;
-
-                        if (!float.TryParse(x, out posX))
-                        {
-                            if (int.TryParse(x, out int intX))
-                            {
-                                posX = (float)intX;
-                            }
-                            else
-                            {
-                                Notify.Error("You did not enter a valid X coordinate.");
-                                return;
-                            }
-                        }
-                        if (!float.TryParse(y, out posY))
-                        {
-                            if (int.TryParse(y, out int intY))
-                            {
-                                posY = (float)intY;
-                            }
-                            else
-                            {
-                                Notify.Error("You did not enter a valid Y coordinate.");
-                                return;
-                            }
-                        }
-                        if (!float.TryParse(z, out posZ))
-                        {
-                            if (int.TryParse(z, out int intZ))
-                            {
-                                posZ = (float)intZ;
-                            }
-                            else
-                            {
-                                Notify.Error("You did not enter a valid Z coordinate.");
-                                return;
-                            }
-                        }
-
-                        await TeleportToCoords(new Vector3(posX, posY, posZ), true);
-                    }
-                    else if (item == saveLocationBtn)
-                    {
-                        SavePlayerLocationToLocationsFile();
-                    }
-                };
-
-                if (IsAllowed(Permission.MSTeleportToWp))
-                {
-                    teleportOptionsMenu.AddMenuItem(tptowp);
-                    keybindMenu.AddMenuItem(kbTpToWaypoint);
-                }
-                if (IsAllowed(Permission.MSTeleportToCoord))
-                {
-                    teleportOptionsMenu.AddMenuItem(tpToCoord);
-                }
-
-            }
 
             #region dev tools menu
 
@@ -462,10 +377,11 @@ namespace vMenuClient
             keybindMenu.AddMenuItem(backBtn);
 
             // Always allowed
-            menu.AddMenuItem(rightAlignMenu);
-            menu.AddMenuItem(disablePms);
-            menu.AddMenuItem(disableControllerKey);
-            menu.AddMenuItem(speedometer);
+            menu.AddMenuItem(visualMenuBtn);
+            visualMenu.AddMenuItem(rightAlignMenu);
+            visualMenuBtn.Label = "→→→";
+            miscMenu.AddMenuItem(disablePms);
+            miscMenu.AddMenuItem(disableControllerKey);
             menu.AddMenuItem(keybindMenuBtn);
             keybindMenuBtn.Label = "→→→";
             if (IsAllowed(Permission.MSConnectionMenu))
@@ -475,49 +391,55 @@ namespace vMenuClient
             }
             if (IsAllowed(Permission.MSShowLocation))
             {
-                menu.AddMenuItem(showLocation);
+                visualMenu.AddMenuItem(showLocation);
             }
-            menu.AddMenuItem(drawTime); // always allowed
+            visualMenu.AddMenuItem(drawTime); // always allowed
             if (IsAllowed(Permission.MSJoinQuitNotifs))
             {
-                menu.AddMenuItem(deathNotifs);
+                visualMenu.AddMenuItem(deathNotifs);
             }
             if (IsAllowed(Permission.MSDeathNotifs))
             {
-                menu.AddMenuItem(joinQuitNotifs);
+                visualMenu.AddMenuItem(joinQuitNotifs);
             }
             if (IsAllowed(Permission.MSNightVision))
             {
-                menu.AddMenuItem(nightVision);
+                visualMenu.AddMenuItem(nightVision);
             }
             if (IsAllowed(Permission.MSThermalVision))
             {
-                menu.AddMenuItem(thermalVision);
+                visualMenu.AddMenuItem(thermalVision);
+            }
+            if (IsAllowed(Permission.MSLocationBlips))
+            {
+                visualMenu.AddMenuItem(locationBlips);
+                ToggleBlips(ShowLocationBlips);
             }
             if (IsAllowed(Permission.MSPlayerBlips))
             {
-                menu.AddMenuItem(playerBlips);
+                visualMenu.AddMenuItem(playerBlips);
             }
             if (IsAllowed(Permission.MSOverheadNames))
             {
-                menu.AddMenuItem(playerNames);
+                visualMenu.AddMenuItem(playerNames);
             }
             // always allowed, it just won't do anything if the server owner disabled the feature, but players can still toggle it.
-            menu.AddMenuItem(respawnDefaultCharacter);
+            miscMenu.AddMenuItem(respawnDefaultCharacter);
             if (IsAllowed(Permission.MSRestoreAppearance))
             {
-                menu.AddMenuItem(restorePlayerAppearance);
+                miscMenu.AddMenuItem(restorePlayerAppearance);
             }
             if (IsAllowed(Permission.MSRestoreWeapons))
             {
-                menu.AddMenuItem(restorePlayerWeapons);
+                miscMenu.AddMenuItem(restorePlayerWeapons);
             }
 
             // Always allowed
-            menu.AddMenuItem(hideRadar);
-            menu.AddMenuItem(hideHud);
-            menu.AddMenuItem(lockCamX);
-            menu.AddMenuItem(lockCamY);
+            visualMenu.AddMenuItem(hideRadar);
+            visualMenu.AddMenuItem(hideHud);
+            visualMenu.AddMenuItem(lockCamX);
+            visualMenu.AddMenuItem(lockCamY);
+            menu.AddMenuItem(exportData);
             menu.AddMenuItem(saveSettings);
 
             // Handle checkbox changes.
@@ -549,10 +471,13 @@ namespace vMenuClient
                     MiscDisableControllerSupport = _checked;
                     MenuController.EnableMenuToggleKeyOnController = !_checked;
                 }
-                else if (item == speedometer)
+                else if (item == speedKmh)
                 {
-                    ShowSpeedometer = _checked;
-                    ExecuteCommand("togglespeedo");
+                    ShowSpeedoKmh = _checked;
+                }
+                else if (item == speedMph)
+                {
+                    ShowSpeedoMph = _checked;
                 }
                 else if (item == hideHud)
                 {
@@ -599,6 +524,11 @@ namespace vMenuClient
                 {
                     LockCameraY = _checked;
                 }
+                else if (item == locationBlips)
+                {
+                    ToggleBlips(_checked);
+                    ShowLocationBlips = _checked;
+                }
                 else if (item == playerBlips)
                 {
                     ShowPlayerBlips = _checked;
@@ -625,8 +555,27 @@ namespace vMenuClient
             // Handle button presses.
             menu.OnItemSelect += (sender, item, index) =>
             {
+                // export data
+                if (item == exportData)
+                {
+                    var vehicles = GetSavedVehicles();
+                    var normalPeds = StorageManager.GetSavedPeds();
+                    var mpPeds = StorageManager.GetSavedMpPeds();
+                    var weaponLoadouts = WeaponLoadouts.GetSavedWeapons();
+                    //SetNuiFocus(true, true);
+                    //SendNuiMessage(JsonConvert.SerializeObject(new
+                    //var data = JsonConvert.SerializeObject(new
+                    //{
+                    //    saved_vehicles = vehicles,
+                    //    normal_peds = normalPeds,
+                    //    mp_characters = mpPeds,
+                    //    weapon_loadouts = weaponLoadouts
+                    //});
+                    //Debug.WriteLine(data.Length + "\n" + data);
+                    //TriggerServerEvent("test", data);
+                }
                 // save settings
-                if (item == saveSettings)
+                else if (item == saveSettings)
                 {
                     UserDefaults.SaveSettings();
                 }
@@ -646,5 +595,72 @@ namespace vMenuClient
             }
             return menu;
         }
+
+        private struct Blip
+        {
+            public readonly Vector3 Location;
+            public readonly int Sprite;
+            public readonly string Name;
+            public readonly int Color;
+            public readonly int blipID;
+
+            public Blip(Vector3 Location, int Sprite, string Name, int Color, int blipID)
+            {
+                this.Location = Location;
+                this.Sprite = Sprite;
+                this.Name = Name;
+                this.Color = Color;
+                this.blipID = blipID;
+            }
+        }
+
+        private List<Blip> blips = new List<Blip>();
+
+        /// <summary>
+        /// Toggles blips on/off.
+        /// </summary>
+        /// <param name="enable"></param>
+        private void ToggleBlips(bool enable)
+        {
+            if (enable)
+            {
+                try
+                {
+                    foreach (var bl in vMenuShared.ConfigManager.GetLocationBlipsData())
+                    {
+                        int blipID = AddBlipForCoord(bl.coordinates.X, bl.coordinates.Y, bl.coordinates.Z);
+                        SetBlipSprite(blipID, bl.spriteID);
+                        BeginTextCommandSetBlipName("STRING");
+                        AddTextComponentSubstringPlayerName(bl.name);
+                        EndTextCommandSetBlipName(blipID);
+                        SetBlipColour(blipID, bl.color);
+                        SetBlipAsShortRange(blipID, true);
+
+                        Blip b = new Blip(bl.coordinates, bl.spriteID, bl.name, bl.color, blipID);
+                        blips.Add(b);
+                    }
+                }
+                catch (JsonReaderException ex)
+                {
+                    Debug.Write($"\n\n[vMenu] An error occurred while loading the locations.json file. Please contact the server owner to resolve this.\nWhen contacting the owner, provide the following error details:\n{ex.Message}.\n\n\n");
+                }
+            }
+            else
+            {
+                if (blips.Count > 0)
+                {
+                    foreach (Blip blip in blips)
+                    {
+                        int id = blip.blipID;
+                        if (DoesBlipExist(id))
+                        {
+                            RemoveBlip(ref id);
+                        }
+                    }
+                }
+                blips.Clear();
+            }
+        }
+
     }
 }

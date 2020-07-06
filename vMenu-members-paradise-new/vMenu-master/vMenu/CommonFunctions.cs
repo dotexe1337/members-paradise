@@ -1107,6 +1107,11 @@ namespace vMenuClient
 
             //var vehClass = GetVehicleClassFromName(vehicleHash);
             int modelClass = GetVehicleClassFromName(vehicleHash);
+            if (!VehicleSpawner.allowedCategories[modelClass])
+            {
+                Notify.Alert("You are not allowed to spawn this vehicle, because it belongs to a category which is restricted by the server owner.");
+                return;
+            }
 
             if (!skipLoad)
             {
@@ -1264,7 +1269,9 @@ namespace vMenuClient
 
                 vehicle.CanTiresBurst = !vehicleInfo.bulletProofTires;
 
-                VehicleOptions._SET_VEHICLE_HEADLIGHTS_COLOR(vehicle, vehicleInfo.headlightColor);
+                SetVehicleEnveffScale(vehicle.Handle, vehicleInfo.enveffScale);
+
+                VehicleOptions._SetHeadlightsColorOnVehicle(vehicle, vehicleInfo.headlightColor);
             }
 
             // Set the previous vehicle to the new vehicle.
@@ -1310,6 +1317,7 @@ namespace vMenuClient
             public bool xenonHeadlights;
             public bool bulletProofTires;
             public int headlightColor;
+            public float enveffScale;
         };
         #endregion
 
@@ -1403,7 +1411,8 @@ namespace vMenuClient
                         windowTint = (int)veh.Mods.WindowTint,
                         xenonHeadlights = IsToggleModOn(veh.Handle, 22),
                         bulletProofTires = !veh.CanTiresBurst,
-                        headlightColor = VehicleOptions._GET_VEHICLE_HEADLIGHTS_COLOR(veh)
+                        headlightColor = VehicleOptions._GetHeadlightsColorFromVehicle(veh),
+                        enveffScale = GetVehicleEnveffScale(veh.Handle)
                     };
 
                     #endregion
@@ -3223,6 +3232,11 @@ namespace vMenuClient
             if (string.IsNullOrEmpty(locationName))
             {
                 Notify.Error(CommonErrors.InvalidInput);
+                return;
+            }
+            if (vMenuShared.ConfigManager.GetTeleportLocationsData().Any(loc => loc.name == locationName))
+            {
+                Notify.Error("This location name is already used, please use a different name.");
                 return;
             }
             TriggerServerEvent("vMenu:SaveTeleportLocation", JsonConvert.SerializeObject(new vMenuShared.ConfigManager.TeleportLocation(locationName, pos, heading)));

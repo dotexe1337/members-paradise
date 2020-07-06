@@ -383,7 +383,7 @@ namespace vMenuServer
             if (GetCurrentResourceName() != "vMenu")
             {
                 Exception InvalidNameException = new Exception("\r\n\r\n^1[vMenu] INSTALLATION ERROR!\r\nThe name of the resource is not valid. " +
-                    "Please change the folder name from '^3" + GetCurrentResourceName() + "^1' to '^2vMenu-forked^1' (case sensitive) instead!\r\n\r\n\r\n^7");
+                    "Please change the folder name from '^3" + GetCurrentResourceName() + "^1' to '^2vMenu^1' (case sensitive) instead!\r\n\r\n\r\n^7");
                 try
                 {
                     throw InvalidNameException;
@@ -418,6 +418,7 @@ namespace vMenuServer
                 EventHandlers.Add("vMenu:GetOutOfCar", new Action<Player, int, int>(GetOutOfCar));
                 EventHandlers.Add("vMenu:SendMessageToPlayer", new Action<Player, int, string>(SendPrivateMessage));
                 EventHandlers.Add("vMenu:PmsDisabled", new Action<Player, string>(NotifySenderThatDmsAreDisabled));
+                EventHandlers.Add("vMenu:SaveTeleportLocation", new Action<Player, string>(AddTeleportLocation));
 
 
                 // check addons file for errors
@@ -873,5 +874,25 @@ namespace vMenuServer
         }
 
         #endregion
+
+        #region Add teleport location
+        private void AddTeleportLocation([FromSource]Player source, string locationJson)
+        {
+            TeleportLocation location = JsonConvert.DeserializeObject<TeleportLocation>(locationJson);
+            if (GetTeleportLocationsData().Any(loc => loc.name == location.name))
+            {
+                Log("A teleport location with this name already exists, location was not saved.", LogLevel.error);
+                return;
+            }
+            var locs = GetLocations();
+            locs.teleports.Add(location);
+            if (!SaveResourceFile(GetCurrentResourceName(), "config/locations.json", JsonConvert.SerializeObject(locs, Formatting.Indented), -1))
+            {
+                Log("Could not save locations.json file, reason unknown.", LogLevel.error);
+            }
+            TriggerClientEvent("vMenu:UpdateTeleportLocations", JsonConvert.SerializeObject(locs.teleports));
+        }
+        #endregion
+
     }
 }

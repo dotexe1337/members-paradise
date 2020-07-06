@@ -214,10 +214,16 @@ namespace vMenuClient
             set { SetSavedSettingsBool("miscDeathNotifications", value); }
         }
 
-        public static bool MiscSpeedometer
+        public static bool MiscSpeedKmh
         {
-            get { return GetSettingsBool("miscSpeedoometer"); }
-            set { SetSavedSettingsBool("miscSpeedometer", value); }
+            get { return GetSettingsBool("miscSpeedoKmh"); }
+            set { SetSavedSettingsBool("miscSpeedoKmh", value); }
+        }
+
+        public static bool MiscSpeedMph
+        {
+            get { return GetSettingsBool("miscSpeedoMph"); }
+            set { SetSavedSettingsBool("miscSpeedoMph", value); }
         }
 
         public static bool MiscShowLocation
@@ -528,8 +534,11 @@ namespace vMenuClient
                 MiscJoinQuitNotifications = MainMenu.MiscSettingsMenu.JoinQuitNotifications;
                 prefs.Add("miscJoinQuitNotifications", MiscJoinQuitNotifications);
 
-                MiscSpeedometer = MainMenu.MiscSettingsMenu.ShowSpeedometer;
-                prefs.Add("miscSpeedometer", MiscSpeedometer);
+                MiscSpeedKmh = MainMenu.MiscSettingsMenu.ShowSpeedoKmh;
+                prefs.Add("miscSpeedKmh", MiscSpeedKmh);
+
+                MiscSpeedMph = MainMenu.MiscSettingsMenu.ShowSpeedoMph;
+                prefs.Add("miscSpeedMph", MiscSpeedMph);
 
                 MiscShowLocation = MainMenu.MiscSettingsMenu.ShowLocation;
                 prefs.Add("miscShowLocation", MiscShowLocation);
@@ -621,6 +630,15 @@ namespace vMenuClient
 
                 VehicleBikeSeatbelt = MainMenu.VehicleOptionsMenu.VehicleBikeSeatbelt;
                 prefs.Add("vehicleBikeSeatbelt", VehicleBikeSeatbelt);
+            }
+
+            if (MainMenu.VehicleSpawnerMenu != null)
+            {
+                VehicleSpawnerReplacePrevious = MainMenu.VehicleSpawnerMenu.ReplaceVehicle;
+                prefs.Add("vehicleSpawnerReplacePrevious", VehicleSpawnerReplacePrevious);
+
+                VehicleSpawnerSpawnInside = MainMenu.VehicleSpawnerMenu.SpawnInVehicle;
+                prefs.Add("vehicleSpawnerSpawnInside", VehicleSpawnerSpawnInside);
             }
 
             if (MainMenu.VoiceChatSettingsMenu != null)
