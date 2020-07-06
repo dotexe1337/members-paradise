@@ -382,6 +382,8 @@ namespace vMenuClient
             visualMenuBtn.Label = "→→→";
             miscMenu.AddMenuItem(disablePms);
             miscMenu.AddMenuItem(disableControllerKey);
+            menu.AddMenuItem(miscMenuBtn);
+            miscMenuBtn.Label = "→→→";
             menu.AddMenuItem(keybindMenuBtn);
             keybindMenuBtn.Label = "→→→";
             if (IsAllowed(Permission.MSConnectionMenu))
@@ -442,8 +444,33 @@ namespace vMenuClient
             menu.AddMenuItem(exportData);
             menu.AddMenuItem(saveSettings);
 
+            miscMenu.OnCheckboxChange += (sender, item, index, _checked) =>
+            {
+                if (item == respawnDefaultCharacter)
+                {
+                    MiscRespawnDefaultCharacter = _checked;
+                }
+                else if (item == restorePlayerAppearance)
+                {
+                    RestorePlayerAppearance = _checked;
+                }
+                else if (item == restorePlayerWeapons)
+                {
+                    RestorePlayerWeapons = _checked;
+                }
+                else if (item == disablePms)
+                {
+                    MiscDisablePrivateMessages = _checked;
+                }
+                else if (item == disableControllerKey)
+                {
+                    MiscDisableControllerSupport = _checked;
+                    MenuController.EnableMenuToggleKeyOnController = !_checked;
+                }
+            };
+
             // Handle checkbox changes.
-            menu.OnCheckboxChange += (sender, item, index, _checked) =>
+            visualMenu.OnCheckboxChange += (sender, item, index, _checked) =>
             {
                 if (item == rightAlignMenu)
                 {
@@ -462,23 +489,7 @@ namespace vMenuClient
                     }
 
                 }
-                else if (item == disablePms)
-                {
-                    MiscDisablePrivateMessages = _checked;
-                }
-                else if (item == disableControllerKey)
-                {
-                    MiscDisableControllerSupport = _checked;
-                    MenuController.EnableMenuToggleKeyOnController = !_checked;
-                }
-                else if (item == speedKmh)
-                {
-                    ShowSpeedoKmh = _checked;
-                }
-                else if (item == speedMph)
-                {
-                    ShowSpeedoMph = _checked;
-                }
+
                 else if (item == hideHud)
                 {
                     HideHud = _checked;
@@ -536,18 +547,6 @@ namespace vMenuClient
                 else if (item == playerNames)
                 {
                     MiscShowOverheadNames = _checked;
-                }
-                else if (item == respawnDefaultCharacter)
-                {
-                    MiscRespawnDefaultCharacter = _checked;
-                }
-                else if (item == restorePlayerAppearance)
-                {
-                    RestorePlayerAppearance = _checked;
-                }
-                else if (item == restorePlayerWeapons)
-                {
-                    RestorePlayerWeapons = _checked;
                 }
 
             };
