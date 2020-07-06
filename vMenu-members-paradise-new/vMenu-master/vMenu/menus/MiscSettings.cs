@@ -58,7 +58,7 @@ namespace vMenuClient
             : 168; // 168 (F7 by default)
         public bool KbDriftMode { get; private set; } = UserDefaults.KbDriftMode;
         public bool KbRecordKeys { get; private set; } = UserDefaults.KbRecordKeys;
-        public bool KbRadarKeys { get; private set; } = UserDefaults.KbRadarKeys;
+        public bool KbRadarKeys { get; private set; } = true;
         public bool KbPointKeys { get; private set; } = UserDefaults.KbPointKeys;
 
         internal static List<vMenuShared.ConfigManager.TeleportLocation> TpLocations = new List<vMenuShared.ConfigManager.TeleportLocation>();
