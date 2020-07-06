@@ -2,8 +2,8 @@
 
 <CHandlingDataMgr>
   <HandlingData>
-	<Item type="CHandlingData" presetName="RWD Drift">
-      <handlingName>ELEGY</handlingName>
+    <Item type="CHandlingData" presetName="RWD Drift">
+      <handlingName>CAR1</handlingName>
       <fMass value="1050.000000" />
       <fInitialDragCoeff value="12.000000" />
       <fPercentSubmerged value="85.000000" />
@@ -39,7 +39,6 @@
       <fAntiRollBarBiasFront value="0.650000" />
       <fRollCentreHeightFront value="0.330000" />
       <fRollCentreHeightRear value="0.330000" />
-
       <fCollisionDamageMult value="0.700000" />
       <fWeaponDamageMult value="1.000000" />
       <fDeformationDamageMult value="0.700000" />
@@ -53,13 +52,9 @@
       <strModelFlags>440010</strModelFlags>
       <strHandlingFlags>2</strHandlingFlags>
       <strDamageFlags>0</strDamageFlags>
-      <AIHandling>SPORTS_CAR</AIHandling>
+      <AIHandling>AVERAGE</AIHandling>
       <SubHandlingData>
-        <Item type="CCarHandlingData">
-          <fBackEndPopUpCarImpulseMult value="0.100000" />
-          <fBackEndPopUpBuildingImpulseMult value="0.050000" />
-          <fBackEndPopUpMaxDeltaSpeed value="0.600000" />
-        </Item>
+        <Item type="NULL" />
         <Item type="NULL" />
         <Item type="NULL" />
       </SubHandlingData>
