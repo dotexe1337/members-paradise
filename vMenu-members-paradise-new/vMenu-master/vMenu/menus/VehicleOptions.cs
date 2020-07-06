@@ -208,6 +208,40 @@ namespace vMenuClient
 
             #region Add items to the menu.
             // Add everything to the menu. (based on permissions)
+            if (IsAllowed(Permission.VOMod)) // MOD MENU
+            {
+                menu.AddMenuItem(modMenuBtn);
+            }
+            if (IsAllowed(Permission.VOColors)) // COLORS MENU
+            {
+                menu.AddMenuItem(colorsMenuBtn);
+            }
+            if (IsAllowed(Permission.VOUnderglow)) // UNDERGLOW EFFECTS
+            {
+                menu.AddMenuItem(underglowMenuBtn);
+                MenuController.BindMenuItem(menu, VehicleUnderglowMenu, underglowMenuBtn);
+            }
+            if (IsAllowed(Permission.VOLiveries)) // LIVERIES MENU
+            {
+                menu.AddMenuItem(liveriesMenuBtn);
+            }
+            if (IsAllowed(Permission.VOComponents)) // COMPONENTS MENU
+            {
+                menu.AddMenuItem(componentsMenuBtn);
+            }
+            if (IsAllowed(Permission.VOChangePlate))
+            {
+                menu.AddMenuItem(setLicensePlateText); // SET LICENSE PLATE TEXT
+                menu.AddMenuItem(setLicensePlateType); // SET LICENSE PLATE TYPE
+            }
+            if (IsAllowed(Permission.VODoors)) // DOORS MENU
+            {
+                menu.AddMenuItem(doorsMenuBtn);
+            }
+            if (IsAllowed(Permission.VOWindows)) // WINDOWS MENU
+            {
+                menu.AddMenuItem(windowsMenuBtn);
+            }
             if (IsAllowed(Permission.VOGod)) // GOD MODE
             {
                 menu.AddMenuItem(vehicleGod);
@@ -257,6 +291,16 @@ namespace vMenuClient
                 };
 
             }
+            if (IsAllowed(Permission.VOTorqueMultiplier))
+            {
+                menu.AddMenuItem(torqueEnabled); // TORQUE ENABLED
+                menu.AddMenuItem(torqueMultiplier); // TORQUE LIST
+            }
+            if (IsAllowed(Permission.VOPowerMultiplier))
+            {
+                menu.AddMenuItem(powerEnabled); // POWER ENABLED
+                menu.AddMenuItem(powerMultiplier); // POWER LIST
+            }
             if (IsAllowed(Permission.VORepair)) // REPAIR VEHICLE
             {
                 menu.AddMenuItem(fixVehicle);
@@ -281,50 +325,6 @@ namespace vMenuClient
             if (IsAllowed(Permission.VOSpeedLimiter)) // SPEED LIMITER
             {
                 menu.AddMenuItem(speedLimiter);
-            }
-            if (IsAllowed(Permission.VOChangePlate))
-            {
-                menu.AddMenuItem(setLicensePlateText); // SET LICENSE PLATE TEXT
-                menu.AddMenuItem(setLicensePlateType); // SET LICENSE PLATE TYPE
-            }
-            if (IsAllowed(Permission.VOMod)) // MOD MENU
-            {
-                menu.AddMenuItem(modMenuBtn);
-            }
-            if (IsAllowed(Permission.VOColors)) // COLORS MENU
-            {
-                menu.AddMenuItem(colorsMenuBtn);
-            }
-            if (IsAllowed(Permission.VOUnderglow)) // UNDERGLOW EFFECTS
-            {
-                menu.AddMenuItem(underglowMenuBtn);
-                MenuController.BindMenuItem(menu, VehicleUnderglowMenu, underglowMenuBtn);
-            }
-            if (IsAllowed(Permission.VOLiveries)) // LIVERIES MENU
-            {
-                menu.AddMenuItem(liveriesMenuBtn);
-            }
-            if (IsAllowed(Permission.VOComponents)) // COMPONENTS MENU
-            {
-                menu.AddMenuItem(componentsMenuBtn);
-            }
-            if (IsAllowed(Permission.VODoors)) // DOORS MENU
-            {
-                menu.AddMenuItem(doorsMenuBtn);
-            }
-            if (IsAllowed(Permission.VOWindows)) // WINDOWS MENU
-            {
-                menu.AddMenuItem(windowsMenuBtn);
-            }
-            if (IsAllowed(Permission.VOTorqueMultiplier))
-            {
-                menu.AddMenuItem(torqueEnabled); // TORQUE ENABLED
-                menu.AddMenuItem(torqueMultiplier); // TORQUE LIST
-            }
-            if (IsAllowed(Permission.VOPowerMultiplier))
-            {
-                menu.AddMenuItem(powerEnabled); // POWER ENABLED
-                menu.AddMenuItem(powerMultiplier); // POWER LIST
             }
             if (IsAllowed(Permission.VODisableTurbulence))
             {
