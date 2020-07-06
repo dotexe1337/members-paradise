@@ -242,6 +242,10 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(windowsMenuBtn);
             }
+            if (IsAllowed(Permission.VORepair)) // REPAIR VEHICLE
+            {
+                menu.AddMenuItem(fixVehicle);
+            }
             if (IsAllowed(Permission.VOGod)) // GOD MODE
             {
                 menu.AddMenuItem(vehicleGod);
@@ -291,6 +295,10 @@ namespace vMenuClient
                 };
 
             }
+            if (IsAllowed(Permission.VOKeepClean))
+            {
+                menu.AddMenuItem(vehicleNeverDirty);
+            }
             if (IsAllowed(Permission.VOTorqueMultiplier))
             {
                 menu.AddMenuItem(torqueEnabled); // TORQUE ENABLED
@@ -300,14 +308,6 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(powerEnabled); // POWER ENABLED
                 menu.AddMenuItem(powerMultiplier); // POWER LIST
-            }
-            if (IsAllowed(Permission.VORepair)) // REPAIR VEHICLE
-            {
-                menu.AddMenuItem(fixVehicle);
-            }
-            if (IsAllowed(Permission.VOKeepClean))
-            {
-                menu.AddMenuItem(vehicleNeverDirty);
             }
             if (IsAllowed(Permission.VOWash))
             {
