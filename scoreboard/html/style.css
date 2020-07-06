@@ -19,19 +19,23 @@ html {
 
 table {
 	text-align: left;
+	color: #d2d2d2;
 }
 
 th, td {
 	padding-left: 25px;
+	color: #d2d2d2;
 }
 
 th {
 	padding-top: 10px;
 	height: 40px;
+	color: #d2d2d2;
 }
 
 tr {
 	font-size: 120%;
 	font-family: 'Segoe UI';
+	color: #d2d2d2;
     /*text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);*/
 }
