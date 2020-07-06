@@ -389,7 +389,7 @@ namespace vMenuClient
                     }
 
                     // Create the main menu.
-                    Menu = new Menu(Game.Player.Name, "Members Paradise");
+                    Menu = new Menu("Members Paradise", "Main Menu");
                     PlayerSubmenu = new Menu(Game.Player.Name, "Player Related Options");
                     VehicleSubmenu = new Menu(Game.Player.Name, "Vehicle Related Options");
                     WorldSubmenu = new Menu(Game.Player.Name, "World Options");
