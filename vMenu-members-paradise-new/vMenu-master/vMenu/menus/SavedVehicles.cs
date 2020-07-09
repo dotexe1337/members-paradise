@@ -244,19 +244,13 @@ namespace vMenuClient
             {
                 foreach (var item in VehicleData.Vehicles.VehicleClasses.Values)
                 {
-                    //Subtitle.Alert("i ==" + i);
-                    //Subtitle.Alert("DOTEXE: Found var item");
                     if (item == VehicleData.Vehicles.VehicleClasses.Values.ElementAt(i - 1))
                     {
                         Subtitle.Alert("Found element at (i - 1)");
                         foreach (string str in item)
                         {
-                            Subtitle.Alert("str == " + str);
-                            //Subtitle.Alert("Found string str in item");
-
                             if (savedVehicles.Any(a => ((str == GetDisplayNameFromVehicleModel(a.Value.model) && IsModelInCdimage(a.Value.model)))))
                             {
-                                //Subtitle.Alert("Found vehicle at a.Value.name");
                                 GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.NONE;
                                 GetMenu().GetMenuItems()[i].Label = "→→→";
                                 GetMenu().GetMenuItems()[i].Enabled = true;
@@ -264,7 +258,6 @@ namespace vMenuClient
                             }
                             else
                             {
-                                //Subtitle.Alert("Didn't find vehicle at a.Value.name");
                                 GetMenu().GetMenuItems()[i].Label = "";
                                 GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.LOCK;
                                 GetMenu().GetMenuItems()[i].Enabled = true;
@@ -279,13 +272,8 @@ namespace vMenuClient
             {
                 foreach (var item in VehicleData.Vehicles.VehicleClasses.Values)
                 {
-
-                    //Subtitle.Alert("i ==" + i);
-                    //Subtitle.Alert("DOTEXE: Found var item");
                     if (item == VehicleData.Vehicles.VehicleClasses.Values.ElementAt(i - 1))
                     {
-
-                        Subtitle.Alert("Found element at (i - 1)");
                         foreach (string str in item)
                         {
                             foreach(KeyValuePair<string, VehicleInfo> dict in savedVehicles)
