@@ -18,7 +18,6 @@ namespace vMenuClient
         // Variables
         private Menu menu;
         private Menu selectedVehicleMenu = new Menu("Manage Vehicle", "Manage this saved vehicle.");
-        private Menu unavailableVehiclesMenu = new Menu("Missing Vehicles", "Unavailable Saved Vehicles");
         private Dictionary<string, VehicleInfo> savedVehicles = new Dictionary<string, VehicleInfo>();
         private List<Menu> subMenus = new List<Menu>();
         private Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>> svMenuItems = new Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>>();
@@ -55,11 +54,11 @@ namespace vMenuClient
                 }
             };
 
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < VehicleData.Vehicles.VehicleClasses.Count; i++)
             {
-                Menu categoryMenu = new Menu("Saved Vehicles", GetLabelText($"VEH_CLASS_{i}"));
+                Menu categoryMenu = new Menu("Saved Vehicles", VehicleData.Vehicles.VehicleClasses.ElementAt(i).Key);
 
-                MenuItem categoryButton = new MenuItem(GetLabelText($"VEH_CLASS_{i}"), $"All saved vehicles from the {(GetLabelText($"VEH_CLASS_{i}"))} category.");
+                MenuItem categoryButton = new MenuItem(VehicleData.Vehicles.VehicleClasses.ElementAt(i).Key, $"All saved vehicles from the {VehicleData.Vehicles.VehicleClasses.ElementAt(i).Key} category.");
                 subMenus.Add(categoryMenu);
                 MenuController.AddSubmenu(menu, categoryMenu);
                 menu.AddMenuItem(categoryButton);
@@ -76,15 +75,6 @@ namespace vMenuClient
                     UpdateSelectedVehicleMenu(item, sender);
                 };
             }
-
-            MenuItem unavailableModels = new MenuItem("Unavailable Saved Vehicles", "These vehicles are currently unavailable because the models are not present in the game. These vehicles are most likely not being streamed from the server.")
-            {
-                Label = "→→→"
-            };
-
-            menu.AddMenuItem(unavailableModels);
-            MenuController.BindMenuItem(menu, unavailableVehiclesMenu, unavailableModels);
-            MenuController.AddSubmenu(menu, unavailableVehiclesMenu);
 
 
             MenuController.AddMenu(selectedVehicleMenu);
@@ -186,58 +176,6 @@ namespace vMenuClient
                     deleteVehicle.Label = "";
                 }
             };
-            unavailableVehiclesMenu.InstructionalButtons.Add(Control.FrontendDelete, "Delete Vehicle!");
-
-            unavailableVehiclesMenu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.FrontendDelete, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>((m, c) =>
-            {
-                if (m.Size > 0)
-                {
-                    int index = m.CurrentIndex;
-                    if (index < m.Size)
-                    {
-                        MenuItem item = m.GetMenuItems().Find(i => i.Index == index);
-                        if (item != null && (item.ItemData is KeyValuePair<string, VehicleInfo> sd))
-                        {
-                            if (item.Label == "~r~Are you sure?")
-                            {
-                                Log("Unavailable saved vehicle deleted, data: " + JsonConvert.SerializeObject(sd));
-                                DeleteResourceKvp(sd.Key);
-                                unavailableVehiclesMenu.GoBack();
-                                UpdateMenuAvailableCategories();
-                            }
-                            else
-                            {
-                                item.Label = "~r~Are you sure?";
-                            }
-                        }
-                        else
-                        {
-                            Notify.Error("Somehow this vehicle could not be found.");
-                        }
-                    }
-                    else
-                    {
-                        Notify.Error("You somehow managed to trigger deletion of a menu item that doesn't exist, how...?");
-                    }
-                }
-                else
-                {
-                    Notify.Error("There are currrently no unavailable vehicles to delete!");
-                }
-            }), true));
-
-            void ResetAreYouSure()
-            {
-                foreach (var i in unavailableVehiclesMenu.GetMenuItems())
-                {
-                    if (i.ItemData is KeyValuePair<string, VehicleInfo> vd)
-                    {
-                        i.Label = $"({vd.Value.name})";
-                    }
-                }
-            }
-            unavailableVehiclesMenu.OnMenuClose += (sender) => ResetAreYouSure();
-            unavailableVehiclesMenu.OnIndexChange += (sender, oldItem, newItem, oldIndex, newIndex) => ResetAreYouSure();
 
             #endregion
         }
@@ -273,26 +211,8 @@ namespace vMenuClient
         /// </summary>
         public void UpdateMenuAvailableCategories()
         {
-            savedVehicles = GetSavedVehicles();
-            svMenuItems = new Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>>();
-
-            for (int i = 1; i < GetMenu().Size - 1; i++)
-            {
-                if (savedVehicles.Any(a => GetVehicleClassFromName(a.Value.model) == i - 1 && IsModelInCdimage(a.Value.model)))
-                {
-                    GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.NONE;
-                    GetMenu().GetMenuItems()[i].Label = "→→→";
-                    GetMenu().GetMenuItems()[i].Enabled = true;
-                    GetMenu().GetMenuItems()[i].Description = $"All saved vehicles from the {GetMenu().GetMenuItems()[i].Text} category.";
-                }
-                else
-                {
-                    GetMenu().GetMenuItems()[i].Label = "";
-                    GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.LOCK;
-                    GetMenu().GetMenuItems()[i].Enabled = false;
-                    GetMenu().GetMenuItems()[i].Description = $"You do not have any saved vehicles that belong to the {GetMenu().GetMenuItems()[i].Text} category.";
-                }
-            }
+            // PATCHED BY DOTEXE FOR CUSTOM CATEGORIES
+            // dotexe: oh my god, this is the shittiest, worst, most over-engineered code I have ever written to fix a seemingly simple problem. I hope to never have to see this again.
 
             // Check if the items count will be changed. If there are less cars than there were before, one probably got deleted
             // so in that case we need to refresh the index of that menu just to be safe. If not, keep the index where it is for improved
@@ -316,45 +236,79 @@ namespace vMenuClient
                 m.ClearMenuItems(true);
             }
 
-            // Always clear this index because it's useless anyway and it's safer.
-            unavailableVehiclesMenu.ClearMenuItems();
 
-            foreach (var sv in savedVehicles)
+            savedVehicles = GetSavedVehicles();
+            svMenuItems = new Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>>();
+
+            for (int i = 1; i < GetMenu().Size; i++)
             {
-                if (IsModelInCdimage(sv.Value.model))
+                foreach (var item in VehicleData.Vehicles.VehicleClasses.Values)
                 {
-                    int vclass = GetVehicleClassFromName(sv.Value.model);
-                    Menu menu = subMenus[vclass];
-
-                    MenuItem savedVehicleBtn = new MenuItem(sv.Key.Substring(4), $"Manage this saved vehicle.")
+                    //Subtitle.Alert("i ==" + i);
+                    //Subtitle.Alert("DOTEXE: Found var item");
+                    if (item == VehicleData.Vehicles.VehicleClasses.Values.ElementAt(i - 1))
                     {
-                        Label = $"({sv.Value.name}) →→→"
-                    };
-                    menu.AddMenuItem(savedVehicleBtn);
+                        Subtitle.Alert("Found element at (i - 1)");
+                        foreach (string str in item)
+                        {
+                            Subtitle.Alert("str == " + str);
+                            //Subtitle.Alert("Found string str in item");
 
-                    svMenuItems.Add(savedVehicleBtn, sv);
-                }
-                else
-                {
-                    MenuItem missingVehItem = new MenuItem(sv.Key.Substring(4), "This model could not be found in the game files. Most likely because this is an addon vehicle and it's currently not streamed by the server.")
-                    {
-                        Label = "(" + sv.Value.name + ")",
-                        Enabled = false,
-                        LeftIcon = MenuItem.Icon.LOCK,
-                        ItemData = sv
-                    };
-                    //SetResourceKvp(sv.Key + "_tmp_dupe", JsonConvert.SerializeObject(sv.Value));
-                    unavailableVehiclesMenu.AddMenuItem(missingVehItem);
+                            if (savedVehicles.Any(a => ((str == GetDisplayNameFromVehicleModel(a.Value.model) && IsModelInCdimage(a.Value.model)))))
+                            {
+                                //Subtitle.Alert("Found vehicle at a.Value.name");
+                                GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.NONE;
+                                GetMenu().GetMenuItems()[i].Label = "→→→";
+                                GetMenu().GetMenuItems()[i].Enabled = true;
+                                GetMenu().GetMenuItems()[i].Description = $"All saved vehicles from the {GetMenu().GetMenuItems()[i].Text} category.";
+                            }
+                            else
+                            {
+                                //Subtitle.Alert("Didn't find vehicle at a.Value.name");
+                                GetMenu().GetMenuItems()[i].Label = "";
+                                GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.LOCK;
+                                GetMenu().GetMenuItems()[i].Enabled = true;
+                                GetMenu().GetMenuItems()[i].Description = $"You do not have any saved vehicles that belong to the {GetMenu().GetMenuItems()[i].Text} category.";
+                            }
+                        }
+                    }
                 }
             }
-            foreach (Menu m in subMenus)
+
+            for (int i = 1; i < GetMenu().Size; i++)
             {
-                m.SortMenuItems((MenuItem A, MenuItem B) =>
+                foreach (var item in VehicleData.Vehicles.VehicleClasses.Values)
                 {
-                    return A.Text.ToLower().CompareTo(B.Text.ToLower());
-                });
+
+                    //Subtitle.Alert("i ==" + i);
+                    //Subtitle.Alert("DOTEXE: Found var item");
+                    if (item == VehicleData.Vehicles.VehicleClasses.Values.ElementAt(i - 1))
+                    {
+
+                        Subtitle.Alert("Found element at (i - 1)");
+                        foreach (string str in item)
+                        {
+                            foreach(KeyValuePair<string, VehicleInfo> dict in savedVehicles)
+                            {
+                                if (str == GetDisplayNameFromVehicleModel(dict.Value.model) && IsModelInCdimage(dict.Value.model))
+                                {
+                                    Menu menu = subMenus[i - 1];
+
+                                    MenuItem savedVehicleBtn = new MenuItem(dict.Key.Substring(4), $"Manage this saved vehicle.")
+                                    {
+                                        Label = $"({dict.Value.name}) →→→"
+                                    };
+                                    menu.AddMenuItem(savedVehicleBtn);
+
+                                    svMenuItems.Add(savedVehicleBtn, dict);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+
 
         /// <summary>
         /// Create the menu if it doesn't exist, and then returns it.

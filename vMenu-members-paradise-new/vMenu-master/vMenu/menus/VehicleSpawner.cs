@@ -162,10 +162,10 @@ namespace vMenuClient
 
             #region vehicle classes submenus
             // Loop through all the vehicle classes.
-            for (var vehClass = 0; vehClass < 22; vehClass++)
+            for (var vehClass = 0; vehClass < VehicleData.Vehicles.VehicleClasses.Count; vehClass++)
             {
                 // Get the class name.
-                string className = GetLabelText($"VEH_CLASS_{vehClass}");
+                string className = VehicleData.Vehicles.VehicleClasses.ElementAt(vehClass).Key;
 
                 // Create a button & a menu for it, add the menu to the menu pool and add & bind the button to the menu.
                 MenuItem btn = new MenuItem(className, $"Spawn a vehicle from the ~o~{className} ~s~class.")
