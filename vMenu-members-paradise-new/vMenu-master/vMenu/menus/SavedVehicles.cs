@@ -246,7 +246,6 @@ namespace vMenuClient
                 {
                     if (item == VehicleData.Vehicles.VehicleClasses.Values.ElementAt(i - 1))
                     {
-                        Subtitle.Alert("Found element at (i - 1)");
                         foreach (string str in item)
                         {
                             if (savedVehicles.Any(a => ((str == GetDisplayNameFromVehicleModel(a.Value.model) && IsModelInCdimage(a.Value.model)))))
