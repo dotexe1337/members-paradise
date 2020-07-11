@@ -281,7 +281,6 @@ namespace vMenuClient
                 "bahia",
                 "redja",
                 "rboat",
-                "rapide",
                 "sr650fly",
                 "yacht2",
                 "missouri",
