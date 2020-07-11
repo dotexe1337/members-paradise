@@ -952,6 +952,14 @@ namespace vMenuClient
             };
             #endregion
 
+            #region Volkswagen
+            public static List<string> Volkswagen { get; } = new List<string>()
+            {
+                "mk3",
+                "63lb",
+            };
+            #endregion
+
             public static Dictionary<string, List<string>> VehicleClasses { get; } = new Dictionary<string, List<string>>()
             {
                 ["Boats"] = Boats,
@@ -1001,6 +1009,7 @@ namespace vMenuClient
                 ["TVR"] = TVR,
                 ["Toyota"] = Toyota,
                 ["UAZ"] = UAZ,
+                ["Volkswagen"] = Volkswagen,
             };
             #endregion
 
