@@ -52,7 +52,7 @@ namespace vMenuClient
 
 
         // keybind states
-        public bool KbTpToWaypoint { get; private set; } = UserDefaults.KbTpToWaypoint;
+        public bool KbTpToWaypoint { get; private set; } = true;
         public int KbTpToWaypointKey { get; } = vMenuShared.ConfigManager.GetSettingsInt(vMenuShared.ConfigManager.Setting.vmenu_teleport_to_wp_keybind_key) != -1
             ? vMenuShared.ConfigManager.GetSettingsInt(vMenuShared.ConfigManager.Setting.vmenu_teleport_to_wp_keybind_key)
             : 168; // 168 (F7 by default)
