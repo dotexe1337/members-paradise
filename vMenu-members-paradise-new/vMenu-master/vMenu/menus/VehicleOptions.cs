@@ -299,6 +299,11 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(vehicleNeverDirty);
             }
+            if (IsAllowed(Permission.VOWash))
+            {
+                menu.AddMenuItem(cleanVehicle); // CLEAN VEHICLE
+                menu.AddMenuItem(setDirtLevel); // SET DIRT LEVEL
+            }
             if (IsAllowed(Permission.VOTorqueMultiplier))
             {
                 menu.AddMenuItem(torqueEnabled); // TORQUE ENABLED
@@ -308,11 +313,6 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(powerEnabled); // POWER ENABLED
                 menu.AddMenuItem(powerMultiplier); // POWER LIST
-            }
-            if (IsAllowed(Permission.VOWash))
-            {
-                menu.AddMenuItem(cleanVehicle); // CLEAN VEHICLE
-                menu.AddMenuItem(setDirtLevel); // SET DIRT LEVEL
             }
             if (IsAllowed(Permission.VOEngine)) // TOGGLE ENGINE ON/OFF
             {
