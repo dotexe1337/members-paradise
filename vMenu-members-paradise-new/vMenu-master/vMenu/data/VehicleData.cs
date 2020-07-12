@@ -415,7 +415,6 @@ namespace vMenuClient
                 "squaddie3",
                 "stanier5",
                 "Tstanced",
-                "rh82",
                 "carbonizzare2",
                 "tampac",
                 "glendalelimo",
