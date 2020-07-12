@@ -409,12 +409,6 @@ namespace vMenuClient
                 "meteor",
                 "mf1",
                 "sentinel6str2",
-            };
-            #endregion
-
-            #region Vanilla Edits
-            public static List<string> Vanilla_Edits { get; } = new List<string>()
-            {
                 "fuknking",
                 "pretender",
                 "squaddie2",
@@ -965,7 +959,6 @@ namespace vMenuClient
                 ["Boats"] = Boats,
                 ["Motorcycles"] = Motorcycles,
                 ["Vanilla"] = Vanilla,
-                ["Vanilla Edits"] = Vanilla_Edits,
                 ["International"] = International,
                 ["Five-O"] = Five_O,
                 ["Acura"] = Acura,
