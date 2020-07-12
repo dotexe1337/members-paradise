@@ -248,20 +248,10 @@ namespace vMenuClient
                     {
                         foreach (string str in item)
                         {
-                            if (savedVehicles.Any(a => ((str == GetDisplayNameFromVehicleModel(a.Value.model) && IsModelInCdimage(a.Value.model)))))
-                            {
-                                GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.NONE;
-                                GetMenu().GetMenuItems()[i].Label = "→→→";
-                                GetMenu().GetMenuItems()[i].Enabled = true;
-                                GetMenu().GetMenuItems()[i].Description = $"All saved vehicles from the {GetMenu().GetMenuItems()[i].Text} category.";
-                            }
-                            else
-                            {
-                                GetMenu().GetMenuItems()[i].Label = "";
-                                GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.LOCK;
-                                GetMenu().GetMenuItems()[i].Enabled = true;
-                                GetMenu().GetMenuItems()[i].Description = $"You do not have any saved vehicles that belong to the {GetMenu().GetMenuItems()[i].Text} category.";
-                            }
+                            GetMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.NONE;
+                            GetMenu().GetMenuItems()[i].Label = "→→→";
+                            GetMenu().GetMenuItems()[i].Enabled = true;
+                            GetMenu().GetMenuItems()[i].Description = $"All saved vehicles from the {GetMenu().GetMenuItems()[i].Text} category.";
                         }
                     }
                 }
