@@ -2,7 +2,7 @@
 <!-- Config file for the handling editor, reference from handling.dat and https://www.gtamodding.com/wiki/Handling.meta -->
 <CHandlingData>
   <!-- Physical -->
-  <handlingName Editable="true">
+  <handlingName Editable="false">
     <Description>This is used by the vehicles.meta file to identify the handling line of the vehicle.</Description>
   </handlingName>
   <fMass Editable="true">
@@ -36,7 +36,7 @@
     <Max value="1" />
     <Description>This value is used to determine whether a vehicle is front, rear, or four wheel drive.</Description>
   </fDriveBiasFront>
-  <nInitialDriveGears Editable="true">
+  <nInitialDriveGears Editable="false">
     <Min value="1" />
     <Max value="6" />
     <Description>How many forward speeds a transmission contains.</Description>
@@ -184,73 +184,73 @@
     <Description>This value modify the weight transmission during an acceleration between the front and rear (and can affect the acceleration speed).</Description>
   </fRollCentreHeightRear>
   <!-- Damage -->
-  <fCollisionDamageMult Editable="true">
+  <fCollisionDamageMult Editable="false">
     <Min value="0.005" />
     <Max value="2" />
     <Description>Multiplies the game's calculation of damage to the vehicle through collision.</Description>
   </fCollisionDamageMult>
-  <fWeaponDamageMult Editable="true">
+  <fWeaponDamageMult Editable="false">
     <Min value="0.03" />
     <Max value="4" />
     <Description>Multiplies the game's calculation of damage to the vehicle through weapon damage.</Description>
   </fWeaponDamageMult>
-  <fDeformationDamageMult Editable="true">
+  <fDeformationDamageMult Editable="false">
     <Min value="0" />
     <Max value="5" />
     <Description>Multiplies the game's calculation of deformation-causing damage.</Description>
   </fDeformationDamageMult>
-  <fEngineDamageMult Editable="true">
+  <fEngineDamageMult Editable="false">
     <Min value="0.01" />
     <Max value="2.5" />
     <Description>Multiplies the game's calculation of damage to the engine, causing explosion or engine failure.</Description>
   </fEngineDamageMult>
-  <fPetrolTankVolume Editable="true">
+  <fPetrolTankVolume Editable="false">
     <Min value="0" />
     <Max value="5000" />
     <Description>Amount of petrol that will leak after shooting the vehicle's petrol tank.</Description>
   </fPetrolTankVolume>
-  <fOilVolume Editable="true">
+  <fOilVolume Editable="false">
     <Min value="0" />
     <Max value="10" />
     <Description>Black smoke time before engine dies?</Description>
   </fOilVolume>
   <!-- Misc -->
-  <fSeatOffsetDistX Editable="true">
+  <fSeatOffsetDistX Editable="false">
     <Min value="-0.2" />
     <Max value="0.3" />
     <Description>The distance from the door to the car seat.</Description>
   </fSeatOffsetDistX>
-  <fSeatOffsetDistY Editable="true">
+  <fSeatOffsetDistY Editable="false">
     <Min value="-0.6" />
     <Max value="0.3" />
     <Description>The distance from the door to the car seat.</Description>
   </fSeatOffsetDistY>
-  <fSeatOffsetDistZ Editable="true">
+  <fSeatOffsetDistZ Editable="false">
     <Min value="-0.4" />
     <Max value="0.5" />
     <Description>The distance from the door to the car seat.</Description>
   </fSeatOffsetDistZ>
-  <nMonetaryValue Editable="true">
+  <nMonetaryValue Editable="false">
     <Min value="10000" />
     <Max value="500000" />
     <Description>Vehicle worth.</Description>
   </nMonetaryValue>
-  <strModelFlags Editable="true">
+  <strModelFlags Editable="false">
     <Description>Model flags. Written in HEX. Rightmost digit is the first one.</Description>
   </strModelFlags>
-  <strHandlingFlags Editable="true">
+  <strHandlingFlags Editable="false">
     <Description>Handling flags. Written in HEX. Rightmost digit is the first one.</Description>
   </strHandlingFlags>
-  <strDamageFlags Editable="true">
+  <strDamageFlags Editable="false">
     <Description>Indicates the doors that are nonbreakable. Written in HEX. Rightmost digit is the first one.</Description>
   </strDamageFlags>
-  <AIHandling Editable="true">
+  <AIHandling Editable="false">
     <Description>Tells the AI which driving profile it should use when driving the vehicle. Use AVERAGE for boats, bikes, aircraft, etc.</Description>
   </AIHandling>
-  <SubHandlingData Editable="true">
+  <SubHandlingData Editable="false">
     <Description />
   </SubHandlingData>
-  <fWeaponDamageScaledToVehHealthMult Editable="true">
+  <fWeaponDamageScaledToVehHealthMult Editable="false">
     <Min value="0.34" />
     <Max value="0.34" />
     <Description />
@@ -260,17 +260,17 @@
     <Max value="45" />
     <Description />
   </fPopUpLightRotation>
-  <fDownforceModifier Editable="true">
+  <fDownforceModifier Editable="false">
     <Min value="1.15" />
     <Max value="300" />
     <Description />
   </fDownforceModifier>
-  <fRocketBoostCapacity Editable="true">
+  <fRocketBoostCapacity Editable="false">
     <Min value="3" />
     <Max value="20" />
     <Description />
   </fRocketBoostCapacity>
-  <fBoostMaxSpeed Editable="true">
+  <fBoostMaxSpeed Editable="false">
     <Min value="15" />
     <Max value="87.5" />
     <Description />
