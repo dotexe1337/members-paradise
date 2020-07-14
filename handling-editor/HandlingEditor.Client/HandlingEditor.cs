@@ -63,7 +63,7 @@ namespace HandlingEditor.Client
         /// <summary>
         /// The <see cref="Control"/> used to open the menu
         /// </summary>
-        public int ToggleMenu = 168;
+        public int ToggleMenu = 167;
 
         #endregion
 
