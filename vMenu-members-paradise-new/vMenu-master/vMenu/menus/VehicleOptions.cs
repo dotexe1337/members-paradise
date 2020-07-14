@@ -917,7 +917,7 @@ namespace vMenuClient
             primaryColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(VehicleColorsMenu, primaryColorsMenu);
 
-            MenuItem primaryColorsBtn = new MenuItem(" ") { Label = "→→→" };
+            MenuItem primaryColorsBtn = new MenuItem("Primary Colors") { Label = "→→→" };
             VehicleColorsMenu.AddMenuItem(primaryColorsBtn);
             MenuController.BindMenuItem(VehicleColorsMenu, primaryColorsMenu, primaryColorsBtn);
 
@@ -926,7 +926,7 @@ namespace vMenuClient
             secondaryColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(VehicleColorsMenu, secondaryColorsMenu);
 
-            MenuItem secondaryColorsBtn = new MenuItem(" ") { Label = "→→→" };
+            MenuItem secondaryColorsBtn = new MenuItem("Secondary Colors") { Label = "→→→" };
             VehicleColorsMenu.AddMenuItem(secondaryColorsBtn);
             MenuController.BindMenuItem(VehicleColorsMenu, secondaryColorsMenu, secondaryColorsBtn);
 
