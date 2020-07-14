@@ -20,7 +20,7 @@ namespace vMenuClient
         // Menu variable, will be defined in CreateMenu()
         private Menu menu;
 
-        Menu playerMenu = new Menu("Online Players", "Player:");
+        Menu playerMenu = new Menu(" ", "Player:");
         Player currentPlayer = new Player(Game.Player.Handle);
 
 
@@ -30,9 +30,11 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Online Players") { };
+            menu = new Menu(" ", "Online Players") { };
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             menu.CounterPreText = "Players: ";
 
+            playerMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, playerMenu);
 
             MenuItem sendMessage = new MenuItem("Send Private Message", "Sends a private message to this player. ~r~Note: staff may be able to see all PM's.");

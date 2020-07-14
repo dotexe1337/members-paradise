@@ -40,7 +40,8 @@ namespace vMenuClient
 
             #region create main weapon options menu and add items
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Weapon Options");
+            menu = new Menu(" ", "Weapon Options");
+            menu = new Menu(" ", "weapon loadouts management");
 
             MenuItem getAllWeapons = new MenuItem("Get All Weapons", "Get all weapons.");
             MenuItem removeAllWeapons = new MenuItem("Remove All Weapons", "Removes all weapons in your inventory.");
@@ -80,7 +81,8 @@ namespace vMenuClient
 
             #region addonweapons submenu
             MenuItem addonWeaponsBtn = new MenuItem("Addon Weapons", "Equip / remove addon weapons available on this server.");
-            Menu addonWeaponsMenu = new Menu("Addon Weapons", "Equip/Remove Addon Weapons");
+            Menu addonWeaponsMenu = new Menu(" ", "Equip/Remove Addon Weapons");
+            addonWeaponsMenu = new Menu(" ", "weapon loadouts management");
             menu.AddMenuItem(addonWeaponsBtn);
 
             #region manage creating and accessing addon weapons menu
@@ -131,7 +133,8 @@ namespace vMenuClient
             if (IsAllowed(Permission.WPParachute))
             {
                 // main parachute options menu setup
-                Menu parachuteMenu = new Menu("Parachute Options", "Parachute Options");
+                Menu parachuteMenu = new Menu(" ", "Parachute Options");
+                parachuteMenu = new Menu(" ", "weapon loadouts management");
                 MenuItem parachuteBtn = new MenuItem("Parachute Options", "All parachute related options can be changed here.") { Label = "→→→" };
 
                 MenuController.AddSubmenu(menu, parachuteMenu);
@@ -286,37 +289,45 @@ namespace vMenuClient
             MenuItem spacer = GetSpacerMenuItem("↓ Weapon Categories ↓");
             menu.AddMenuItem(spacer);
 
-            Menu handGuns = new Menu("Weapons", "Handguns");
+            Menu handGuns = new Menu(" ", "Handguns");
             MenuItem handGunsBtn = new MenuItem("Handguns");
 
-            Menu rifles = new Menu("Weapons", "Assault Rifles");
+            Menu rifles = new Menu(" ", "Assault Rifles");
             MenuItem riflesBtn = new MenuItem("Assault Rifles");
 
-            Menu shotguns = new Menu("Weapons", "Shotguns");
+            Menu shotguns = new Menu(" ", "Shotguns");
             MenuItem shotgunsBtn = new MenuItem("Shotguns");
 
-            Menu smgs = new Menu("Weapons", "Sub-/Light Machine Guns");
+            Menu smgs = new Menu(" ", "Sub-/Light Machine Guns");
             MenuItem smgsBtn = new MenuItem("Sub-/Light Machine Guns");
 
-            Menu throwables = new Menu("Weapons", "Throwables");
+            Menu throwables = new Menu(" ", "Throwables");
             MenuItem throwablesBtn = new MenuItem("Throwables");
 
-            Menu melee = new Menu("Weapons", "Melee");
+            Menu melee = new Menu(" ", "Melee");
             MenuItem meleeBtn = new MenuItem("Melee");
 
-            Menu heavy = new Menu("Weapons", "Heavy Weapons");
+            Menu heavy = new Menu(" ", "Heavy Weapons");
             MenuItem heavyBtn = new MenuItem("Heavy Weapons");
 
-            Menu snipers = new Menu("Weapons", "Sniper Rifles");
+            Menu snipers = new Menu(" ", "Sniper Rifles");
             MenuItem snipersBtn = new MenuItem("Sniper Rifles");
 
+            handGuns = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, handGuns);
+            rifles = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, rifles);
+            shotguns = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, shotguns);
+            smgs = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, smgs);
+            throwables = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, throwables);
+            melee = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, melee);
+            heavy = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, heavy);
+            snipers = new Menu(" ", "weapon loadouts management");
             MenuController.AddSubmenu(menu, snipers);
             #endregion
 

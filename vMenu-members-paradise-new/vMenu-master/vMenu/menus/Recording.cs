@@ -22,7 +22,8 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu("Recording", "Recording Options");
+            menu = new Menu(" ", "Recording Options");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             MenuItem startRec = new MenuItem("Start Recording", "Start a new game recording using GTA V's built in recording.");
             MenuItem stopRec = new MenuItem("Stop Recording", "Stop and save your current recording.");

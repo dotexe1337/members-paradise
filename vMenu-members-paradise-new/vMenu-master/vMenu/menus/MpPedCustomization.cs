@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CitizenFX.Core;
 using MenuAPI;
 using Newtonsoft.Json;
-using CitizenFX.Core;
-using static CitizenFX.Core.UI.Screen;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 using static vMenuClient.CommonFunctions;
 using static vMenuClient.MpPedDataManager;
-using static vMenuShared.PermissionsManager;
 
 namespace vMenuClient
 {
@@ -18,15 +14,15 @@ namespace vMenuClient
     {
         // Variables
         private Menu menu;
-        public Menu createCharacterMenu = new Menu("Create Character", "Create A New Character");
-        public Menu savedCharactersMenu = new Menu("vMenu", "Manage Saved Characters");
-        public Menu inheritanceMenu = new Menu("vMenu", "Character Inheritance Options");
-        public Menu appearanceMenu = new Menu("vMenu", "Character Appearance Options");
-        public Menu faceShapeMenu = new Menu("vMenu", "Character Face Shape Options");
-        public Menu tattoosMenu = new Menu("vMenu", "Character Tattoo Options");
-        public Menu clothesMenu = new Menu("vMenu", "Character Clothing Options");
-        public Menu propsMenu = new Menu("vMenu", "Character Props Options");
-        private Menu manageSavedCharacterMenu = new Menu("vMenu", "Manage MP Character");
+        public Menu createCharacterMenu = new Menu(" ", "Create A New Character");
+        public Menu savedCharactersMenu = new Menu(" ", "Manage Saved Characters");
+        public Menu inheritanceMenu = new Menu(" ", "Character Inheritance Options");
+        public Menu appearanceMenu = new Menu(" ", "Character Appearance Options");
+        public Menu faceShapeMenu = new Menu(" ", "Character Face Shape Options");
+        public Menu tattoosMenu = new Menu(" ", "Character Tattoo Options");
+        public Menu clothesMenu = new Menu(" ", "Character Clothing Options");
+        public Menu propsMenu = new Menu(" ", "Character Props Options");
+        private Menu manageSavedCharacterMenu = new Menu(" ", "Manage MP Character");
 
         // Need to be able to disable/enable these buttons from another class.
         internal MenuItem createMaleBtn = new MenuItem("Create Male Character", "Create a new male character.") { Label = "→→→" };
@@ -755,20 +751,29 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "MP Ped Customization");
+            menu = new Menu(" ", "MP Ped Customization");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             MenuItem savedCharacters = new MenuItem("Saved Characters", "Spawn, edit or delete your existing saved multiplayer characters.")
             {
                 Label = "→→→"
             };
 
+            createCharacterMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(createCharacterMenu);
+            savedCharactersMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(savedCharactersMenu);
+            inheritanceMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(inheritanceMenu);
+            appearanceMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(appearanceMenu);
+            faceShapeMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(faceShapeMenu);
+            tattoosMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(tattoosMenu);
+            clothesMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(clothesMenu);
+            propsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(propsMenu);
 
             CreateSavedPedsMenu();

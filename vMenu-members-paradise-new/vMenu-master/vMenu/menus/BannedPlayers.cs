@@ -34,14 +34,16 @@ namespace vMenuClient
 
         public List<BanRecord> banlist = new List<BanRecord>();
 
-        Menu bannedPlayer = new Menu("Banned Player", "Ban Record: ");
+        Menu bannedPlayer = new Menu(" ", "Ban Record: ");
 
         /// <summary>
         /// Creates the menu.
         /// </summary>
         private void CreateMenu()
         {
-            menu = new Menu(Game.Player.Name, "Banned Players Management");
+            menu = new Menu(" ", "Banned Players Management");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            bannedPlayer.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             menu.InstructionalButtons.Add(Control.Jump, "Filter Options");
             menu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>(async (a, b) =>

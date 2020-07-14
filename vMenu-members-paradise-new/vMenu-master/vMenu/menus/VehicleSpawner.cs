@@ -27,7 +27,8 @@ namespace vMenuClient
         {
             #region initial setup.
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Vehicle Spawner");
+            menu = new Menu(" ", "Vehicle Spawner");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             // Create the buttons and checkboxes.
             MenuItem spawnByName = new MenuItem("Spawn Vehicle By Model Name", "Enter the name of a vehicle to spawn.");
@@ -56,7 +57,8 @@ namespace vMenuClient
                     Label = "→→→"
                 };
 
-                Menu vehicleClassMenu = new Menu("Vehicle Spawner", className);
+                Menu vehicleClassMenu = new Menu(" ", className);
+                vehicleClassMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
                 MenuController.AddSubmenu(menu, vehicleClassMenu);
                 menu.AddMenuItem(btn);

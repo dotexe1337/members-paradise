@@ -21,7 +21,8 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu("Members Paradise", "About Members Paradise");
+            menu = new Menu(" ", "About Members Paradise");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             // Create menu items.
             MenuItem version = new MenuItem("vMenu-MP Version", $"This server is using vMenu-MP ~b~~h~{MainMenu.Version}~h~~s~.")

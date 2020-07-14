@@ -17,7 +17,6 @@ namespace vMenuClient
     {
         // Variables
         private Menu menu;
-        private Menu teleportOptionsMenu;
         private Menu developerToolsMenu;
 
         public bool ShowSpeedoKmh { get; private set; } = UserDefaults.MiscSpeedKmh;
@@ -80,23 +79,28 @@ namespace vMenuClient
             }
 
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Settings");
-            developerToolsMenu = new Menu(Game.Player.Name, "Development Tools");
+            menu = new Menu(" ", "Settings");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            developerToolsMenu = new Menu(" ", "Development Tools");
+            developerToolsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             // keybind settings menu
-            Menu keybindMenu = new Menu(Game.Player.Name, "Keybind Settings");
+            Menu keybindMenu = new Menu(" ", "Keybind Settings");
+            keybindMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuItem keybindMenuBtn = new MenuItem("Keybind Settings", "Enable or disable keybinds for some options.");
             MenuController.AddSubmenu(menu, keybindMenu);
             MenuController.BindMenuItem(menu, keybindMenu, keybindMenuBtn);
 
             // visual settings menu
-            Menu visualMenu = new Menu(Game.Player.Name, "Visual Settings");
+            Menu visualMenu = new Menu(" ", "Visual Settings");
+            visualMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuItem visualMenuBtn = new MenuItem("Visual Settings", "Enable or disable visual settings.");
             MenuController.AddSubmenu(menu, visualMenu);
             MenuController.BindMenuItem(menu, visualMenu, visualMenuBtn);
 
             // misc settings menu
-            Menu miscMenu = new Menu(Game.Player.Name, "Misc Settings");
+            Menu miscMenu = new Menu(" ", "Misc Settings");
+            miscMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuItem miscMenuBtn = new MenuItem("Misc Settings", "Enable or disable misc settings.");
             MenuController.AddSubmenu(menu, miscMenu);
             MenuController.BindMenuItem(menu, miscMenu, miscMenuBtn);
@@ -140,7 +144,8 @@ namespace vMenuClient
             MenuCheckboxItem lockCamY = new MenuCheckboxItem("Lock Camera Vertical Rotation", "Locks your camera vertical rotation. Could be useful in helicopters I guess.", false);
 
 
-            Menu connectionSubmenu = new Menu(Game.Player.Name, "Connection Options");
+            Menu connectionSubmenu = new Menu(" ", "Connection Options");
+            connectionSubmenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuItem connectionSubmenuBtn = new MenuItem("Connection Options", "Server connection/game quit options.");
 
             MenuItem quitSession = new MenuItem("Quit Session", "Leaves you connected to the server, but quits the network session. ~r~Can not be used when you are the host.");

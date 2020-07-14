@@ -52,7 +52,8 @@ namespace vMenuClient
             }
 
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Voice Chat Settings");
+            menu = new Menu(" ", "Voice Chat Settings");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             MenuCheckboxItem voiceChatEnabled = new MenuCheckboxItem("Enable Voice Chat", "Enable or disable voice chat.", EnableVoicechat);
             MenuCheckboxItem showCurrentSpeaker = new MenuCheckboxItem("Show Current Speaker", "Shows who is currently talking.", ShowCurrentSpeaker);

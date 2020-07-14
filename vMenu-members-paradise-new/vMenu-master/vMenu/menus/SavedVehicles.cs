@@ -17,7 +17,7 @@ namespace vMenuClient
     {
         // Variables
         private Menu menu;
-        private Menu selectedVehicleMenu = new Menu("Manage Vehicle", "Manage this saved vehicle.");
+        private Menu selectedVehicleMenu = new Menu(" ", "Manage this saved vehicle.");
         private Dictionary<string, VehicleInfo> savedVehicles = new Dictionary<string, VehicleInfo>();
         private List<Menu> subMenus = new List<Menu>();
         private Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>> svMenuItems = new Dictionary<MenuItem, KeyValuePair<string, VehicleInfo>>();
@@ -30,10 +30,10 @@ namespace vMenuClient
         /// </summary>
         private void CreateMenu()
         {
-            string menuTitle = "Saved Vehicles";
             #region Create menus and submenus
             // Create the menu.
-            menu = new Menu(menuTitle, "Manage Saved Vehicles");
+            menu = new Menu(" ", "Manage Saved Vehicles");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             MenuItem saveVehicle = new MenuItem("Save Current Vehicle", "Save the vehicle you are currently sitting in.");
             menu.AddMenuItem(saveVehicle);
@@ -56,7 +56,8 @@ namespace vMenuClient
 
             for (int i = 0; i < VehicleData.Vehicles.VehicleClasses.Count; i++)
             {
-                Menu categoryMenu = new Menu("Saved Vehicles", VehicleData.Vehicles.VehicleClasses.ElementAt(i).Key);
+                Menu categoryMenu = new Menu(" ", VehicleData.Vehicles.VehicleClasses.ElementAt(i).Key);
+                categoryMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
                 MenuItem categoryButton = new MenuItem(VehicleData.Vehicles.VehicleClasses.ElementAt(i).Key, $"All saved vehicles from the {VehicleData.Vehicles.VehicleClasses.ElementAt(i).Key} category.");
                 subMenus.Add(categoryMenu);
@@ -77,6 +78,7 @@ namespace vMenuClient
             }
 
 
+            selectedVehicleMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddMenu(selectedVehicleMenu);
             MenuItem spawnVehicle = new MenuItem("Spawn Vehicle", "Spawn this saved vehicle.");
             MenuItem renameVehicle = new MenuItem("Rename Vehicle", "Rename your saved vehicle.");

@@ -21,11 +21,11 @@ namespace vMenuClient
         private Menu savedPedsMenu;
         private Menu spawnPedsMenu;
         private Menu addonPedsMenu;
-        private Menu mainPedsMenu = new Menu("Main Peds", "Spawn A Ped");
-        private Menu animalsPedsMenu = new Menu("Animals", "Spawn A Ped");
-        private Menu malePedsMenu = new Menu("Male Peds", "Spawn A Ped");
-        private Menu femalePedsMenu = new Menu("Female Peds", "Spawn A Ped");
-        private Menu otherPedsMenu = new Menu("Other Peds", "Spawn A Ped");
+        private Menu mainPedsMenu = new Menu(" ", "Spawn A Ped");
+        private Menu animalsPedsMenu = new Menu(" ", "Spawn A Ped");
+        private Menu malePedsMenu = new Menu(" ", "Spawn A Ped");
+        private Menu femalePedsMenu = new Menu(" ", "Spawn A Ped");
+        private Menu otherPedsMenu = new Menu(" ", "Spawn A Ped");
 
         public static Dictionary<string, uint> AddonPeds;
 
@@ -41,11 +41,16 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Player Appearance");
-            savedPedsMenu = new Menu(Game.Player.Name, "Saved Peds");
-            pedCustomizationMenu = new Menu(Game.Player.Name, "Customize Saved Ped");
-            spawnPedsMenu = new Menu(Game.Player.Name, "Spawn Ped");
-            addonPedsMenu = new Menu(Game.Player.Name, "Addon Peds");
+            menu = new Menu(" ", "Player Appearance");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            savedPedsMenu = new Menu(" ", "Saved Peds");
+            savedPedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            pedCustomizationMenu = new Menu(" ", "Customize Saved Ped");
+            pedCustomizationMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            spawnPedsMenu = new Menu(" ", "Spawn Ped");
+            spawnPedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            addonPedsMenu = new Menu(" ", "Addon Peds");
+            addonPedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
 
             // Add the (submenus) to the menu pool.
@@ -53,10 +58,15 @@ namespace vMenuClient
             MenuController.AddSubmenu(menu, savedPedsMenu);
             MenuController.AddSubmenu(menu, spawnPedsMenu);
             MenuController.AddSubmenu(spawnPedsMenu, addonPedsMenu);
+            mainPedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(spawnPedsMenu, mainPedsMenu);
+            animalsPedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(spawnPedsMenu, animalsPedsMenu);
+            malePedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(spawnPedsMenu, malePedsMenu);
+            femalePedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(spawnPedsMenu, femalePedsMenu);
+            otherPedsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(spawnPedsMenu, otherPedsMenu);
 
             // Create the menu items.
@@ -103,7 +113,8 @@ namespace vMenuClient
             MenuController.BindMenuItem(menu, savedPedsMenu, savedPedsBtn);
             MenuController.BindMenuItem(menu, spawnPedsMenu, spawnPedsBtn);
 
-            Menu selectedSavedPedMenu = new Menu("Saved Ped", "renameme");
+            Menu selectedSavedPedMenu = new Menu(" ", "renameme");
+            selectedSavedPedMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(savedPedsMenu, selectedSavedPedMenu);
             MenuItem spawnSavedPed = new MenuItem("Spawn Saved Ped", "Spawn this saved ped.");
             MenuItem cloneSavedPed = new MenuItem("Clone Saved Ped", "Clone this saved ped.");

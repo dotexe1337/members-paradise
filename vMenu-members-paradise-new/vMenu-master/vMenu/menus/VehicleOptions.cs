@@ -63,11 +63,13 @@ namespace vMenuClient
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Vehicle Options");
+            menu = new Menu(" ", "Vehicle Options");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             #region menu items variables
             // vehicle god mode menu
-            Menu vehGodMenu = new Menu("Vehicle Godmode", "Vehicle Godmode Options");
+            Menu vehGodMenu = new Menu(" ", "Vehicle Godmode Options");
+            vehGodMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuItem vehGodMenuBtn = new MenuItem("God Mode Options", "Enable or disable specific damage types.") { Label = "→→→" };
             MenuController.AddSubmenu(menu, vehGodMenu);
 
@@ -167,7 +169,8 @@ namespace vMenuClient
 
             #region Submenus
             // Submenu's
-            VehicleModMenu = new Menu("Mod Menu", "Vehicle Mods");
+            VehicleModMenu = new Menu(" ", "Vehicle Mods");
+            VehicleModMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             VehicleModMenu.InstructionalButtons.Add(Control.Jump, "Toggle Vehicle Doors");
             VehicleModMenu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_PRESSED, new Action<Menu, Control>((m, c) =>
             {
@@ -188,21 +191,28 @@ namespace vMenuClient
                     }
                 }
             }), false));
-            VehicleDoorsMenu = new Menu("Vehicle Doors", "Vehicle Doors Management");
-            VehicleWindowsMenu = new Menu("Vehicle Windows", "Vehicle Windows Management");
-            VehicleComponentsMenu = new Menu("Vehicle Extras", "Vehicle Extras/Components");
-            VehicleLiveriesMenu = new Menu("Vehicle Liveries", "Vehicle Liveries");
-            VehicleColorsMenu = new Menu("Vehicle Colors", "Vehicle Colors");
-            DeleteConfirmMenu = new Menu("Confirm Action", "Delete Vehicle, Are You Sure?");
-            VehicleUnderglowMenu = new Menu("Vehicle Neon Kits", "Vehicle Neon Underglow Options");
+            VehicleDoorsMenu = new Menu(" ", "Vehicle Doors Management");
+            VehicleWindowsMenu = new Menu(" ", "Vehicle Windows Management");
+            VehicleComponentsMenu = new Menu(" ", "Vehicle Extras/Components");
+            VehicleLiveriesMenu = new Menu(" ", "Vehicle Liveries");
+            VehicleColorsMenu = new Menu(" ", "Vehicle Colors");
+            DeleteConfirmMenu = new Menu(" ", "Delete Vehicle, Are You Sure?");
+            VehicleUnderglowMenu = new Menu(" ", "Vehicle Neon Underglow Options");
 
             MenuController.AddSubmenu(menu, VehicleModMenu);
+            VehicleDoorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleDoorsMenu);
+            VehicleWindowsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleWindowsMenu);
+            VehicleComponentsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleComponentsMenu);
+            VehicleLiveriesMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleLiveriesMenu);
+            VehicleColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleColorsMenu);
+            DeleteConfirmMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, DeleteConfirmMenu);
+            VehicleUnderglowMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleUnderglowMenu);
             #endregion
 
@@ -903,18 +913,20 @@ namespace vMenuClient
 
             #region Vehicle Colors Submenu Stuff
             // primary menu
-            Menu primaryColorsMenu = new Menu("Vehicle Colors", "Primary Colors");
+            Menu primaryColorsMenu = new Menu(" ", "Primary Colors");
+            primaryColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(VehicleColorsMenu, primaryColorsMenu);
 
-            MenuItem primaryColorsBtn = new MenuItem("Primary Color") { Label = "→→→" };
+            MenuItem primaryColorsBtn = new MenuItem(" ") { Label = "→→→" };
             VehicleColorsMenu.AddMenuItem(primaryColorsBtn);
             MenuController.BindMenuItem(VehicleColorsMenu, primaryColorsMenu, primaryColorsBtn);
 
             // secondary menu
-            Menu secondaryColorsMenu = new Menu("Vehicle Colors", "Secondary Colors");
+            Menu secondaryColorsMenu = new Menu(" ", "Secondary Colors");
+            secondaryColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(VehicleColorsMenu, secondaryColorsMenu);
 
-            MenuItem secondaryColorsBtn = new MenuItem("Secondary Color") { Label = "→→→" };
+            MenuItem secondaryColorsBtn = new MenuItem(" ") { Label = "→→→" };
             VehicleColorsMenu.AddMenuItem(secondaryColorsBtn);
             MenuController.BindMenuItem(VehicleColorsMenu, secondaryColorsMenu, secondaryColorsBtn);
 

@@ -30,7 +30,7 @@ namespace vMenuClient
         public bool PlayerIsIgnored { get; private set; } = UserDefaults.EveryoneIgnorePlayer;
         public bool PlayerStayInVehicle { get; private set; } = UserDefaults.PlayerStayInVehicle;
         public bool PlayerFrozen { get; private set; } = false;
-        private Menu CustomDrivingStyleMenu = new Menu("Driving Style", "Custom Driving Style");
+        private Menu CustomDrivingStyleMenu = new Menu(" ", "Custom Driving Style");
 
         /// <summary>
         /// Creates the menu.
@@ -39,7 +39,8 @@ namespace vMenuClient
         {
             #region create menu and menu items
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Player Options");
+            menu = new Menu(" ", "Player Options");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             // Create all checkboxes.
             MenuCheckboxItem playerGodModeCheckbox = new MenuCheckboxItem("Godmode", "Makes you invincible.", PlayerGodMode);
@@ -67,8 +68,9 @@ namespace vMenuClient
             MenuItem wetPlayerBtn = new MenuItem("Wet Player Clothes", "Make your player clothes wet.");
             MenuItem suicidePlayerBtn = new MenuItem("~r~Commit Suicide", "Kill yourself by taking the pill. Or by using a pistol if you have one.");
 
-            Menu vehicleAutoPilot = new Menu("Auto Pilot", "Vehicle auto pilot options.");
+            Menu vehicleAutoPilot = new Menu(" ", "Vehicle auto pilot options.");
 
+            vehicleAutoPilot.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, vehicleAutoPilot);
 
             MenuItem vehicleAutoPilotBtn = new MenuItem("Vehicle Auto Pilot Menu", "Manage vehicle auto pilot options.")
@@ -165,6 +167,7 @@ namespace vMenuClient
                 MenuItem stopDriving = new MenuItem("Stop Driving", "The player ped will find a suitable place to stop the vehicle. The task will be stopped once the vehicle has reached the suitable stop location.");
                 MenuItem forceStopDriving = new MenuItem("Force Stop Driving", "This will stop the driving task immediately without finding a suitable place to stop.");
                 MenuItem customDrivingStyle = new MenuItem("Custom Driving Style", "Select a custom driving style. Make sure to also enable it by selecting the 'Custom' driving style in the driving styles list.") { Label = "→→→" };
+                CustomDrivingStyleMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
                 MenuController.AddSubmenu(vehicleAutoPilot, CustomDrivingStyleMenu);
                 vehicleAutoPilot.AddMenuItem(customDrivingStyle);
                 MenuController.BindMenuItem(vehicleAutoPilot, CustomDrivingStyleMenu, customDrivingStyle);

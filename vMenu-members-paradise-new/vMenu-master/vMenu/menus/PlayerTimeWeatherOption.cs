@@ -30,7 +30,8 @@ namespace vMenuClient
         /// </summary>
         private void CreateMenu()
         {
-            menu = new Menu("Time & Weather Options", "Time & Weather Options");
+            menu = new Menu(" ", "Time & Weather Options");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             clientSidedEnabled = new MenuCheckboxItem("Client-Sided Time & Weather", "Enable or disable client-sided time and weather changes.", false);
             menu.AddMenuItem(clientSidedEnabled);

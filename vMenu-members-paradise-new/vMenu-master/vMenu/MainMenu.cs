@@ -389,10 +389,14 @@ namespace vMenuClient
                     }
 
                     // Create the main menu.
-                    Menu = new Menu("Members Paradise", "Main Menu");
-                    PlayerSubmenu = new Menu(Game.Player.Name, "Player Related Options");
-                    VehicleSubmenu = new Menu(Game.Player.Name, "Vehicle Related Options");
-                    WorldSubmenu = new Menu(Game.Player.Name, "World Options");
+                    Menu = new Menu(" ", "Main Menu");
+                    Menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+                    PlayerSubmenu = new Menu(" ", "Player Related Options");
+                    PlayerSubmenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+                    VehicleSubmenu = new Menu(" ", "Vehicle Related Options");
+                    VehicleSubmenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+                    WorldSubmenu = new Menu(" ", "World Options");
+                    WorldSubmenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
                     // Add the main menu to the menu pool.
                     MenuController.AddMenu(Menu);
@@ -729,6 +733,7 @@ namespace vMenuClient
             {
                 WeaponLoadoutsMenu = new WeaponLoadouts();
                 Menu menu = WeaponLoadoutsMenu.GetMenu();
+
                 MenuItem button = new MenuItem("Weapon Loadouts", "Mange, and spawn saved weapon loadouts.")
                 {
                     Label = "→→→"

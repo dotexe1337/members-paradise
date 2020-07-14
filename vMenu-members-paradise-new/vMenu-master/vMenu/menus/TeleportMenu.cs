@@ -25,7 +25,8 @@ namespace vMenuClient
         /// </summary>
         private void CreateMenu()
         {
-            menu = new Menu(Game.Player.Name, "Teleport Options");
+            menu = new Menu(" ", "Teleport Options");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             if (IsAllowed(Permission.MSTeleportToWp) || IsAllowed(Permission.MSTeleportLocations) || IsAllowed(Permission.MSTeleportToCoord))
             {
@@ -115,7 +116,8 @@ namespace vMenuClient
                 }
 
                 // los santos submenu
-                Menu losSantosMenu = new Menu(Game.Player.Name, "Los Santos");
+                Menu losSantosMenu = new Menu(" ", "Los Santos");
+                losSantosMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
                 MenuItem losSantosMenuBtn = new MenuItem("Los Santos", "Teleport to locations in Los Santos.");
                 MenuController.AddSubmenu(menu, losSantosMenu);
                 MenuController.BindMenuItem(menu, losSantosMenu, losSantosMenuBtn);
