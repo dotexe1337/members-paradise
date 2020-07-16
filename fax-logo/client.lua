@@ -5,12 +5,14 @@ Citizen.CreateThread(function()
     local delay = 10000 -- ms
 
     TriggerEvent('logo:display', true)
+	DisplayRadar(false)
 
     while display do
       Citizen.Wait(0)
 	  if(IsControlPressed(1, 38)) then
 		display = false
         TriggerEvent('logo:display', false)
+		DisplayRadar(true)
 	  end
 	end
  end)
