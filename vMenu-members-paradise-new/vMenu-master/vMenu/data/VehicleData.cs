@@ -465,6 +465,7 @@ namespace vMenuClient
                 "q820",
                 "r820",
                 "rs6",
+                "rs6abt",
             };
             #endregion
 
@@ -783,6 +784,7 @@ namespace vMenuClient
                 "nis15",
                 "s15",
                 "s15vert",
+                "r30rsx",
                 "r31",
                 "nisr32",
                 "hcr32",
@@ -910,6 +912,7 @@ namespace vMenuClient
             #region Toyota
             public static List<string> Toyota { get; } = new List<string>()
             {
+                "prius17",
                 "maltezza",
                 "maj86",
                 "cam08",
