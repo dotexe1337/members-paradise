@@ -779,6 +779,7 @@ namespace vMenuClient
             public static List<string> Mitsubishi { get; } = new List<string>()
             {
                 "evo8",
+                "evoviii",
                 "evovaris",
                 "mlec",
                 "fq400",
