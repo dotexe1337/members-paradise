@@ -423,6 +423,7 @@ namespace vMenuClient
                 "ziongtc",
                 "voodoo3",
                 "sultanrsstanced",
+                "intruderstanced",
             };
             #endregion
 
@@ -455,6 +456,7 @@ namespace vMenuClient
             {
                 "rapide",
                 "amdbx",
+                "db11",
             };
             #endregion
 
@@ -464,7 +466,12 @@ namespace vMenuClient
                 "rs72020",
                 "q820",
                 "r820",
+                "rs318",
+                "rs4avant",
+                "rs5r",
                 "rs6",
+                "rs62",
+                "rs7",
             };
             #endregion
 
@@ -477,7 +484,10 @@ namespace vMenuClient
                 "b12langsh",
                 "blze30",
                 "m3e36",
+                "e36t",
+                "m3e36",
                 "e46",
+                "m3tp",
                 "bme6tun",
                 "e92lb",
                 "m3f80",
@@ -488,6 +498,8 @@ namespace vMenuClient
                 "645ci",
                 "e34touring",
                 "e23",
+                "M760Li",
+                "z4",
             };
             #endregion
 
@@ -615,7 +627,10 @@ namespace vMenuClient
                 "na1",
                 "nc1",
                 "prelude",
+                "prelude80",
+                "integrabomex",
                 "ap2",
+                "honody",
             };
             #endregion
 
@@ -631,6 +646,7 @@ namespace vMenuClient
             public static List<string> Infiniti { get; } = new List<string>()
             {
                 "ipl",
+                "infg35",
             };
             #endregion
 
@@ -706,12 +722,17 @@ namespace vMenuClient
             public static List<string> Mazda { get; } = new List<string>()
             {
                 "yata",
+                "mazlex",
+                "mxrb",
                 "rx3",
                 "fb",
                 "majfc",
                 "fc3s",
                 "majfd",
                 "fd",
+                "rx7cwest",
+                "rx7veilside",
+                "rx7kazama",
                 "rx811",
                 "camberghini",
             };
@@ -759,6 +780,8 @@ namespace vMenuClient
             {
                 "evo8",
                 "evovaris",
+                "mlec",
+                "fq400",
             };
             #endregion
 
@@ -766,6 +789,7 @@ namespace vMenuClient
             public static List<string> Nissan { get; } = new List<string>()
             {
                 "nis180",
+                "180326",
                 "z31",
                 "z32",
                 "350gt",
@@ -775,21 +799,28 @@ namespace vMenuClient
                 "95y33",
                 "Y32cedric",
                 "s30",
-                "infg35",
                 "c33",
                 "180sx",
                 "nis13",
+                "s13cambered",
+                "silvia",
+                "s13onev",
                 "majs14z",
                 "nis15",
                 "s15",
                 "s15vert",
+                "skylinec110",
+                "2000gtr",
+                "r30rsx",
                 "r31",
                 "nisr32",
                 "hcr32",
                 "nisr33",
                 "skyline",
+                "stagea34",
                 "er34",
                 "r35",
+                "gtrp",
                 "gtrlb2",
                 "gtrsilhouette",
                 "gtrc",
@@ -830,6 +861,7 @@ namespace vMenuClient
             #region Porsche
             public static List<string> Porsche { get; } = new List<string>()
             {
+                "rikorwd",
                 "992c",
                 "992t",
                 "str20",
@@ -837,6 +869,7 @@ namespace vMenuClient
                 "930mnc",
                 "oldnew",
                 "ursa",
+                "caymanrb",
             };
             #endregion
 
@@ -919,9 +952,11 @@ namespace vMenuClient
                 "levin86",
                 "jzs175",
                 "toy86",
+                "yae86",
                 "gx71",
                 "gx81",
                 "mk2100",
+                "jzx100snowdrift",
                 "majsoar",
                 "jza70",
                 "a80",
@@ -935,6 +970,9 @@ namespace vMenuClient
                 "celsior1",
                 "celsior2",
                 "crownathlete",
+                "alphard",
+                "camry18",
+                "prius17",
             };
             #endregion
 
@@ -950,6 +988,10 @@ namespace vMenuClient
             {
                 "mk3",
                 "63lb",
+                "passatsedan",
+                "passatr",
+                "sciroccos81",
+                "r32",
             };
             #endregion
 
@@ -986,6 +1028,7 @@ namespace vMenuClient
                 ["McLaren"] = McLaren,
                 ["Mercedes Benz"] = Mercedes_Benz,
                 ["Mini"] = Mini,
+                ["Mitsubishi"] = Mitsubishi,
                 ["Nissan"] = Nissan,
                 ["Opel"] = Opel,
                 ["Pagani"] = Pagani,
