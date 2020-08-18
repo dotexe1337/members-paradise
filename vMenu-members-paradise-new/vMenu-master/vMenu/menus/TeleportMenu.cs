@@ -127,8 +127,8 @@ namespace vMenuClient
                 MenuItem customMapsMenuBtn = new MenuItem("Custom Maps", "Teleport to custom map locations..");
                 MenuController.AddSubmenu(menu, customMapsMenu);
                 MenuController.BindMenuItem(menu, customMapsMenu, customMapsMenuBtn);
-                losSantosMenuBtn.Label = "→→→";
-                menu.AddMenuItem(losSantosMenuBtn);
+                customMapsMenuBtn.Label = "→→→";
+                menu.AddMenuItem(customMapsMenuBtn);
 
                 MenuItem airportBtn = new MenuItem("Airport", "Teleport to the airport.");
                 losSantosMenu.AddMenuItem(airportBtn);
