@@ -124,6 +124,7 @@ namespace vMenuClient
                 losSantosMenuBtn.Label = "→→→";
                 menu.AddMenuItem(losSantosMenuBtn);
                 Menu customMapsMenu = new Menu(" ", "Custom Maps");
+                customMapsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
                 MenuItem customMapsMenuBtn = new MenuItem("Custom Maps", "Teleport to custom map locations..");
                 MenuController.AddSubmenu(menu, customMapsMenu);
                 MenuController.BindMenuItem(menu, customMapsMenu, customMapsMenuBtn);
@@ -157,7 +158,7 @@ namespace vMenuClient
                 MenuItem designerBtn = new MenuItem("Designer House", "Teleport to the designer house.");
                 losSantosMenu.AddMenuItem(designerBtn);
 
-                MenuItem shibuyaBtn = new MenuItem("Shibuya", "Teleport to shibuya..");
+                MenuItem shibuyaBtn = new MenuItem("Shibuya", "Teleport to shibuya.");
                 customMapsMenu.AddMenuItem(shibuyaBtn);
 
                 losSantosMenu.OnItemSelect += async (sender, item, index) =>
