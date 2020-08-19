@@ -7,7 +7,7 @@
 
     position: absolute;
     left: calc(2.77vh);
-    top: calc(50% - (var(--size) / 2));
+    top: calc(0vh);
     height: var(--size) !important;
 
     background: inherit !important;
@@ -19,18 +19,8 @@
     user-select: none;
 }
 
-@font-face {
-    font-family: 'Font2';
-    src: url(https://runtime.fivem.net/temp/ChaletLondonNineteenSixty.otf?a);
-}
-
-@font-face {
-    font-family: 'Font2_cond';
-    src: url(https://runtime.fivem.net/temp/chaletcomprime-colognesixty-webfont.ttf?a);
-}
-
 .msg {
-    font-family: Font2, sans-serif;
+    font-family: Noto Sans, sans-serif;
     color: #fff;
 
     font-size: calc(1.8vh); /* 13px in 720p, calc'd by width */
@@ -47,7 +37,7 @@
 }
 
 .msg > span > span > b {
-    font-family: Font2_cond, sans-serif;
+    font-family: Noto Sans, sans-serif;
     font-weight: normal;
 
     vertical-align: baseline;
@@ -55,7 +45,7 @@
 
     line-height: 1;
 
-    font-size: calc(2.7vh);
+    font-size: calc(1.8vh);
 }
 
 .msg > span > span > span {
