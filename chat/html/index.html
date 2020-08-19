@@ -25,7 +25,7 @@
                    :multiline="msg.multiline"
                    :args="msg.args"
                    :color="msg.color"
-                   :template="msg.template"
+		   :template="msg.template"
                    :template-id="msg.templateId"
                    :key="msg">
           </message>
@@ -53,7 +53,7 @@
 
   <!-- Message Template -->
   <script type="text/x-template" id="message_template">
-    <div class="msg" :class="{ multiline }">
+	  <div class="msg" :class="{ multiline }" style="padding-left: 25px; padding-right: 25px; margin: 0.5vw; background-color: rgba(0, 0, 0, 0.6); border-radius: 3px;">
       <span v-html="textEscaped"></span>
     </div>
   </script>
