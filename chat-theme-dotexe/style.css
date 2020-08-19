@@ -1,122 +1,128 @@
-@import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
-.color-0{color: #ffffff;}
-.color-1{color: #ff4444;}
-.color-2{color: #99cc00;}
-.color-3{color: #ffbb33;}
-.color-4{color: #0099cc;}
-.color-5{color: #33b5e5;}
-.color-6{color: #aa66cc;}
-.color-8{color: #cc0000;}
-.color-9{color: #cc0068;}
-    src: url("../BarlowCondensed.ttf");
-
 * {
-  font-family: 'Barlow Condensed', sans-serif;
-  margin: 0;
-  padding: 0;
-  font-size: 0.9rem;
-}
-
-.no-grow {
-  flex-grow: 0;
-}
-
-em {
-  font-style: normal;
-}
-
-#app {
-  font-family: 'Barlow Condensed', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: white;
-  background-color: transparent;
+    font-family: inherit;
 }
 
 .chat-window {
-  position: absolute;
-  left: 15px;
-  width: 38%;
-  height: 530px;
-  background-color: rgba(0, 0, 0, 0.75);
-  -webkit-animation-duration: 2s;
+    --size: calc(((2.7vh * 1.2)) * 6);
+
+    position: absolute;
+    right: calc(2.77vh);
+    top: calc(50% - (var(--size) / 2));
+    height: var(--size) !important;
+
+    background: inherit !important;
+
+    text-align: left;
+
+    left: auto;
+
+    user-select: none;
 }
 
-
-
-.chat-messages {
-  position: relative;
-  height: 95%;
-  font-size: 1.0rem;
-
-  overflow-x: hidden;
-  overflow-y: hidden;
+@font-face {
+    font-family: 'Font2';
+    src: url(https://runtime.fivem.net/temp/ChaletLondonNineteenSixty.otf?a);
 }
 
-
-.chat-input {
-  font-size: 0.9rem;
-  position: absolute;
-
-  top: 30%;
-  left: 19px;
-  width: 38%;
-
-  box-sizing: border-box;
-}
-
-.prefix {
-  position: absolute;
-  margin-top: 2px;
-  left: -10px;
-}
-
-textarea {
-  font-size: 1.0rem;
-  display: block;
-  box-sizing: border-box;
-  padding: 5px;
-  color: white;
-  background-color: rgba(0, 0, 0, 75);
-  width: 50%;
-  border-width: 0;
-  height: 30%;
-  overflow: hidden;
-}
-
-textarea:focus, input:focus {
-    outline: none;
+@font-face {
+    font-family: 'Font2_cond';
+    src: url(https://runtime.fivem.net/temp/chaletcomprime-colognesixty-webfont.ttf?a);
 }
 
 .msg {
-  margin-bottom: 5px;
+    font-family: Font2, sans-serif;
+    color: #fff;
+
+    font-size: calc(1.8vh); /* 13px in 720p, calc'd by width */
+    filter: url(#svgDropShadowFilter);
+
+    line-height: calc(2.7vh * 1.2);
+
+    margin-bottom: 0;
 }
 
-.multiline {
-  margin-left: 1.5rem;
-  text-indent: -1.5rem;
-  white-space: pre-line;
+.chat-messages {
+    margin: 0;
+    height: 100%;
+}
+
+.msg > span > span > b {
+    font-family: Font2_cond, sans-serif;
+    font-weight: normal;
+
+    vertical-align: baseline;
+    padding-right: 11px;
+
+    line-height: 1;
+
+    font-size: calc(2.7vh);
+}
+
+.msg > span > span > span {
+    vertical-align: baseline;
+}
+
+.msg i:first-of-type {
+    font-style: normal;
+    color: #c0c0c0;
+}
+
+.chat-input {
+    position: absolute;
+    right: calc(2.77vh);
+    bottom: calc(2.77vh);
+
+    background: inherit !important;
+
+    text-align: right;
+
+    top: auto;
+    left: auto;
+
+    height: auto;
+
+    font-family: Font2, sans-serif;
+}
+
+.chat-input > div {
+    background-color: rgba(0, 0, 0, .6);
+    padding: calc(0.28vh / 2);
+}
+
+.chat-input .prefix {
+    margin: 0;
+    margin-left: 0.7%;
+    margin-top: -0.1%;
+}
+
+.chat-input > div + div {
+    position: absolute;
+    bottom: calc(1.65vh + 0.28vh + 0.28vh + 0.28vh + (0.28vh / 2));
+    width: 99.6%;
+
+    text-align: left;
 }
 
 .suggestions {
-  list-style-type: none;
-  padding: 5px;
-  padding-left: 27px;
-  font-size: 0.9rem;
-  box-sizing: border-box;
-  color: white;
-  background-color: rgba(207, 227, 114, 0);
-  width: 100%;
+    border: calc(0.28vh / 2) solid rgba(180, 180, 180, .6);
+    background: transparent;
 }
 
-.help {
-  color: #b0bbbd;
+textarea {
+    background: transparent;
+    border: calc(0.28vh / 2) solid rgba(180, 180, 180, .6);
+    padding: calc(0.28vh / 2);
+    padding-left: calc(3.5% + (0.28vh / 2));
 }
 
-.disabled {
-  color: #b0bbbd;
+@media screen and (min-aspect-ratio: 21/9) {
+	.chat-window, .chat-input {
+		right: calc(12.8vw);
+	}
 }
 
-.suggestion {
-  margin-bottom: 5px;
+@media screen and (min-aspect-ratio: 32/9) {
+	.chat-window, .chat-input {
+		right: calc(25vw);
+	}
 }
