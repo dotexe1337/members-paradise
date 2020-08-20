@@ -24,7 +24,7 @@ sendBlockMessages = true;
 -- CODE --
 function sendMsg(firstline, msg, to) 
 	TriggerClientEvent('chat:addMessage', to, {
-		template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(93, 93, 93, 0.25); border-radius: 3px;">{0} <br> {1}</div>',
+		template = '{0} {1}',
         args = { firstline, msg }
 	});
 end 
