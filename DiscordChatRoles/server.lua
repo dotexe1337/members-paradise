@@ -9,14 +9,14 @@
 ]]--
 -- CONFIG --
 roleList = {
-{690292451549773824, "^8^*[Owner]: ^r^7"}, -- Owner
-{744864993887125524, "^3^*[Head Admin]: ^r^7"}, -- Head Admin
-{678568599266394123, "^3^*[Admin]: ^r^7"}, -- Admin
-{678580976145793082, "^2^*[Developer]: ^r^7"}, -- Developer
-{729759893686321263, "^1^*[Mod Creators]: ^r^7"}, -- Mod Creators
-{704982501709447238, "^1^*[Moderator]: ^r^7"}, -- Moderator
-{745345646625554432, "^6^*[Beta Whitelist]: ^r^7"}, -- Beta Whitelist
 {678588937463136277, "^6^*[Whitelisted]: ^r^7"}, -- Whitelisted
+{745345646625554432, "^6^*[Beta Whitelist]: ^r^7"}, -- Beta Whitelist
+{704982501709447238, "^1^*[Moderator]: ^r^7"}, -- Moderator
+{729759893686321263, "^1^*[Mod Creators]: ^r^7"}, -- Mod Creators
+{678580976145793082, "^2^*[Developer]: ^r^7"}, -- Developer
+{678568599266394123, "^3^*[Admin]: ^r^7"}, -- Admin
+{744864993887125524, "^3^*[Head Admin]: ^r^7"}, -- Head Admin
+{690292451549773824, "^8^*[Owner]: ^r^7"}, -- Owner
 }
 sendBlockMessages = true;
 
