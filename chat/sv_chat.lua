@@ -15,22 +15,7 @@ AddEventHandler('_chat:messageEntered', function(author, color, message)
     TriggerEvent('chatMessage', source, author, message)
 
     if not WasEventCanceled() then
-	local player = source
-	if exports.discord_perms:IsRolePresent(player, "Owner") then
-	        TriggerClientEvent('chatMessage', -1, "^8^*[Owner] ^7^r".. author .. ":",  { 255, 255, 255 }, message)
-	elseif exports.discord_perms:IsRolePresent(player, "Head Admin") then
-	        TriggerClientEvent('chatMessage', -1, "^3^*[Head Admin] ^7^r".. author .. ":",  { 255, 255, 255 }, message)
-	elseif exports.discord_perms:IsRolePresent(player, "Admin") then
-	        TriggerClientEvent('chatMessage', -1, "^3^*[Admin] ^7^r".. author .. ":",  { 255, 255, 255 }, message)	
-	elseif exports.discord_perms:IsRolePresent(player, "Developer") then
-	        TriggerClientEvent('chatMessage', -1, "^2^*[Developer] ^7^r".. author .. ":",  { 255, 255, 255 }, message)	
-	elseif exports.discord_perms:IsRolePresent(player, "Mod Creators") then
-	        TriggerClientEvent('chatMessage', -1, "^9^*[Mod Creators] ^7^r".. author .. ":",  { 255, 255, 255 }, message)	
-	elseif exports.discord_perms:IsRolePresent(player, "Moderator") then
-	        TriggerClientEvent('chatMessage', -1, "^1^*[Moderator] ^7^r".. author .. ":",  { 255, 255, 255 }, message)	
-	else
-	        TriggerClientEvent('chatMessage', -1, author,  { 255, 255, 255 }, message)			
-	end
+	TriggerClientEvent('chatMessage', -1, author,  { 255, 255, 255 }, message)
     end
 
     print(author .. '^7: ' .. message .. '^7')
