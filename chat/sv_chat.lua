@@ -36,21 +36,21 @@ end)
 -- player join messages
 AddEventHandler('chat:init', function()
 	TriggerClientEvent('chat:addMessage', -1, {
-		template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(93, 93, 93, 0.25); border-radius: 3px;">{0} <br> {1}</div>',
+		template = '{0} {1}',
         args = { '^1^*Members Paradise SERVER: ^r^7', GetPlayerName(source) .. ' joined.' }
 	});
 end)
 
 AddEventHandler('playerDropped', function(reason)
 	TriggerClientEvent('chat:addMessage', -1, {
-		template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(93, 93, 93, 0.25); border-radius: 3px;">{0} <br> {1}</div>',
+		template = '{0} {1}',
         args = { '^1^*Members Paradise SERVER: ^r^7', GetPlayerName(source) ..' left (' .. reason .. ')' }
 	});
 end)
 
 RegisterCommand('say', function(source, args, rawCommand)
 	TriggerClientEvent('chat:addMessage', -1, {
-		template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(93, 93, 93, 0.25); border-radius: 3px;">{0} <br> {1}</div>',
+		template = '{0} {1}',
         args = { (source == 0) and 'console' or GetPlayerName(source) .. ":", { 255, 255, 255 }, rawCommand:sub(5)  }
 	});
 end)
