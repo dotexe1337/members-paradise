@@ -6,9 +6,10 @@
     --size: calc(((2.7vh * 1.2)) * 6);
 
     position: absolute;
-    left: calc(2.77vh);
-    top: calc(0vh);
-    height: var(--size) !important;
+    top: 0%;
+    left: 0.8%;
+    width: 38%;
+    height: 22%;  
 
     background: inherit !important;
 
