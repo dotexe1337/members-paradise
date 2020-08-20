@@ -35,15 +35,24 @@ end)
 
 -- player join messages
 AddEventHandler('chat:init', function()
-    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^1^*Members Paradise SERVER: ^r^7' .. GetPlayerName(source) .. ' joined.')
+	TriggerClientEvent('chat:addMessage', -1, {
+		template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(93, 93, 93, 0.25); border-radius: 3px;">{0} <br> {1}</div>',
+        args = { '^1^*Members Paradise SERVER: ^r^7', GetPlayerName(source) .. ' joined.' }
+	});
 end)
 
 AddEventHandler('playerDropped', function(reason)
-    TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^1^*Members Paradise SERVER: ^r^7' .. GetPlayerName(source) ..' left (' .. reason .. ')')
+	TriggerClientEvent('chat:addMessage', -1, {
+		template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(93, 93, 93, 0.25); border-radius: 3px;">{0} <br> {1}</div>',
+        args = { '^1^*Members Paradise SERVER: ^r^7', GetPlayerName(source) ..' left (' .. reason .. ')' }
+	});
 end)
 
 RegisterCommand('say', function(source, args, rawCommand)
-    TriggerClientEvent('chatMessage', -1, (source == 0) and 'console' or GetPlayerName(source), { 255, 255, 255 }, rawCommand:sub(5))
+	TriggerClientEvent('chat:addMessage', -1, {
+		template = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(93, 93, 93, 0.25); border-radius: 3px;">{0} <br> {1}</div>',
+        args = { (source == 0) and 'console' or GetPlayerName(source) .. ":", { 255, 255, 255 }, rawCommand:sub(5)  }
+	});
 end)
 
 -- command suggestions for clients
