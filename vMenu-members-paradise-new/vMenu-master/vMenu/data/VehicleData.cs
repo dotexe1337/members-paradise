@@ -483,6 +483,7 @@ namespace vMenuClient
                 "b12lang",
                 "b12langsh",
                 "blze30",
+                "gdae36v",
                 "m3e36",
                 "e36t",
                 "m3e36",
@@ -525,6 +526,7 @@ namespace vMenuClient
             public static List<string> Chevrolet { get; } = new List<string>()
             {
                 "c8",
+                "corvettezr1",
                 "belair57",
                 "elcamino70",
                 "impaladonk",
@@ -546,7 +548,9 @@ namespace vMenuClient
                 "16Challenger",
                 "Lancer57",
                 "SRT2018",
+                "99sboosted",
                 "99viper",
+                "viper",
             };
             #endregion
 
@@ -616,6 +620,7 @@ namespace vMenuClient
                 "ep3",
                 "fd2",
                 "fk8",
+                "hondacivictr",
                 "city85",
                 "crxdelsol",
                 "crx2",
@@ -759,6 +764,7 @@ namespace vMenuClient
                 "e400",
                 "e63s",
                 "c63s",
+                "w222s500amg",
                 "gle450",
                 "amggt63s",
                 "w222s500",
@@ -811,6 +817,7 @@ namespace vMenuClient
                 "s15",
                 "s15vert",
                 "skylinec110",
+                "kgc10",
                 "2000gtr",
                 "r30rsx",
                 "r31",
@@ -862,7 +869,7 @@ namespace vMenuClient
             #region Porsche
             public static List<string> Porsche { get; } = new List<string>()
             {
-                "rikorwd",
+                "rikorwb",
                 "992c",
                 "992t",
                 "str20",
