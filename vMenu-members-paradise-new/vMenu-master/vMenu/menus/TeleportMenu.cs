@@ -130,7 +130,7 @@ namespace vMenuClient
                 MenuController.BindMenuItem(menu, customMapsMenu, customMapsMenuBtn);
                 customMapsMenuBtn.Label = "→→→";
                 menu.AddMenuItem(customMapsMenuBtn);
-                    
+
                 MenuItem airportBtn = new MenuItem("Airport", "Teleport to the airport.");
                 losSantosMenu.AddMenuItem(airportBtn);
                 MenuItem docksBtn = new MenuItem("Docks", "Teleport to the docks.");
