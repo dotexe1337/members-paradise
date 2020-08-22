@@ -1,0 +1,672 @@
+{
+	"brands": [
+		{
+			"staff": "true",
+			"brandName": "Boats",
+			"vehicles": [
+				"james",
+				"gfboat",
+				"victory",
+				"bahia",
+				"redja",
+				"rboat",
+				"sr650fly",
+				"yacht2",
+				"missouri",
+				"yacht4"
+			]
+		},
+		{
+			"brandName": "Motorcycles",
+			"vehicles": [
+				"apd750",
+				"aprsv4",
+				"rsv4",
+				"aprt",
+				"bimota",
+				"bmws",
+				"bmwrp",
+				"bmwsr",
+				"bmwsrn",
+				"d99",
+				"ddc",
+				"ddrr",
+				"dgp15",
+				"dgp215",
+				"dhpm",
+				"hdfb",
+				"hdkn",
+				"hdss",
+				"hbros",
+				"hcb18",
+				"hcb1000",
+				"hcbb",
+				"hcbcr",
+				"hf150",
+				"hlcr",
+				"hmarc",
+				"hnsr",
+				"honcb",
+				"hcbr600",
+				"honcbr",
+				"hcbr17",
+				"cbrrr",
+				"hor14",
+				"hor600",
+				"hrc213",
+				"hrcp213",
+				"hxre",
+				"hsmr",
+				"hsmx",
+				"hsmxe",
+				"hn900",
+				"hfc250",
+				"ke400",
+				"kgpz",
+				"knh2",
+				"knh22",
+				"zx10",
+				"knzx",
+				"kx450f",
+				"kz750",
+				"kz800",
+				"kz1000",
+				"kza1000",
+				"ktmpit",
+				"ktmrc",
+				"ktmrc8",
+				"ktmtrr",
+				"mvab",
+				"mvaf",
+				"mvar",
+				"nbike",
+				"p51",
+				"sban",
+				"gsxr",
+				"srmz",
+				"srmz2",
+				"sxf450",
+				"tmrs",
+				"xj6",
+				"yfz6",
+				"yfz8",
+				"yfz68",
+				"ym1",
+				"yml1",
+				"fz07",
+				"ymt10",
+				"r3",
+				"r6",
+				"yr1",
+				"yr15",
+				"r1",
+				"yss",
+				"ytmax",
+				"yx660",
+				"yxj6",
+				"yxt",
+				"yzf"
+			]
+		},
+		{
+			"brandName": "Vanilla",
+			"vehicles": [
+				"eurosle",
+				"majimagt",
+				"requiemzr1",
+				"rh82",
+				"savestrare",
+				"stratumc",
+				"zr",
+				"spritzer",
+				"schwarzer2",
+				"bosozokupcj",
+				"bosozokuglendale",
+				"bosozokuprimo",
+				"vesper",
+				"nexus",
+				"elegyrh5",
+				"paragonxr",
+				"turismoc",
+				"futoS",
+				"sultan2c",
+				"sultanrsv8",
+				"argento",
+				"torerod",
+				"meteor",
+				"mf1",
+				"sentinel6str2",
+				"fuknking",
+				"pretender",
+				"squaddie2",
+				"squaddie3",
+				"stanier5",
+				"Tstanced",
+				"carbonizzare2",
+				"tampac",
+				"glendalelimo",
+				"gcart",
+				"primoard",
+				"ziongtc",
+				"voodoo3",
+				"sultanrsstanced",
+				"intruderstanced"
+			]
+		},
+		{
+			"brandName": "International",
+			"vehicles": [
+				"flatbed4"
+			]
+		},
+		{
+			"brandName": "Five-O",
+			"vehicles": [
+				"crownvicpol",
+				"chargerpol",
+				"polzonda"
+			]
+		},
+		{
+			"brandName": "Acura",
+			"vehicles": [
+				"integratyper",
+				"04acuratsx"
+			]
+		},
+		{
+			"brandName": "Aston Martin",
+			"vehicles": [
+				"rapide",
+				"amdbx",
+				"db11"
+			]
+		},
+		{
+			"brandName": "Audi",
+			"vehicles": [
+				"rs72020",
+				"q820",
+				"r820",
+				"rs318",
+				"rs4avant",
+				"rs5r",
+				"rs6",
+				"rs62",
+				"rs7"
+			]
+		},
+		{
+			"brandName": "BMW",
+			"vehicles": [
+				"328i",
+				"bmw507",
+				"b12lang",
+				"b12langsh",
+				"blze30",
+				"gdae36v",
+				"m3e36",
+				"e36t",
+				"m3e36",
+				"e46",
+				"m3tp",
+				"bme6tun",
+				"e92lb",
+				"m3f80",
+				"f82",
+				"m5f90",
+				"m82020",
+				"z4alchemist",
+				"645ci",
+				"e34touring",
+				"e23",
+				"M760Li",
+				"z4"
+			]
+		},
+		{
+			"brandName": "Bentley",
+			"vehicles": [
+				"contgt13"
+			]
+		},
+		{
+			"brandName": "Bugatti",
+			"vehicles": [
+				"bugatticentodieci",
+				"chiron17",
+				"bcss",
+				"b164",
+				"supersport"
+			]
+		},
+		{
+			"brandName": "Chevrolet",
+			"vehicles": [
+				"c8",
+				"corvettezr1",
+				"belair57",
+				"elcamino70",
+				"impaladonk",
+				"01duramaxk",
+				"86k30",
+				"863500",
+				"czr2",
+				"proc10",
+				"silverado",
+				"cobaltss",
+				"czr1"
+			]
+		},
+		{
+			"brandName": "Dodge",
+			"vehicles": [
+				"16Charger",
+				"16Challenger",
+				"Lancer57",
+				"SRT2018",
+				"99sboosted",
+				"99viper",
+				"viper"
+			]
+		},
+		{
+			"brandName": "Ferrari",
+			"vehicles": [
+				"yFe458i1",
+				"yFe458i2",
+				"yFe458s1",
+				"yFe458s2",
+				"pd458wb",
+				"4881",
+				"488misha",
+				"ferrari812",
+				"f430s",
+				"f8t",
+				"gtc4",
+				"laferrari17",
+				"monza"
+			]
+		},
+		{
+			"brandName": "Ford",
+			"vehicles": [
+				"gt2017",
+				"13fmb302",
+				"raptor2017",
+				"04f250k",
+				"econoline",
+				"f350",
+				"f-one49d",
+				"f-six49",
+				"frr",
+				"Raptor150",
+				"richobs",
+				"x6r"
+			]
+		},
+		{
+			"brandName": "GMC",
+			"vehicles": [
+				"gmck",
+				"gmc1500",
+				"g20c"
+			]
+		},
+		{
+			"brandName": "Henry Clay",
+			"vehicles": [
+				"gts8"
+			]
+		},
+		{
+			"brandName": "Honda",
+			"vehicles": [
+				"acty",
+				"ef9",
+				"eg6pandem",
+				"eg6",
+				"ek9",
+				"civic",
+				"em1civic",
+				"ep3",
+				"fd2",
+				"fk8",
+				"hondacivictr",
+				"city85",
+				"crxdelsol",
+				"crx2",
+				"majcrx",
+				"crz",
+				"dc2",
+				"dc5",
+				"motoc",
+				"na1",
+				"nc1",
+				"prelude",
+				"prelude80",
+				"integrabomex",
+				"ap2",
+				"honody"
+			]
+		},
+		{
+			"brandName": "Hyundai",
+			"vehicles": [
+				"genesiscoupe",
+				"genesiscoupestanced"
+			]
+		},
+		{
+			"brandName": "Infiniti",
+			"vehicles": [
+				"ipl",
+				"infg35"
+			]
+		},
+		{
+			"brandName": "Jeep",
+			"vehicles": [
+				"rubi3d",
+				"willyshotrod",
+				"seminole2"
+			]
+		},
+		{
+			"brandName": "Kia",
+			"vehicles": [
+				"fortek",
+				"mstinger"
+			]
+		},
+		{
+			"brandName": "Koenigsegg",
+			"vehicles": [
+				"agera2011",
+				"agerars",
+				"jes"
+			]
+		},
+		{
+			"brandName": "Lamborghini",
+			"vehicles": [
+				"500gtrlam",
+				"lp570",
+				"lbsihu",
+				"18performante",
+				"sc18",
+				"rmodsian",
+				"lp670sv",
+				"610dtm"
+			]
+		},
+		{
+			"brandName": "Lexus",
+			"vehicles": [
+				"gs300",
+				"gs300wagon",
+				"ISF",
+				"89ls400",
+				"ls430",
+				"lc500",
+				"lexy",
+				"lexsc430"
+			]
+		},
+		{
+			"brandName": "Lincoln",
+			"vehicles": [
+				"lincolncont"
+			]
+		},
+		{
+			"brandName": "Maserati",
+			"vehicles": [
+				"masgt"
+			]
+		},
+		{
+			"brandName": "Mazda",
+			"vehicles": [
+				"yata",
+				"mazlex",
+				"mxrb",
+				"rx3",
+				"fb",
+				"majfc",
+				"fc3s",
+				"majfd",
+				"fd",
+				"rx7cwest",
+				"rx7veilside",
+				"rx7kazama",
+				"rx811",
+				"camberghini"
+			]
+		},
+		{
+			"brandName": "McLaren",
+			"vehicles": [
+				"675lt",
+				"720s",
+				"mcst"
+			]
+		},
+		{
+			"brandName": "Mercedes Benz",
+			"vehicles": [
+				"190e",
+				"mb300sl",
+				"mbhome",
+				"hometrailer",
+				"w202",
+				"e300",
+				"e400",
+				"e63s",
+				"c63s",
+				"w222s500amg",
+				"gle450",
+				"amggt63s",
+				"w222s500",
+				"slr",
+				"Yachting",
+				"e63amg"
+			]
+		},
+		{
+			"brandName": "Mini",
+			"vehicles": [
+				"minilb"
+			]
+		},
+		{
+			"brandName": "Nissan",
+			"vehicles": [
+				"nis180",
+				"180326",
+				"z31",
+				"z32",
+				"350gt",
+				"maj350",
+				"nzp",
+				"y33",
+				"95y33",
+				"Y32cedric",
+				"s30",
+				"c33",
+				"180sx",
+				"nis13",
+				"s13cambered",
+				"silvia",
+				"s13onev",
+				"majs14z",
+				"nis15",
+				"s15",
+				"s15vert",
+				"skylinec110",
+				"kgc10",
+				"2000gtr",
+				"r30rsx",
+				"r31",
+				"nisr32",
+				"hcr32",
+				"nisr33",
+				"skyline",
+				"stagea34",
+				"er34",
+				"r35",
+				"gtrp",
+				"gtrlb2",
+				"gtrsilhouette",
+				"gtrc",
+				"gtrcw",
+				"nissantitan17",
+				"180sxstanced",
+				"s15stanced",
+				"s15stanced2",
+				"z32stanced",
+				"y34gloria",
+				"leopard",
+				"cima1",
+				"cima2"
+			]
+		},
+		{
+			"brandName": "Opel",
+			"vehicles": [
+				"opeladam"
+			]
+		},
+		{
+			"brandName": "Pagani",
+			"vehicles": [
+				"huayrar"
+			]
+		},
+		{
+			"brandName": "Porsche",
+			"vehicles": [
+				"rikorwb",
+				"992c",
+				"992t",
+				"str20",
+				"3lb",
+				"930mnc",
+				"oldnew",
+				"ursa",
+				"caymanrb"
+			]
+		},
+		{
+			"brandName": "RAM",
+			"vehicles": [
+				"19ramdonk",
+				"19ramoffroad",
+				"10ram",
+				"2ndgendually",
+				"megaramcustom",
+				"runner"
+			]
+		},
+		{
+			"brandName": "Range Rover",
+			"vehicles": [
+				"lrrr",
+				"evoque"
+			]
+		},
+		{
+			"brandName": "Renault",
+			"vehicles": [
+				"twizy",
+				"tondar"
+			]
+		},
+		{
+			"brandName": "Rolls Royce",
+			"vehicles": [
+				"dawn",
+				"silver67"
+			]
+		},
+		{
+			"brandName": "Saleen",
+			"vehicles": [
+				"S1"
+			]
+		},
+		{
+			"brandName": "Skoda",
+			"vehicles": [
+				"17octavia"
+			]
+		},
+		{
+			"brandName": "Subaru",
+			"vehicles": [
+				"subwrx",
+				"subisti08",
+				"sti",
+				"legacystanced"
+			]
+		},
+		{
+			"brandName": "TVR",
+			"vehicles": [
+				"T18"
+			]
+		},
+		{
+			"brandName": "Toyota",
+			"vehicles": [
+				"maltezza",
+				"maj86",
+				"cam08",
+				"celica",
+				"celisupra",
+				"celgt4",
+				"levin86",
+				"jzs175",
+				"toy86",
+				"yae86",
+				"gx71",
+				"gx81",
+				"mk2100",
+				"jzx100snowdrift",
+				"majsoar",
+				"jza70",
+				"a80",
+				"supraa90",
+				"verossa",
+				"avanza",
+				"hiluxarctic",
+				"streetsupra",
+				"hiacesc",
+				"mark2x90",
+				"celsior1",
+				"celsior2",
+				"crownathlete",
+				"alphard",
+				"camry18",
+				"prius17"
+			]
+		},
+		{
+			"brandName": "UAZ",
+			"vehicles": [
+				"uaz3159"
+			]
+		},
+		{
+			"brandName": "Volkswagen",
+			"vehicles": [
+				"mk3",
+				"63lb",
+				"passatsedan",
+				"passatr",
+				"sciroccos81",
+				"r32"
+			]
+		}
+	]
+}

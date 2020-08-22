@@ -23,6 +23,7 @@ files {
     'MenuAPI.dll',
     'config/locations.json',
     'config/addons.json',
+	'config/Cars.json',
 }
 client_script 'vMenuClient.net.dll'
 server_script 'vMenuServer.net.dll'
