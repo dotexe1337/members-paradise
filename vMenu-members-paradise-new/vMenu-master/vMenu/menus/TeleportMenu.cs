@@ -24,7 +24,8 @@ namespace vMenuClient
         void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu("Teleports", "Teleports");
+            menu = new Menu(" ", "Teleports");
+            menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             foreach (var item in array.categories)
             {
@@ -35,7 +36,8 @@ namespace vMenuClient
                     Label = "→→→"
                 };
 
-                var teleportCategoryMenu = new Menu(categoryName, categoryName);
+                var teleportCategoryMenu = new Menu(" ", categoryName);
+                teleportCategoryMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
                 MenuController.AddSubmenu(menu, teleportCategoryMenu);
                 MenuController.BindMenuItem(menu, teleportCategoryMenu, btn);
 
