@@ -24,7 +24,7 @@ namespace vMenuClient
         public static List<bool> allowedCategories;
         public bool CanSpawn = true;
         readonly Player currentPlayer = new Player(Game.Player.Handle);
-        public static string jsonData = LoadResourceFile(GetCurrentResourceName(), "config/Cars.json") ?? "{}";
+        public static string jsonData = LoadResourceFile(GetCurrentResourceName(), "config/cars.json") ?? "{}";
         public TheCarData array = JsonConvert.DeserializeObject<TheCarData>(jsonData);
 
         #endregion
@@ -61,6 +61,7 @@ namespace vMenuClient
                 };
 
                 var vehicleClassMenu = new Menu(" ", className);
+                vehicleClassMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
                 MenuController.AddSubmenu(menu, vehicleClassMenu);
                 MenuController.BindMenuItem(menu, vehicleClassMenu, btn);
 

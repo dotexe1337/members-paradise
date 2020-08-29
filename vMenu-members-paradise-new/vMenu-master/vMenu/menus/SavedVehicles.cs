@@ -25,7 +25,7 @@ namespace vMenuClient
         int deleteButtonPressedCount;
         public bool CanSpawn = true;
 
-        public static string jsonData = LoadResourceFile(GetCurrentResourceName(), "config/Cars.json") ?? "{}";
+        public static string jsonData = LoadResourceFile(GetCurrentResourceName(), "config/cars.json") ?? "{}";
         public TheCarData array = JsonConvert.DeserializeObject<TheCarData>(jsonData);
 
         /// <summary>
@@ -121,14 +121,12 @@ namespace vMenuClient
                         if (IsAllowed(Permission.VSSpawnByName))
                         {
                             SpawnVehicle(currentlySelectedVehicle.Value.model, MainMenu.VehicleSpawnerMenu.SpawnInVehicle, MainMenu.VehicleSpawnerMenu.ReplaceVehicle, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
-                            Exports["vstancer"].LoadVStancerPreset();
                         }
                         else
                         {
                             if (CanSpawn)
                             {
                                 SpawnVehicle(currentlySelectedVehicle.Value.model, MainMenu.VehicleSpawnerMenu.SpawnInVehicle, MainMenu.VehicleSpawnerMenu.ReplaceVehicle, false, vehicleInfo: currentlySelectedVehicle.Value, saveName: currentlySelectedVehicle.Key.Substring(4));
-                                Exports["vstancer"].LoadVStancerPreset();
                                 Spawned();
                                 int tmpTimer = GetGameTimer();
                                 while (GetGameTimer() - tmpTimer < 6000) // wait 30 _real_ seconds
