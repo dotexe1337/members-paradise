@@ -291,11 +291,11 @@ namespace vMenuClient
                 GetMenu().GetMenuItems()[i].Description = $"All saved vehicles from the {GetMenu().GetMenuItems()[i].Text} category.";
             }
 
-            for (int i = 1; i < array.brands.Count(); i++)
+            for (int i = 0; i < subMenus.Count(); i++)
             {
                 foreach (var item in array.brands)
                 {
-                    if (item == array.brands.ElementAt(i - 1))
+                    if (item == array.brands.ElementAt(i))
                     {
                         foreach (string veh in item.vehicles)
                         {
@@ -303,7 +303,7 @@ namespace vMenuClient
                             {
                                 if (veh == GetDisplayNameFromVehicleModel(dict.Value.model) && IsModelInCdimage(dict.Value.model))
                                 {
-                                    Menu menu = subMenus[i - 1];
+                                    Menu menu = subMenus[i];
 
                                     MenuItem savedVehicleBtn = new MenuItem(dict.Key.Substring(4), $"Manage this saved vehicle.")
                                     {
@@ -322,7 +322,7 @@ namespace vMenuClient
             for (int i = 0; i < subMenus.Count(); i++)
             {
                 Menu menu = subMenus[i];
-                if(menu.GetMenuItems().Count() == 0)
+                if (menu.GetMenuItems().Count() == 0)
                 {
                     GetMenu().GetMenuItems()[i + 1].Label = "";
                     GetMenu().GetMenuItems()[i + 1].RightIcon = MenuItem.Icon.LOCK;
