@@ -1,0 +1,78 @@
+{
+	"categories": [
+		{
+			"categoryName": "Los Santos",
+			"teleports": [
+				{
+					"teleportName": "Airpirt",
+					"coords": [ -1010.98, -3138.41, 13.41, 360 ]
+				},
+				{
+					"teleportName": "Docks",
+					"coords": [ 978.33, -3153.39, 5.38, 360 ]
+				},
+				{
+					"teleportName": "Observatory",
+					"coords": [ -416.82, 1215.24, 325.11, 60 ]
+				},
+				{
+					"teleportName": "Galaxy Garage",
+					"coords": [ -1158.63, -1760.92, 3.48, 30 ]
+				},
+				{
+					"teleportName": "Star Screamers Garage",
+					"coords": [ -1165.24, -949.56, 2.39, 300 ]
+				},
+				{
+					"teleportName": "Takimo Garage",
+					"coords": [ -226.07, -2639.43, 6.0, 160 ]
+				},
+				{
+					"teleportName": "Blaine County Garage",
+					"coords": [ -224.89, 6260.23, 31.47, 204 ]
+				},
+				{
+					"teleportName": "Mosleys Auto Shop",
+					"coords": [ -60.88, -1668.33, 29.21, 300 ]
+				},
+				{
+					"teleportName": "Malibu Mansion",
+					"coords": [ -3117.18, 804.7, 17.38, 120 ]
+				},
+				{
+					"teleportName": "Bahama Mamas",
+					"coords": [ -1400.66, -585.65, 29.73, 300 ]
+				},
+				{
+					"teleportName": "Parking Lot",
+					"coords": [ 198.28, -814.79, 30.47, 251 ]
+				},
+				{
+					"teleportName": "Beach Bridge",
+					"coords": [ -2060.19, -450.48, 11.42, 226 ]
+				},
+				{
+					"teleportName": "Designer House",
+					"coords": [ -2595.31, 1657.76, 140.21, 120 ]
+				}
+			]
+		},
+		{
+			"categoryName": "Custom Maps",
+			"teleports": [
+				{
+					"teleportName": "Shibuya",
+					"coords": [ -5852.93, 738.42, 26.05, 5.3 ]
+				},
+				{
+					"teleportName": "Ebisu Minami",
+					"coords": [ 998.44, 1131.81, 460.11, 73 ]
+				},
+				{
+					"teleportName": "Ebisu Touge",
+					"coords": [ -1340.48, 1394.52, 328.89, 320 ]
+				}
+			]
+		}
+	]
+}
