@@ -14,6 +14,7 @@ namespace vMenuClient
     {
         // Variables
         private Menu menu;
+
         public Menu createCharacterMenu = new Menu(" ", "Create A New Character");
         public Menu savedCharactersMenu = new Menu(" ", "Manage Saved Characters");
         public Menu inheritanceMenu = new Menu(" ", "Character Inheritance Options");
@@ -2037,6 +2038,7 @@ namespace vMenuClient
             UpdateSavedPedsMenu();
 
             MenuController.AddMenu(manageSavedCharacterMenu);
+            manageSavedCharacterMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
             MenuItem spawnPed = new MenuItem("Spawn Saved Character", "Spawns the selected saved character.");
             editPedBtn = new MenuItem("Edit Saved Character", "This allows you to edit everything about your saved character. The changes will be saved to this character's save file entry once you hit the save button.");
