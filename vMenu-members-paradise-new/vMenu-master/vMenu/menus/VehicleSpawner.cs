@@ -38,17 +38,21 @@ namespace vMenuClient
 
             // Create the buttons and checkboxes.
             var spawnByName = new MenuItem("Spawn Vehicle By Model Name", "Enter the name of a vehicle to spawn.");
+            MenuCheckboxItem spawnInVeh = new MenuCheckboxItem("Spawn Inside Vehicle", "This will teleport you into the vehicle when you spawn it.", SpawnInVehicle);
+            MenuCheckboxItem replacePrev = new MenuCheckboxItem("Replace Previous Vehicle", "This will automatically delete your previously spawned vehicle when you spawn a new vehicle.", ReplaceVehicle);
 
             // Add the items to the menu.
             if (IsAllowed(Permission.VSSpawnByName))
             {
                 menu.AddMenuItem(spawnByName);
             }
+            menu.AddMenuItem(spawnInVeh);
+            menu.AddMenuItem(replacePrev);
 
             #endregion
 
             #region New Json Method
-            foreach(var item in array.brands)
+            foreach (var item in array.brands)
             {
                 Console.WriteLine(item.brandName);
                 // Get the class name.
@@ -177,6 +181,19 @@ namespace vMenuClient
                 {
                     // Passing "custom" as the vehicle name, will ask the user for input.
                     SpawnVehicle("custom", SpawnInVehicle, ReplaceVehicle);
+                }
+            };
+
+            //Handle checkbox changes.
+            menu.OnCheckboxChange += (sender, item, index, _checked) =>
+            {
+                if (item == spawnInVeh)
+                {
+                    SpawnInVehicle = _checked;
+                }
+                else if (item == replacePrev)
+                {
+                    ReplaceVehicle = _checked;
                 }
             };
             #endregion
