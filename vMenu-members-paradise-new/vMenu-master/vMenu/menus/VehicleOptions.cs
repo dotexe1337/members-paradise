@@ -26,6 +26,7 @@ namespace vMenuClient
         public Menu VehicleComponentsMenu { get; private set; }
         public Menu VehicleLiveriesMenu { get; private set; }
         public Menu VehicleColorsMenu { get; private set; }
+        public Menu VehicleRGBColorsMenu { get; private set; }
         public Menu DeleteConfirmMenu { get; private set; }
         public Menu VehicleUnderglowMenu { get; private set; }
 
@@ -113,7 +114,11 @@ namespace vMenuClient
             {
                 Label = "→→→"
             };
-            MenuItem colorsMenuBtn = new MenuItem("Vehicle Colors", "Style your vehicle even further by giving it some ~g~Snailsome ~s~colors!")
+            MenuItem colorsMenuBtn = new MenuItem("Vehicle Colors", "Style your vehicle even further by giving it some ~g~baller ~s~colors!")
+            {
+                Label = "→→→"
+            };
+            MenuItem rgbColorsMenuBtn = new MenuItem("Vehicle RGB Colors", "Style your vehicle even further by giving it some ~g~RGB ~s~colors!")
             {
                 Label = "→→→"
             };
@@ -196,6 +201,7 @@ namespace vMenuClient
             VehicleComponentsMenu = new Menu(" ", "Vehicle Extras/Components");
             VehicleLiveriesMenu = new Menu(" ", "Vehicle Liveries");
             VehicleColorsMenu = new Menu(" ", "Vehicle Colors");
+            VehicleRGBColorsMenu = new Menu(" ", "Vehicle RGB Colors");
             DeleteConfirmMenu = new Menu(" ", "Delete Vehicle, Are You Sure?");
             VehicleUnderglowMenu = new Menu(" ", "Vehicle Neon Underglow Options");
 
@@ -210,6 +216,8 @@ namespace vMenuClient
             MenuController.AddSubmenu(menu, VehicleLiveriesMenu);
             VehicleColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleColorsMenu);
+            VehicleRGBColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            MenuController.AddSubmenu(menu, VehicleRGBColorsMenu);
             DeleteConfirmMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, DeleteConfirmMenu);
             VehicleUnderglowMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
@@ -442,6 +450,7 @@ namespace vMenuClient
             MenuController.BindMenuItem(menu, VehicleComponentsMenu, componentsMenuBtn);
             MenuController.BindMenuItem(menu, VehicleLiveriesMenu, liveriesMenuBtn);
             MenuController.BindMenuItem(menu, VehicleColorsMenu, colorsMenuBtn);
+            MenuController.BindMenuItem(menu, VehicleRGBColorsMenu, rgbColorsMenuBtn);
             MenuController.BindMenuItem(menu, DeleteConfirmMenu, deleteBtn);
             #endregion
 
@@ -907,6 +916,66 @@ namespace vMenuClient
                     {
                         Notify.Error(CommonErrors.NoVehicle);
                     }
+                }
+            };
+            #endregion
+            #region Vehicle RGB Colors submenu stuff
+            // primary menu
+            Menu rgbPrimaryColorsMenu = new Menu(" ", "Primary Colors");
+            rgbPrimaryColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            MenuController.AddSubmenu(VehicleRGBColorsMenu, rgbPrimaryColorsMenu);
+
+            MenuItem rgbPrimaryColorsBtn = new MenuItem("Primary Colors") { Label = "→→→" };
+            VehicleColorsMenu.AddMenuItem(rgbPrimaryColorsBtn);
+            MenuController.BindMenuItem(VehicleRGBColorsMenu, rgbPrimaryColorsMenu, rgbPrimaryColorsBtn);
+
+            // secondary menu
+            Menu rgbSecondaryColorsMenu = new Menu(" ", "Secondary Colors");
+            rgbSecondaryColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            MenuController.AddSubmenu(VehicleRGBColorsMenu, rgbSecondaryColorsMenu);
+
+            MenuItem rgbSecondaryColorsBtn = new MenuItem("Secondary Colors") { Label = "→→→" };
+            VehicleColorsMenu.AddMenuItem(rgbSecondaryColorsBtn);
+            MenuController.BindMenuItem(VehicleRGBColorsMenu, rgbSecondaryColorsMenu, rgbSecondaryColorsBtn);
+
+            List<string> colorData = new List<string>();
+            for (var i = 0; i < 255; i++)
+            {
+                colorData.Add(i.ToString());
+            }
+
+            MenuListItem primaryRed = new MenuListItem("Red", colorData, 255, "Select color for Red.");
+            rgbPrimaryColorsMenu.AddMenuItem(primaryRed);
+            MenuListItem primaryBlue = new MenuListItem("Blue", colorData, 255, "Select color for Blue.");
+            rgbPrimaryColorsMenu.AddMenuItem(primaryRed);
+            MenuListItem primaryGreen = new MenuListItem("Green", colorData, 255, "Select color for Green.");
+            rgbPrimaryColorsMenu.AddMenuItem(primaryRed);
+
+            MenuListItem secondaryRed = new MenuListItem("Red", colorData, 255, "Select color for Red.");
+            rgbSecondaryColorsMenu.AddMenuItem(secondaryRed);
+            MenuListItem secondaryBlue = new MenuListItem("Blue", colorData, 255, "Select color for Blue.");
+            rgbSecondaryColorsMenu.AddMenuItem(secondaryBlue);
+            MenuListItem secondaryGreen = new MenuListItem("Green", colorData, 255, "Select color for Green.");
+            rgbSecondaryColorsMenu.AddMenuItem(secondaryGreen);
+
+            MenuItem primarySetColor = new MenuItem("Set Color", "Set the car's color to your selected values.");
+            rgbPrimaryColorsMenu.AddMenuItem(primarySetColor);
+            MenuItem secondarySetColor = new MenuItem("Set Color", "Set the car's color to your selected values.");
+            rgbSecondaryColorsMenu.AddMenuItem(secondarySetColor);
+
+            rgbPrimaryColorsMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == primarySetColor)
+                {
+                    SetVehicleCustomPrimaryColour(GetPlayersLastVehicle(), int.Parse(primaryRed.GetCurrentSelection()), int.Parse(primaryBlue.GetCurrentSelection()), int.Parse(primaryGreen.GetCurrentSelection()));
+                }
+            };
+
+            rgbSecondaryColorsMenu.OnItemSelect += (sender, item, index) =>
+            {
+                if (item == secondarySetColor)
+                {
+                    SetVehicleCustomSecondaryColour(GetPlayersLastVehicle(), int.Parse(secondaryRed.GetCurrentSelection()), int.Parse(secondaryBlue.GetCurrentSelection()), int.Parse(secondaryGreen.GetCurrentSelection()));
                 }
             };
             #endregion

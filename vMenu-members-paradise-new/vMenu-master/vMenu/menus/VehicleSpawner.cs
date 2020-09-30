@@ -78,6 +78,14 @@ namespace vMenuClient
                         btn.Description = "Spawn a ~f~Staff ~s~car.";
                         btn.Enabled = true;
                     }
+                    else
+                    {
+                        menu.AddMenuItem(btn);
+                        btn.LeftIcon = MenuItem.Icon.NONE;
+                        btn.RightIcon = MenuItem.Icon.LOCK;
+                        btn.Description = "You need to be ~f~Staff ~s~to spawn from this category.";
+                        btn.Enabled = false;
+                    }
                 }
                 else
                 {
