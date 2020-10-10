@@ -10,7 +10,7 @@ Clone the repository and go to the vMenu-members-paradise-new/net452 folder, whi
 --------
 
 ## License
-**This program is licensed under the GNU General Public License (GPL) version 2. For more information, please read LICENSE.md.
+**This program is licensed under the GNU General Public License (GPL) version 2. For more information, please read LICENSE.md.**
 
 Original codebase by Tom Grobbe - https://www.vespura.com/
 Modified by dotexe for Members Paradise - https://www.dotexe.cf/
