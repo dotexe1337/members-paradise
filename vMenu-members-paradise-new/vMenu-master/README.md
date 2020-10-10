@@ -5,7 +5,7 @@ vMenu is server-sided trainer menu for FiveM servers. This version has been modi
 
 ## Download
 
-Clone the repository and go to the vMenu-members-paradise-new/net452 folder, which contains all of the compiled binaries and config files.
+Clone the repository and go to the vMenu-members-paradise-new/build/net452 directory, which contains all of the compiled binaries and config files.
 
 --------
 
