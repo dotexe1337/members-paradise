@@ -1,12 +1,8 @@
+using CitizenFX.Core;
+using MenuAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MenuAPI;
-using Newtonsoft.Json;
-using CitizenFX.Core;
-using static CitizenFX.Core.UI.Screen;
 using static CitizenFX.Core.Native.API;
 using static vMenuClient.CommonFunctions;
 using static vMenuShared.PermissionsManager;
@@ -234,6 +230,7 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(colorsMenuBtn);
             }
+            menu.AddMenuItem(rgbColorsMenuBtn);
             if (IsAllowed(Permission.VOUnderglow)) // UNDERGLOW EFFECTS
             {
                 menu.AddMenuItem(underglowMenuBtn);
@@ -926,7 +923,7 @@ namespace vMenuClient
             MenuController.AddSubmenu(VehicleRGBColorsMenu, rgbPrimaryColorsMenu);
 
             MenuItem rgbPrimaryColorsBtn = new MenuItem("Primary Colors") { Label = "→→→" };
-            VehicleColorsMenu.AddMenuItem(rgbPrimaryColorsBtn);
+            VehicleRGBColorsMenu.AddMenuItem(rgbPrimaryColorsBtn);
             MenuController.BindMenuItem(VehicleRGBColorsMenu, rgbPrimaryColorsMenu, rgbPrimaryColorsBtn);
 
             // secondary menu
@@ -935,7 +932,7 @@ namespace vMenuClient
             MenuController.AddSubmenu(VehicleRGBColorsMenu, rgbSecondaryColorsMenu);
 
             MenuItem rgbSecondaryColorsBtn = new MenuItem("Secondary Colors") { Label = "→→→" };
-            VehicleColorsMenu.AddMenuItem(rgbSecondaryColorsBtn);
+            VehicleRGBColorsMenu.AddMenuItem(rgbSecondaryColorsBtn);
             MenuController.BindMenuItem(VehicleRGBColorsMenu, rgbSecondaryColorsMenu, rgbSecondaryColorsBtn);
 
             List<string> colorData = new List<string>();
@@ -947,9 +944,9 @@ namespace vMenuClient
             MenuListItem primaryRed = new MenuListItem("Red", colorData, 255, "Select color for Red.");
             rgbPrimaryColorsMenu.AddMenuItem(primaryRed);
             MenuListItem primaryBlue = new MenuListItem("Blue", colorData, 255, "Select color for Blue.");
-            rgbPrimaryColorsMenu.AddMenuItem(primaryRed);
+            rgbPrimaryColorsMenu.AddMenuItem(primaryBlue);
             MenuListItem primaryGreen = new MenuListItem("Green", colorData, 255, "Select color for Green.");
-            rgbPrimaryColorsMenu.AddMenuItem(primaryRed);
+            rgbPrimaryColorsMenu.AddMenuItem(primaryGreen);
 
             MenuListItem secondaryRed = new MenuListItem("Red", colorData, 255, "Select color for Red.");
             rgbSecondaryColorsMenu.AddMenuItem(secondaryRed);
@@ -958,26 +955,15 @@ namespace vMenuClient
             MenuListItem secondaryGreen = new MenuListItem("Green", colorData, 255, "Select color for Green.");
             rgbSecondaryColorsMenu.AddMenuItem(secondaryGreen);
 
-            MenuItem primarySetColor = new MenuItem("Set Color", "Set the car's color to your selected values.");
-            rgbPrimaryColorsMenu.AddMenuItem(primarySetColor);
-            MenuItem secondarySetColor = new MenuItem("Set Color", "Set the car's color to your selected values.");
-            rgbSecondaryColorsMenu.AddMenuItem(secondarySetColor);
-
-            rgbPrimaryColorsMenu.OnItemSelect += (sender, item, index) =>
-            {
-                if (item == primarySetColor)
-                {
-                    SetVehicleCustomPrimaryColour(GetPlayersLastVehicle(), int.Parse(primaryRed.GetCurrentSelection()), int.Parse(primaryBlue.GetCurrentSelection()), int.Parse(primaryGreen.GetCurrentSelection()));
-                }
+            rgbPrimaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldInex, int newIndex, int index) => {
+                SetVehicleCustomPrimaryColour(GetPlayersLastVehicle(), int.Parse(primaryRed.GetCurrentSelection()), int.Parse(primaryBlue.GetCurrentSelection()), int.Parse(primaryGreen.GetCurrentSelection()));
             };
 
-            rgbSecondaryColorsMenu.OnItemSelect += (sender, item, index) =>
+            rgbSecondaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldInex, int newIndex, int index) =>
             {
-                if (item == secondarySetColor)
-                {
-                    SetVehicleCustomSecondaryColour(GetPlayersLastVehicle(), int.Parse(secondaryRed.GetCurrentSelection()), int.Parse(secondaryBlue.GetCurrentSelection()), int.Parse(secondaryGreen.GetCurrentSelection()));
-                }
+                SetVehicleCustomSecondaryColour(GetPlayersLastVehicle(), int.Parse(secondaryRed.GetCurrentSelection()), int.Parse(secondaryBlue.GetCurrentSelection()), int.Parse(secondaryGreen.GetCurrentSelection()));
             };
+
             #endregion
 
             #region Vehicle Colors Submenu Stuff
