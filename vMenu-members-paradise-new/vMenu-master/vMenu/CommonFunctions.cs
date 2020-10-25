@@ -1,13 +1,12 @@
+using CitizenFX.Core;
+using MenuAPI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using MenuAPI;
-using Newtonsoft.Json;
-using CitizenFX.Core;
-using static CitizenFX.Core.UI.Screen;
 using static CitizenFX.Core.Native.API;
+using static CitizenFX.Core.UI.Screen;
 using static vMenuShared.PermissionsManager;
 
 namespace vMenuClient
@@ -2517,7 +2516,7 @@ namespace vMenuClient
                     if (ignoreSettingsAndPerms || IsAllowed(w.Perm))
                     {
                         // Give the weapon
-                        GiveWeaponToPed(Game.PlayerPed.Handle, w.Hash, w.CurrentAmmo > -1 ? w.CurrentAmmo: w.GetMaxAmmo, false, false);
+                        GiveWeaponToPed(Game.PlayerPed.Handle, w.Hash, w.CurrentAmmo > -1 ? w.CurrentAmmo : w.GetMaxAmmo, false, false);
 
                         // Add components
                         if (w.Components.Count > 0)
@@ -2546,7 +2545,7 @@ namespace vMenuClient
 
                         if (w.CurrentAmmo > 0)
                         {
-                            int ammo = w.CurrentAmmo; 
+                            int ammo = w.CurrentAmmo;
                             if (w.CurrentAmmo > w.GetMaxAmmo)
                             {
                                 ammo = w.GetMaxAmmo;

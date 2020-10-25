@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CitizenFX.Core;
 using Newtonsoft.Json;
-using CitizenFX.Core;
-using static CitizenFX.Core.Native.API;
-using System.Text.RegularExpressions;
-using static vMenuServer.DebugLog;
+using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using static CitizenFX.Core.Native.API;
+using static vMenuServer.DebugLog;
 
 namespace vMenuServer
 {
@@ -257,7 +256,7 @@ namespace vMenuServer
         /// <param name="source"></param>
         /// <param name="playerName"></param>
         /// <param name="kickCallback"></param>
-        private async void CheckForBans([FromSource]Player source, string playerName, CallbackDelegate kickCallback)
+        private async void CheckForBans([FromSource] Player source, string playerName, CallbackDelegate kickCallback)
         {
             if (!useJson)
             {
@@ -640,7 +639,7 @@ namespace vMenuServer
         /// </summary>
         /// <param name="source"></param>
         /// <param name="banRecordJsonString"></param>
-        private async void RemoveBanRecord([FromSource]Player source, string banRecordJsonString)
+        private async void RemoveBanRecord([FromSource] Player source, string banRecordJsonString)
         {
             if (source != null && !string.IsNullOrEmpty(source.Name) && source.Name.ToLower() != "**invalid**" && source.Name.ToLower() != "** invalid **")
             {

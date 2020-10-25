@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CitizenFX.Core;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CitizenFX.Core;
 using static CitizenFX.Core.Native.API;
-using Newtonsoft.Json;
 using static vMenuServer.DebugLog;
 using static vMenuShared.ConfigManager;
 
@@ -477,7 +477,7 @@ namespace vMenuServer
         #endregion
 
         #region kick players from personal vehicle
-        private void GetOutOfCar([FromSource]Player source, int vehicleNetId, int playerOwner)
+        private void GetOutOfCar([FromSource] Player source, int vehicleNetId, int playerOwner)
         {
             if (source != null)
             {
@@ -819,7 +819,7 @@ namespace vMenuServer
             }
         }
 
-        private void SendPrivateMessage([FromSource]Player source, int targetServerId, string message)
+        private void SendPrivateMessage([FromSource] Player source, int targetServerId, string message)
         {
             Player targetPlayer = Players[targetServerId];
             if (targetPlayer != null)
@@ -839,7 +839,7 @@ namespace vMenuServer
             }
         }
 
-        private void NotifySenderThatDmsAreDisabled([FromSource]Player source, string senderServerId)
+        private void NotifySenderThatDmsAreDisabled([FromSource] Player source, string senderServerId)
         {
             var p = Players[int.Parse(senderServerId)];
             if (p != null)
@@ -876,7 +876,7 @@ namespace vMenuServer
         #endregion
 
         #region Add teleport location
-        private void AddTeleportLocation([FromSource]Player source, string locationJson)
+        private void AddTeleportLocation([FromSource] Player source, string locationJson)
         {
             TeleportLocation location = JsonConvert.DeserializeObject<TeleportLocation>(locationJson);
             if (GetTeleportLocationsData().Any(loc => loc.name == location.name))

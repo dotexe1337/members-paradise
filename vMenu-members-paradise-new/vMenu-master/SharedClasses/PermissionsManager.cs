@@ -1,9 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+/* Unmerged change from project 'vMenuServer'
+Before:
+using System;
+After:
 using CitizenFX.Core;
+using System;
+*/
+using CitizenFX.Core;
+using System;
+using System.Collections.Generic;
+using System.
+/* Unmerged change from project 'vMenuServer'
+Before:
+using CitizenFX.Core;
+using static CitizenFX.Core.Native.API;
+After:
+using static CitizenFX.Core.Native.API;
+*/
+Linq;
 using static CitizenFX.Core.Native.API;
 
 namespace vMenuShared
@@ -457,7 +471,7 @@ namespace vMenuShared
         /// Sets the permissions for a specific player (checks server side, sends event to client side).
         /// </summary>
         /// <param name="player"></param>
-        public static void SetPermissionsForPlayer([FromSource]Player player)
+        public static void SetPermissionsForPlayer([FromSource] Player player)
         {
             if (player == null)
             {

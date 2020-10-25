@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CitizenFX.Core;
 using MenuAPI;
 using Newtonsoft.Json;
-using CitizenFX.Core;
-using static CitizenFX.Core.UI.Screen;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using static CitizenFX.Core.Native.API;
 using static vMenuClient.CommonFunctions;
 using static vMenuShared.ConfigManager;
@@ -680,7 +677,7 @@ namespace vMenuClient
                 };
                 AddMenu(WorldSubmenu, menu, button);
             }
-            
+
             // Patched by dotexe for client-side time & weather
             {
                 PlayerTimeWeatherOptionsMenu = new PlayerTimeWeatherOptions();
