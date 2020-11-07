@@ -3,6 +3,7 @@ using MenuAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using static CitizenFX.Core.Native.API;
 using static vMenuClient.CommonFunctions;
 using static vMenuShared.PermissionsManager;
@@ -20,6 +21,7 @@ namespace vMenuClient
         public Menu VehicleDoorsMenu { get; private set; }
         public Menu VehicleWindowsMenu { get; private set; }
         public Menu VehicleComponentsMenu { get; private set; }
+        public Menu VehicleEngineSoundsMenu { get; private set; }
         public Menu VehicleLiveriesMenu { get; private set; }
         public Menu VehicleColorsMenu { get; private set; }
         public Menu VehicleRGBColorsMenu { get; private set; }
@@ -103,6 +105,10 @@ namespace vMenuClient
                 Label = "→→→"
             };
             MenuItem componentsMenuBtn = new MenuItem("Vehicle Extras", "Add/remove vehicle components/extras.")
+            {
+                Label = "→→→"
+            };
+            MenuItem engineSoundsMenuBtn = new MenuItem("Engine Sounds", "Change engine sounds for your car.")
             {
                 Label = "→→→"
             };
@@ -195,6 +201,7 @@ namespace vMenuClient
             VehicleDoorsMenu = new Menu(" ", "Vehicle Doors Management");
             VehicleWindowsMenu = new Menu(" ", "Vehicle Windows Management");
             VehicleComponentsMenu = new Menu(" ", "Vehicle Extras/Components");
+            VehicleEngineSoundsMenu = new Menu(" ", "Engine Sounds");
             VehicleLiveriesMenu = new Menu(" ", "Vehicle Liveries");
             VehicleColorsMenu = new Menu(" ", "Vehicle Colors");
             VehicleRGBColorsMenu = new Menu(" ", "Vehicle RGB Colors");
@@ -209,6 +216,8 @@ namespace vMenuClient
             VehicleComponentsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleComponentsMenu);
             VehicleLiveriesMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
+            MenuController.AddSubmenu(menu, VehicleEngineSoundsMenu);
+            VehicleEngineSoundsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleLiveriesMenu);
             VehicleColorsMenu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
             MenuController.AddSubmenu(menu, VehicleColorsMenu);
@@ -230,11 +239,18 @@ namespace vMenuClient
             {
                 menu.AddMenuItem(colorsMenuBtn);
             }
-            menu.AddMenuItem(rgbColorsMenuBtn);
+            if (IsAllowed(Permission.VORGBColors))
+            {
+                menu.AddMenuItem(rgbColorsMenuBtn);
+            }
             if (IsAllowed(Permission.VOUnderglow)) // UNDERGLOW EFFECTS
             {
                 menu.AddMenuItem(underglowMenuBtn);
                 MenuController.BindMenuItem(menu, VehicleUnderglowMenu, underglowMenuBtn);
+            }
+            if(IsAllowed(Permission.VOEngineSounds))
+            {
+                menu.AddMenuItem(engineSoundsMenuBtn);
             }
             if (IsAllowed(Permission.VOLiveries)) // LIVERIES MENU
             {
@@ -445,6 +461,7 @@ namespace vMenuClient
             MenuController.BindMenuItem(menu, VehicleDoorsMenu, doorsMenuBtn);
             MenuController.BindMenuItem(menu, VehicleWindowsMenu, windowsMenuBtn);
             MenuController.BindMenuItem(menu, VehicleComponentsMenu, componentsMenuBtn);
+            MenuController.BindMenuItem(menu, VehicleEngineSoundsMenu, engineSoundsMenuBtn);
             MenuController.BindMenuItem(menu, VehicleLiveriesMenu, liveriesMenuBtn);
             MenuController.BindMenuItem(menu, VehicleColorsMenu, colorsMenuBtn);
             MenuController.BindMenuItem(menu, VehicleRGBColorsMenu, rgbColorsMenuBtn);
@@ -916,6 +933,53 @@ namespace vMenuClient
                 }
             };
             #endregion
+            #region Vehicle Engine Sounds submenu stuff
+            List<String> vehs = new List<string>();
+            vehs.Add("Adder");
+            vehs.Add("Blista");
+            vehs.Add("Blista2");
+            vehs.Add("Brioso");
+            vehs.Add("Kuruma");
+            vehs.Add("Omnis");
+            vehs.Add("SultanRS");
+            vehs.Add("Osiris");
+            vehs.Add("Comet");
+            vehs.Add("Casco");
+            vehs.Add("Elegy");
+            vehs.Add("Sentinel");
+            vehs.Add("Habanero");
+            vehs.Add("Intruder");
+            vehs.Add("Primo2");
+            vehs.Add("Zion");
+            vehs.Add("Banshee");
+            vehs.Add("NineF");
+            vehs.Add("Bodhi");
+            vehs.Add("Cheetah");
+            vehs.Add("Schafter4");
+            vehs.Add("Tyrus");
+            vehs.Add("Camper");
+            vehs.Add("Mamba");
+            vehs.Add("Marshall");
+            vehs.Add("Faction3");
+            vehs.Add("Baller3");
+            vehs.Add("Blade");
+            vehs.Add("Lynx");
+            vehs.Add("Patriot");
+            vehs.Add("Tornado");
+            vehs.Add("Voodoo");
+            vehs.Add("Voodoo2");
+            vehs.Add("Youga2");
+            MenuListItem engineSoundsListItem = new MenuListItem("Engine Sounds", vehs, 0, "Select the vehicle engine sound.");
+            VehicleEngineSoundsMenu.AddMenuItem(engineSoundsListItem);
+
+            MenuItem engineSoundsButtonItem = new MenuItem("Apply", "Apply your engine sounds to the car.");
+            VehicleEngineSoundsMenu.AddMenuItem(engineSoundsButtonItem);
+
+            VehicleEngineSoundsMenu.OnItemSelect += (sender, item, index) => {
+                if(item == engineSoundsButtonItem)
+                    ForceVehicleEngineAudio(GetPlayersLastVehicle(), engineSoundsListItem.GetCurrentSelection());
+            };
+            #endregion
             #region Vehicle RGB Colors submenu stuff
             // primary menu
             Menu rgbPrimaryColorsMenu = new Menu(" ", "Primary Colors");
@@ -955,11 +1019,11 @@ namespace vMenuClient
             MenuListItem secondaryGreen = new MenuListItem("Green", colorData, 255, "Select color for Green.");
             rgbSecondaryColorsMenu.AddMenuItem(secondaryGreen);
 
-            rgbPrimaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldInex, int newIndex, int index) => {
+            rgbPrimaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldIndex, int newIndex, int index) => {
                 SetVehicleCustomPrimaryColour(GetPlayersLastVehicle(), int.Parse(primaryRed.GetCurrentSelection()), int.Parse(primaryBlue.GetCurrentSelection()), int.Parse(primaryGreen.GetCurrentSelection()));
             };
 
-            rgbSecondaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldInex, int newIndex, int index) =>
+            rgbSecondaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldIndex, int newIndex, int index) =>
             {
                 SetVehicleCustomSecondaryColour(GetPlayersLastVehicle(), int.Parse(secondaryRed.GetCurrentSelection()), int.Parse(secondaryBlue.GetCurrentSelection()), int.Parse(secondaryGreen.GetCurrentSelection()));
             };
