@@ -92,6 +92,8 @@ namespace vMenuShared
             VOChangePlate,
             VOMod,
             VOColors,
+            VORGBColors,
+            VOEngineSounds,
             VOLiveries,
             VOComponents,
             VODoors,
