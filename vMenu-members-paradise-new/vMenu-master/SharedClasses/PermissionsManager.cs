@@ -51,6 +51,7 @@ namespace vMenuShared
             OPUnban,
             OPViewBannedPlayers,
             OPSeePrivateMessages,
+            OPStaffOptions,
             #endregion
 
             // Player Options

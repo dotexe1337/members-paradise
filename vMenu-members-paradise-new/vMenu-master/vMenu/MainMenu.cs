@@ -30,6 +30,7 @@ namespace vMenuClient
         public static PlayerOptions PlayerOptionsMenu { get; private set; }
         public static OnlinePlayers OnlinePlayersMenu { get; private set; }
         public static BannedPlayers BannedPlayersMenu { get; private set; }
+        public static StaffOptions StaffOptionsMenu { get; private set; }
         public static SavedVehicles SavedVehiclesMenu { get; private set; }
         public static PersonalVehicle PersonalVehicleMenu { get; private set; }
         public static VehicleOptions VehicleOptionsMenu { get; private set; }
@@ -568,6 +569,16 @@ namespace vMenuClient
                         menu.RefreshIndex();
                     }
                 };
+            }
+            if (IsAllowed(Permission.Staff))
+            {
+                StaffOptionsMenu = new StaffOptions();
+                Menu menu = StaffOptionsMenu.GetMenu();
+                MenuItem button = new MenuItem("Staff Options", "Options for staff")
+                {
+                    Label = "→→→"
+                };
+                AddMenu(Menu, menu, button);
             }
 
             MenuItem playerSubmenuBtn = new MenuItem("Player Related Options", "Open this submenu for player related subcategories.") { Label = "→→→" };

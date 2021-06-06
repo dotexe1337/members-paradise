@@ -1007,25 +1007,25 @@ namespace vMenuClient
 
             MenuListItem primaryRed = new MenuListItem("Red", colorData, 255, "Select color for Red.");
             rgbPrimaryColorsMenu.AddMenuItem(primaryRed);
-            MenuListItem primaryBlue = new MenuListItem("Blue", colorData, 255, "Select color for Blue.");
-            rgbPrimaryColorsMenu.AddMenuItem(primaryBlue);
             MenuListItem primaryGreen = new MenuListItem("Green", colorData, 255, "Select color for Green.");
             rgbPrimaryColorsMenu.AddMenuItem(primaryGreen);
+            MenuListItem primaryBlue = new MenuListItem("Blue", colorData, 255, "Select color for Blue.");
+            rgbPrimaryColorsMenu.AddMenuItem(primaryBlue);
 
             MenuListItem secondaryRed = new MenuListItem("Red", colorData, 255, "Select color for Red.");
             rgbSecondaryColorsMenu.AddMenuItem(secondaryRed);
-            MenuListItem secondaryBlue = new MenuListItem("Blue", colorData, 255, "Select color for Blue.");
-            rgbSecondaryColorsMenu.AddMenuItem(secondaryBlue);
             MenuListItem secondaryGreen = new MenuListItem("Green", colorData, 255, "Select color for Green.");
             rgbSecondaryColorsMenu.AddMenuItem(secondaryGreen);
+            MenuListItem secondaryBlue = new MenuListItem("Blue", colorData, 255, "Select color for Blue.");
+            rgbSecondaryColorsMenu.AddMenuItem(secondaryBlue);
 
             rgbPrimaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldIndex, int newIndex, int index) => {
-                SetVehicleCustomPrimaryColour(GetPlayersLastVehicle(), int.Parse(primaryRed.GetCurrentSelection()), int.Parse(primaryBlue.GetCurrentSelection()), int.Parse(primaryGreen.GetCurrentSelection()));
+                SetVehicleCustomPrimaryColour(GetPlayersLastVehicle(), int.Parse(primaryRed.GetCurrentSelection()), int.Parse(primaryGreen.GetCurrentSelection()), int.Parse(primaryBlue.GetCurrentSelection()));
             };
 
             rgbSecondaryColorsMenu.OnListIndexChange += (Menu menu, MenuListItem item, int oldIndex, int newIndex, int index) =>
             {
-                SetVehicleCustomSecondaryColour(GetPlayersLastVehicle(), int.Parse(secondaryRed.GetCurrentSelection()), int.Parse(secondaryBlue.GetCurrentSelection()), int.Parse(secondaryGreen.GetCurrentSelection()));
+                SetVehicleCustomSecondaryColour(GetPlayersLastVehicle(), int.Parse(secondaryRed.GetCurrentSelection()), int.Parse(secondaryGreen.GetCurrentSelection()), int.Parse(secondaryBlue.GetCurrentSelection()));
             };
 
             #endregion

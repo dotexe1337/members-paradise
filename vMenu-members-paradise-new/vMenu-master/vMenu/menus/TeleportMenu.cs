@@ -21,6 +21,18 @@ namespace vMenuClient
             menu = new Menu(" ", "Teleports");
             menu.HeaderTexture = new KeyValuePair<string, string>("mp_header", "mp_header");
 
+            var wpBtn = new MenuItem("Teleport to Waypoint", $"Teleport to your marked waypoint on the map.");
+
+            menu.OnItemSelect += async (sender, item, index) =>
+            {
+                if(item == wpBtn)
+                {
+                    TeleportToWp();
+                }
+            };
+
+            menu.AddMenuItem(wpBtn);
+
             foreach (var item in array.categories)
             {
                 string categoryName = item.categoryName;

@@ -721,6 +721,13 @@ namespace vMenuClient
         }
         #endregion
 
+        #region Broadcast Message
+        public static async void BroadcastMessage(String message)
+        {
+            TriggerServerEvent("vMenu:BroadcastMessage", message);
+        }
+        #endregion
+
         #region (Temp) Ban Player
         /// <summary>
         /// Bans the specified player.

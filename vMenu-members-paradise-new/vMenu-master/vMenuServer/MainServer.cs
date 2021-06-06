@@ -396,6 +396,7 @@ namespace vMenuServer
             else
             {
                 // Add event handlers.
+                EventHandlers.Add("vMenu:BroadcastMessage", new Action<String>(BroadcastMessage));
                 EventHandlers.Add("vMenu:SummonPlayer", new Action<Player, int>(SummonPlayer));
                 EventHandlers.Add("vMenu:KillPlayer", new Action<Player, int>(KillPlayer));
                 EventHandlers.Add("vMenu:KickPlayer", new Action<Player, int, string>(KickPlayer));
@@ -792,6 +793,11 @@ namespace vMenuServer
             {
                 BanManager.BanCheater(source);
             }
+        }
+
+        private void BroadcastMessage(String message)
+        {
+            TriggerClientEvent("chatMessage", "^*[BROADCAST] ", new[] { 229, 57, 53 }, "^8" + message, -1);
         }
 
         /// <summary>
